@@ -113,9 +113,9 @@ function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutati
 }
 
 for (const expected of [
-  { browser: 'zh-CN', locale: 'zh-Hans', title: '欢迎访问 MIAO 的个人页面', loading: '页面正在加载中...', words: ['格拉斯哥艺术学院 硕士', '实践 AI 工作流', '使用 Codex', '使用 AirBuild'] },
-  { browser: 'zh-TW', locale: 'zh-Hant', title: '歡迎訪問 MIAO 的個人頁面', loading: '頁面正在載入中...', words: ['格拉斯哥藝術學院 碩士', '實踐 AI 工作流程', '使用 Codex', '使用 AirBuild'] },
-  { browser: 'en-GB', locale: 'en', title: 'Welcome to MIAO’s personal page', loading: 'The page is loading...', words: ['Master’s · The Glasgow School of Art', 'Practising AI workflows', 'Working with Codex', 'Working with AirBuild'] },
+  { browser: 'zh-CN', locale: 'zh-Hans', title: '欢迎访问 MIAO 的个人页面', loading: '页面正在加载中...', words: ['在格拉斯哥艺术学院，读过服务设计硕士', '做过 C 端产品，也做过 B 端 SaaS', '让 AI 拆出的书摘，走进岛读 App', '让 Agent 一起工作，也让审核有据可查', '从用户访谈，走到上线后的数据验证', '和 Codex、AirBuild 一起，把想法做出来'] },
+  { browser: 'zh-TW', locale: 'zh-Hant', title: '歡迎訪問 MIAO 的個人頁面', loading: '頁面正在載入中...', words: ['在格拉斯哥藝術學院，讀過服務設計碩士', '做過 C 端產品，也做過 B 端 SaaS', '讓 AI 拆出的書摘，走進島讀 App', '讓 Agent 一起工作，也讓審核有據可查', '從使用者訪談，走到上線後的數據驗證', '和 Codex、AirBuild 一起，把想法做出來'] },
+  { browser: 'en-GB', locale: 'en', title: 'Welcome to MIAO’s personal page', loading: 'The page is loading...', words: ['A service design master’s from Glasgow', 'Experience in consumer products and SaaS', 'Bringing AI book notes into Daodu', 'Agents working together, reviews you can trace', 'From user interviews to product metrics', 'Building ideas with Codex and AirBuild'] },
 ]) {
   const app = entrance({ browserLanguage: expected.browser });
   assert.equal(app.node('entry-headline').textContent, expected.title);
@@ -123,7 +123,7 @@ for (const expected of [
   assert.equal(app.node('entry-status').textContent, expected.loading);
   assert.equal(app.node('entry-loading').disabled, true, 'The status button must not promise a clickable loading action');
   assert.equal(app.node('entry-loading').hidden, false);
-  assert.deepEqual([...new Set(app.keywords())], expected.words, 'Rotate the four concise, factual experience phrases');
+  assert.deepEqual([...new Set(app.keywords())], expected.words, 'Rotate concise, factual stories from the resume');
   assert.equal(app.node('entry-note').hidden, true, 'Do not restore the long introduction during normal loading');
   assert.equal(app.node('entry-read').hidden, true);
   assert.equal(app.node('entry-retry').hidden, true);

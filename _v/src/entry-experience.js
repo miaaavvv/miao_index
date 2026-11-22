@@ -28,7 +28,7 @@
       step1:'点击微信右上角「···」', step2:'选择「在浏览器打开」，或类似名称的选项',
       guideOther:'如果没有这个选项，复制链接后粘贴到 Chrome 或 Safari。',
       copy:'复制链接', copied:'链接已复制', select:'请长按链接复制', close:'关闭打开方式', projects:'我正在做的事',
-      rotate1:'格拉斯哥艺术学院 硕士', rotate2:'实践 AI 工作流', rotate3:'使用 Codex', rotate4:'使用 AirBuild',
+      rotate1:'在格拉斯哥艺术学院，读过服务设计硕士', rotate2:'做过 C 端产品，也做过 B 端 SaaS', rotate3:'让 AI 拆出的书摘，走进岛读 App', rotate4:'让 Agent 一起工作，也让审核有据可查', rotate5:'从用户访谈，走到上线后的数据验证', rotate6:'和 Codex、AirBuild 一起，把想法做出来',
       mix:'AI 交互式混音', mixNote:'设计生成、编辑与质量评测的完整体验。',
       agent:'Multi-Agent 内容生产', agentNote:'AI 拆书、审核，再发布到岛读 App。',
       sleep:'睡眠监测可靠性', sleepNote:'从进程消耗、平台能力与官方沟通推进保活方案。',
@@ -47,7 +47,7 @@
       guideNote:'在微信中，請透過右上角選單切換到系統瀏覽器。',
       step1:'點擊微信右上角「···」', step2:'選擇「在瀏覽器開啟」，或類似名稱的選項', guideOther:'如果沒有這個選項，複製連結後貼到 Chrome 或 Safari。',
       copy:'複製連結', copied:'連結已複製', select:'請長按連結複製', close:'關閉開啟方式', projects:'我正在做的事',
-      rotate1:'格拉斯哥藝術學院 碩士', rotate2:'實踐 AI 工作流程', rotate3:'使用 Codex', rotate4:'使用 AirBuild',
+      rotate1:'在格拉斯哥藝術學院，讀過服務設計碩士', rotate2:'做過 C 端產品，也做過 B 端 SaaS', rotate3:'讓 AI 拆出的書摘，走進島讀 App', rotate4:'讓 Agent 一起工作，也讓審核有據可查', rotate5:'從使用者訪談，走到上線後的數據驗證', rotate6:'和 Codex、AirBuild 一起，把想法做出來',
       mix:'AI 互動式混音', mixNote:'設計生成、編輯與品質評測的完整體驗。', agent:'Multi-Agent 內容生產', agentNote:'AI 拆書、審核，再發布到島讀 App。',
       sleep:'睡眠監測可靠性', sleepNote:'從程序消耗、平台能力與官方溝通推進保活方案。', tracker:'Deeptracker', trackerNote:'圍繞投資分析情境，建構產品體驗並最佳化模型成本。',
       small:'C 端產品經驗 · B 端 SaaS 實踐 · 從需求到交付', nojs:'目前瀏覽器未執行 JavaScript。可先閱讀內容，或使用啟用 JavaScript 的 Chrome / Safari 開啟。'
@@ -63,7 +63,7 @@
       guideNote:'In WeChat, use the top-right menu to continue in your system browser.',
       step1:'Tap ··· at the top right in WeChat', step2:'Choose “Open in browser”, or a similarly named option', guideOther:'If that option is missing, copy the link and paste it into Chrome or Safari.',
       copy:'Copy link', copied:'Link copied', select:'Press and hold the link to copy it', close:'Close browser instructions', projects:'What I work on',
-      rotate1:'Master’s · The Glasgow School of Art', rotate2:'Practising AI workflows', rotate3:'Working with Codex', rotate4:'Working with AirBuild',
+      rotate1:'A service design master’s from Glasgow', rotate2:'Experience in consumer products and SaaS', rotate3:'Bringing AI book notes into Daodu', rotate4:'Agents working together, reviews you can trace', rotate5:'From user interviews to product metrics', rotate6:'Building ideas with Codex and AirBuild',
       mix:'AI interactive mixing', mixNote:'A complete experience for generating, editing and evaluating creative output.', agent:'Multi-agent content production', agentNote:'AI book extraction and review, published to Daodu.',
       sleep:'Reliable sleep monitoring', sleepNote:'Background reliability through resource efficiency, platform capabilities and official communication.', tracker:'Deeptracker', trackerNote:'Investment analysis experiences and lower model costs.',
       small:'Consumer products · B2B SaaS · From requirements to delivery', nojs:'JavaScript is unavailable. Read the content here, or open in Chrome / Safari with JavaScript enabled.'
