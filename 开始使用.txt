@@ -1,0 +1,26 @@
+MIAO 个人网站 · 2026-11-21 交付版
+
+1. 解压整个 ZIP，保留 MIAO 文件夹内的所有文件。
+2. 电脑需有 Node.js 20 或更新版本。
+3. 在 MIAO 文件夹打开终端，依次运行：
+
+   npm run check
+   npm run dev
+
+4. 浏览器打开 http://127.0.0.1:5173/ 。保持终端运行。
+   无需 npm install，不要双击 index.html。
+   用 Ctrl+C 停止；下次运行 npm run dev 即可。
+
+端口被占用：
+   macOS / Linux：PORT=5174 npm run dev
+   Windows PowerShell：$env:PORT = "5174"; npm run dev
+   对应打开 http://127.0.0.1:5174/ 。
+
+继续编辑：在 Codex 中打开解压后的 MIAO 文件夹，阅读 CODEX_HANDOFF.md，
+把其中的交接提示词发给 Codex。详细功能与技术说明见 README.md、HANDOFF.md。
+
+本包含完整代码、图片和音频，排除了真实照片、原始简历、旧预览及私有交接档案。
+姓名仅使用 MIAO，无电话和邮箱。岛读截图随网页场景昼夜切换。
+
+当前启动方式只在这台电脑本机访问；把本机地址发给别人不能远程查看。
+本包未配置云端托管、外网分享链接或域名，后续如需上线再指定部署服务。

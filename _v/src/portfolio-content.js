@@ -1,0 +1,206 @@
+// Editorial content based on the latest resume supplied on 2026-11-18.
+// Preserve the stated measurement scope and the boundaries of each contribution.
+const localized = (hans, hant, en) => ({ 'zh-Hans': hans, 'zh-Hant': hant, en });
+const aiDelivery = {
+  title: localized('AI 驱动的自主交付', 'AI 驅動的自主交付', 'Shipping with AI'),
+  description: localized(
+    '以 AI 混音管理后台为实践，借助 AI 完成需求规划、功能设计、编码与调试，通过 GitLab 提交代码并经审批上线。在后端伙伴的技术指导与答疑支持下，承担从规划到上线的完整交付，在关键技术问题上开展专业协作。',
+    '以 AI 混音管理後台為實踐，藉助 AI 完成需求規劃、功能設計、編碼與除錯，透過 GitLab 提交程式碼並經審批上線。在後端夥伴的技術指導與答疑支援下，承擔從規劃到上線的完整交付，在關鍵技術問題上開展專業協作。',
+    'Used AI to plan, design, code and debug the AI mixing admin tool, submitting code through GitLab and releasing it after approval. With technical guidance and support from a backend colleague, took responsibility for delivery from planning to release and sought specialist input on key technical questions.'),
+};
+export const portfolio = {
+  name: localized('MIAO', 'MIAO', 'MIAO'),
+  role: localized('产品经理 · AI 交互与 Agent 工作流', '產品經理 · AI 互動與 Agent 工作流程', 'Product Manager · AI Interaction & Agent Workflows'),
+  intro: localized(
+    '我关注 AI 如何进入真实的产品与工作流程，将模型生成、用户参与与质量校验一起纳入设计，并明确系统可以承担的任务，以及需要留给用户的判断与控制。',
+    '我關注 AI 如何進入真實的產品與工作流程，將模型生成、使用者參與和品質驗證一起納入設計，並明確系統可以承擔的任務，以及需要留給使用者的判斷與控制。',
+    'I design how AI fits into products and workflows, bringing model generation, user participation and quality checks into one experience. I define which tasks the system can handle and which decisions and controls should stay with the user.'),
+  description: localized(
+    '以 C 端产品经验为主，兼具 B 端 SaaS 经验，通过用户研究、数据分析与 A/B 实验推进产品迭代。使用 Multi-Agent 重构内容生产流程，通过 Vibe Coding 搭建批量评测工具，并借助 AI 参与从需求规划到上线的完整交付。',
+    '以 C 端產品經驗為主，兼具 B 端 SaaS 經驗，透過使用者研究、數據分析與 A/B 實驗推進產品迭代。使用 Multi-Agent 重構內容生產流程，透過 Vibe Coding 建構批次評測工具，並藉助 AI 參與從需求規劃到上線的完整交付。',
+    'My experience is primarily in consumer products, alongside B2B SaaS. I use research, data and A/B experiments to guide iteration, redesign content production with multiple agents, build batch evaluation tools through Vibe Coding, and use AI to contribute across delivery from requirements to release.'),
+  delivery: aiDelivery,
+  tools: ['Claude Code', 'Codex', 'Hermes', 'Figma', 'Grok bot', 'AirBuild'],
+  labels: {
+    dayScreens: localized("日间 · 亮色界面", "日間 · 亮色介面", "Daytime · light screens"),
+    nightScreens: localized("夜间 · 暗色界面", "夜間 · 暗色介面", "Nighttime · dark screens"),
+    responsibilities: localized('分工与协作', '分工與協作', 'Roles and collaboration'),
+    about: localized('个人介绍', '個人介紹', 'About'), education: localized('教育经历', '教育經歷', 'Education'),
+    work: localized('工作与实习经历', '工作與實習經歷', 'Experience'), skills: localized('技能与语言', '技能與語言', 'Skills & languages'),
+    projects: localized('代表项目', '代表專案', 'Selected projects'),
+    projectsIntro: localized('从用户场景出发，让 AI 能力成为可编辑、可验证、可交付的产品体验。', '從使用者情境出發，讓 AI 能力成為可編輯、可驗證、可交付的產品體驗。', 'Turning user needs into AI experiences that people can edit, evaluate and use.'),
+    detail: localized('查看项目过程', '查看專案過程', 'Explore the project'), challenge: localized('问题与场景', '問題與情境', 'The problem'),
+    approach: localized('我的工作', '我的工作', 'My contribution'), outcome: localized('结果与验证', '成果與驗證', 'Results & validation'),
+    closeAbout: localized('关闭个人介绍', '關閉個人介紹', 'Close about'), closeEducation: localized('关闭教育经历', '關閉教育經歷', 'Close education'),
+    portrait: localized('MIAO 的水彩剪影', 'MIAO 的水彩剪影', 'Watercolor silhouette of MIAO'),
+    currentTools: localized('正在使用', '正在使用', 'Currently using'),
+    languages: localized('语言能力', '語言能力', 'Languages'),
+    languageDetail: localized('中文 · 英语（雅思 7.5）', '中文 · 英語（雅思 7.5）', 'Chinese · English (IELTS 7.5)'),
+    designGallery: localized('界面设计', '介面設計', 'Interface design'),
+    designGalleryHint: localized('横向浏览关键界面，点击查看大图。', '橫向瀏覽關鍵介面，點擊檢視大圖。', 'Scroll through the key screens. Select one to enlarge.'),
+    openDesign: localized('放大查看', '放大檢視', 'View image'),
+  },
+  projects: [
+    {
+      id: 'ai-mixing', navTitle: localized('AI 交互式混音', 'AI 互動式混音', 'AI sound mixing'), company: localized('潮汐', '潮汐', 'TIDE'), period: '2026.01 — 2026.10',
+      title: localized('AI 交互式混音', 'AI 互動式混音', 'AI-powered sound mixing'),
+      subtitle: localized('从一句想法，到可以继续编辑的声音场景。', '從一句想法，到可以繼續編輯的聲音情境。', 'From an idea to an editable soundscape.'),
+      tags: ['AI Interaction', '0 → 1', 'Evaluation'],
+      designScreens: [
+        {
+          id: 'canvas', width: 402, height: 874,
+          src: '/_p/projects/ai-mixing/canvas.png', thumbnail: '/_p/projects/ai-mixing/canvas-thumb.jpg',
+          title: localized('空间混音画布', '空間混音畫布', 'Spatial mixing canvas'),
+          caption: localized('围绕听者组织音源，通过空间位置表达声音关系，生成后仍可继续编辑。', '圍繞聽者組織音源，透過空間位置表達聲音關係，生成後仍可繼續編輯。', 'Arrange sounds around the listener and continue editing the generated soundscape.'),
+        },
+        {
+          id: 'creation', width: 402, height: 874,
+          src: '/_p/projects/ai-mixing/creation.png', thumbnail: '/_p/projects/ai-mixing/creation-thumb.jpg',
+          title: localized('AI 创作入口', 'AI 創作入口', 'Start with an idea'),
+          caption: localized('从当下想做的事出发，描述想要的声音场景，也可以新建空白混音。', '從當下想做的事出發，描述想要的聲音情境，也可以建立空白混音。', 'Describe a soundscape for what you want to do, or start with a blank mix.'),
+        },
+        {
+          id: 'generation', width: 402, height: 874,
+          src: '/_p/projects/ai-mixing/generation.png', thumbnail: '/_p/projects/ai-mixing/generation-thumb.jpg',
+          title: localized('生成过程反馈', '生成過程回饋', 'Generation feedback'),
+          caption: localized('分步呈现基础氛围构建与环境元素添加，并保留停止生成的控制。', '分步呈現基礎氛圍建構與環境元素加入，並保留停止生成的控制。', 'Show the progress of atmosphere creation and sound layering, with an option to stop.'),
+        },
+        {
+          id: 'sounds', width: 402, height: 874,
+          src: '/_p/projects/ai-mixing/sounds.png', thumbnail: '/_p/projects/ai-mixing/sounds-thumb.jpg',
+          title: localized('声音素材选择', '聲音素材選擇', 'Choose sound layers'),
+          caption: localized('通过分类素材库添加自然声、旋律和日常音效，并呈现已选声音的状态。', '透過分類素材庫加入自然聲、旋律與日常音效，並呈現已選聲音的狀態。', 'Browse categorized sounds, melodies and everyday effects, with selected layers clearly marked.'),
+        },
+        {
+          id: 'cover', width: 402, height: 874,
+          src: '/_p/projects/ai-mixing/cover.png', thumbnail: '/_p/projects/ai-mixing/cover-thumb.jpg',
+          title: localized('封面创作', '封面創作', 'Create the cover'),
+          caption: localized('为声音选择封面与作品名称，将混音整理为可以保存的完整作品。', '為聲音選擇封面與作品名稱，將混音整理為可以儲存的完整作品。', 'Choose a cover and title, then save the mix as a complete piece of work.'),
+        },
+        {
+          id: 'discovery', width: 402, height: 874,
+          src: '/_p/projects/ai-mixing/discovery.png', thumbnail: '/_p/projects/ai-mixing/discovery-thumb.jpg',
+          title: localized('作品广场', '作品廣場', 'Discover mixes'),
+          caption: localized('通过封面与作品卡片浏览混音，连接播放、个人作品与新的创作入口。', '透過封面與作品卡片瀏覽混音，連接播放、個人作品與新的創作入口。', 'Explore mixes through cover cards, with access to playback, personal work and new creations.'),
+        },
+      ],
+      metrics: [
+        ["95%+", localized("生成综合达标率（主观评价与用户反馈）", "生成綜合達標率（主觀評價與使用者回饋）", "Generation pass rate (subjective review and user feedback)")],
+        ["¥0.004–0.006", localized("单次生成成本", "單次生成成本", "Cost per generation (RMB)")],
+        ["200", localized("覆盖多类输入的测试 Case", "涵蓋多類輸入的測試 Case", "Test cases across input categories")],
+      ],
+      challenge: localized("用户希望从表达声音创作意图直接进入可播放的方案。AI 负责组织素材、角色与空间参数，用户保留编辑与决定最终效果的控制。", "使用者希望從表達聲音創作意圖直接進入可播放的方案。AI 負責組織素材、角色與空間參數，使用者保留編輯與決定最終效果的控制。", "Help users turn a sound-creation idea into a playable mix. AI organizes assets, roles and spatial parameters, while users retain control over editing and the final result."),
+      approach: [
+        localized("基于竞品与用户场景分析，规划“AI 生成—空间编辑—作品发布—广场分发”的 UGC 创作路径，主导混音生成、空间音频画布、作品发布、混音广场及会员权益的设计与落地，推动首轮会员内测。", "根據競品與使用者情境分析，規劃「AI 生成—空間編輯—作品發布—廣場分發」的 UGC 創作路徑，主導混音生成、空間音訊畫布、作品發布、混音廣場及會員權益的設計與落地，推動首輪會員內測。", "Used competitor and user-scenario analysis to plan the flow from AI generation and spatial editing to publishing and discovery. Led the design and delivery of mix generation, the spatial audio canvas, publishing, the UGC feed and member benefits, supporting the first member beta."),
+        localized("构建素材标签与结构化 Prompt，定义素材选择、角色分配、空间参数和 JSON 输出约束；综合评估生成质量、响应延迟与 Token 成本，选用 DeepSeek V4 Flash。", "建構素材標籤與結構化 Prompt，定義素材選擇、角色分配、空間參數和 JSON 輸出約束；綜合評估生成品質、回應延遲與 Token 成本，選用 DeepSeek V4 Flash。", "Built asset tags and structured prompts, defining asset selection, role assignment, spatial parameters and JSON output constraints. Selected DeepSeek V4 Flash after comparing generation quality, response latency and token cost."),
+        localized("封面采用“预置图库＋Embedding 匹配”，在实时生图成本与随机配图相关性之间作出取舍，并设计候选封面、异常兜底和保存流程。", "封面採用「預置圖庫＋Embedding 比對」，在即時生圖成本與隨機配圖相關性之間作出取捨，並設計候選封面、異常備援和儲存流程。", "Used a preset image library with embedding-based cover matching to address the cost of live image generation and the relevance of random images. Designed cover candidates, fallback behavior and saving flows."),
+        localized("建立 200 条 Case 的测试集，覆盖常规、模糊、跨场景、指定条件、异常及负面输入；制定素材匹配、场景一致性、空间配置合理性等主观维度，以及 JSON 合规性和素材有效性等硬性规则。", "建立 200 條 Case 的測試集，涵蓋常規、模糊、跨情境、指定條件、異常及負面輸入；制定素材比對、情境一致性、空間配置合理性等主觀維度，以及 JSON 合規性和素材有效性等硬性規則。", "Built 200 test cases covering ordinary, ambiguous, cross-scenario, constrained, exceptional and negative inputs. Defined qualitative criteria for asset matching, scenario consistency and spatial layout, alongside hard checks for valid JSON and assets."),
+        localized("通过 Vibe Coding 自主搭建批量评测工具，支持批量模型调用、规则校验、结果记录与 Token 成本统计，并结合人工审核验证质量。", "透過 Vibe Coding 自主建構批次評測工具，支援批次模型呼叫、規則驗證、結果記錄與 Token 成本統計，並結合人工審核驗證品質。", "Built a batch evaluation tool through Vibe Coding for model calls, rule checks, result logging and token-cost tracking, combining automation with human quality review."),
+      ],
+      outcome: localized("基于主观评价与用户反馈，AI 生成综合达标率达 95%+，单次生成成本约 0.004–0.006 元。批量评测工具结合人工审核，将测试耗时从数小时缩短至十余分钟。", "根據主觀評價與使用者回饋，AI 生成綜合達標率達 95%+，單次生成成本約 0.004–0.006 元。批次評測工具結合人工審核，將測試耗時從數小時縮短至十餘分鐘。", "AI generation achieved a 95%+ overall pass rate based on subjective review and user feedback, at about RMB 0.004–0.006 per run. Batch evaluation combined with human review reduced testing time from hours to just over ten minutes."),
+      delivery: aiDelivery,
+    },
+    {
+      id: 'agent-workflow', navTitle: localized('Agent 内容生产', 'Agent 內容生產', 'Agent workflows'), company: localized('潮汐', '潮汐', 'TIDE'), period: '2026.01 — 2026.10',
+      title: localized('Multi-Agent 内容生产', 'Multi-Agent 內容生產', 'Multi-agent content production'),
+      subtitle: localized("从 AI 拆书、审核，到发布至岛读 App。", "從 AI 拆書、審核，到發布至島讀 App。", "From AI book analysis and review to publication in the Daodu app."),
+      tags: ['Agent Workflow', 'Hermes', 'Human-in-the-loop'],
+      galleryTitle: localized("产品呈现｜岛读 App", "產品呈現｜島讀 App", "The product · Daodu app"),
+      galleryHint: localized("AI 拆书产出经审核后发布到岛读 App，供用户阅读与发现。下方展示首页阅读和内容探索界面，截图随场景昼夜切换。", "AI 拆書產出經審核後發布至島讀 App，供使用者閱讀與探索。下方展示首頁閱讀和內容探索介面，截圖隨場景日夜切換。", "AI-generated book extracts are reviewed and published in the Daodu app for readers to browse and discover. These home and discovery screens follow the scene’s day and night cycle."),
+      galleryPlacement: 'afterOutcome',
+      designScreens: [
+        { id: 'reading', title: localized("首页阅读", "首頁閱讀", "Home reading"), caption: localized("阅读首页中的内容卡片，展示内容发布后面向读者的阅读入口。", "閱讀首頁中的內容卡片，展示內容發布後面向讀者的閱讀入口。", "Content cards on the reading home screen show how published content reaches readers."),
+          variants: {
+            light: {"src": "/_p/projects/agent-workflow/reading-light.png", "thumbnail": "/_p/projects/agent-workflow/reading-light-thumb.jpg", "width": 1290, "height": 2796, "thumbnailWidth": 320, "thumbnailHeight": 693},
+            dark: {"src": "/_p/projects/agent-workflow/reading-dark.png", "thumbnail": "/_p/projects/agent-workflow/reading-dark-thumb.jpg", "width": 1290, "height": 2796, "thumbnailWidth": 320, "thumbnailHeight": 693},
+          },
+        },
+        { id: 'discovery', title: localized("内容探索", "內容探索", "Content discovery"), caption: localized("按专题、体裁和地区组织内容，提供不同主题下的发现入口。", "依專題、體裁和地區組織內容，提供不同主題下的探索入口。", "Discover content organized by topic, genre and region."),
+          variants: {
+            light: {"src": "/_p/projects/agent-workflow/discovery-light.png", "thumbnail": "/_p/projects/agent-workflow/discovery-light-thumb.jpg", "width": 1290, "height": 2796, "thumbnailWidth": 320, "thumbnailHeight": 693},
+            dark: {"src": "/_p/projects/agent-workflow/discovery-dark.png", "thumbnail": "/_p/projects/agent-workflow/discovery-dark-thumb.jpg", "width": 1290, "height": 2796, "thumbnailWidth": 320, "thumbnailHeight": 693},
+          },
+        },
+      ],
+      metrics: [
+        ['≈40', localized('累计处理书籍', '累計處理書籍', 'Books processed')],
+        ['200+', localized('累计生成书摘', '累計生成書摘', 'Book extracts produced')],
+        ['<5 min', localized('单篇人工处理时间', '單篇人工處理時間', 'Human handling time per extract')],
+      ],
+      challenge: localized('将 AI 拆书产出转成可发布到岛读 App 的阅读内容，需要串联找书、内容提取、审核和多轮修订，明确人机分工，并确保任务与版本可追溯。', '將 AI 拆書產出轉成可發布至島讀 App 的閱讀內容，需要串聯找書、內容擷取、審核和多輪修訂，明確人機分工，並確保任務與版本可追溯。', 'Turning AI book analysis into reading content for the Daodu app requires sourcing, extraction, review and revision, with clear human–agent responsibilities and traceable tasks and versions.'),
+      approach: [
+        localized('通过 Hermes 部署找书、书摘提取、内容审核三个 Agent，定义职责、任务依赖与审核门禁，基于 Hermes 看板打通任务自动流转。', '透過 Hermes 部署找書、書摘擷取、內容審核三個 Agent，定義職責、任務依賴與審核門檻，透過 Hermes 看板串聯任務自動流轉。', 'Deployed three Hermes agents for sourcing, extraction and review, defining responsibilities, dependencies and review gates, with automated handoffs through the Hermes board.'),
+        localized('用飞书多维表格关联书籍、书摘、任务及审核记录，支持 Agent 定向读写、人工审核与版本追溯。', '以飛書多維表格關聯書籍、書摘、任務與審核記錄，支援 Agent 定向讀寫、人工審核與版本追溯。', 'Linked books, extracts, tasks and review records in Feishu Base, enabling targeted agent access, human review and version history.'),
+        localized('以 6 本书、30 条 Case 建立评测集，提炼 15 项主观标准及硬性规则，通过 Bad Case 与回归测试优化 Prompt / Skill；将复杂主题提炼交给独立的飞书 AI 工作流。', '以 6 本書、30 條 Case 建立評測集，提煉 15 項主觀標準與硬性規則，透過 Bad Case 與回歸測試優化 Prompt / Skill；將複雜主題提煉交給獨立的飛書 AI 工作流程。', 'Built an evaluation set of six books and 30 cases with 15 qualitative criteria and hard checks. Iterated prompts and skills through failure analysis and regression tests, moving complex theme extraction into a separate Feishu AI workflow.'),
+      ],
+      outcome: localized('投入日常生产，累计处理约 40 本书、生成 200+ 篇书摘；人工审核通过率约 80%，单篇人工处理时间缩短至 5 分钟以内。', '投入日常生產，累計處理約 40 本書、生成 200+ 篇書摘；人工審核通過率約 80%，單篇人工處理時間縮短至 5 分鐘以內。', 'Used in daily production for around 40 books and 200+ extracts, with about 80% passing human review and under five minutes of human handling per extract.'),
+    },
+    {
+      id: 'sleep-reliability', navTitle: localized('睡眠监测优化', '睡眠監測優化', 'Sleep monitoring'), company: localized('潮汐', '潮汐', 'TIDE'), period: '2026.01 — 2026.10',
+      title: localized('睡眠监测稳定性优化', '睡眠監測穩定性優化', 'More reliable sleep monitoring'),
+      subtitle: localized("围绕系统冻结与进程终止，推进跨平台保活方案。", "圍繞系統凍結與進程終止，推進跨平台保活方案。", "Improving overnight reliability across platforms when the system freezes or terminates the app."),
+      tags: ['Platform Strategy', 'Process Management', 'Validation'],
+      metrics: [
+        ['72% → 88%', localized('Android 整夜保活率', 'Android 整夜保活率', 'Android overnight survival')],
+        ['91% → 98%', localized('iOS 整夜保活率', 'iOS 整夜保活率', 'iOS overnight survival')],
+        ['2,000+', localized('安卓 A/B 实验用户', 'Android A/B 實驗使用者', 'Android A/B experiment users')],
+      ],
+      challenge: localized("整夜监测中断的主要原因是系统冻结或杀死进程。方案需要同时处理应用自身的无效消耗、后台运行所需的权限，以及不同平台允许使用的系统能力。", "整夜監測中斷的主要原因是系統凍結或終止進程。方案需要同時處理應用本身的無效消耗、背景執行所需的權限，以及不同平台允許使用的系統能力。", "The main cause of overnight interruptions was the system freezing or terminating app processes. The solution had to address unnecessary resource use, permissions for background operation and the capabilities supported by each platform."),
+      responsibilities: [
+        { title: localized("我的职责", "我的職責", "My role"), description: localized("方向判断、官方沟通与竞品分析，推动方案取舍和跨职能协作。", "方向判斷、官方溝通與競品分析，推動方案取捨和跨職能協作。", "Set the direction, communicate with platform teams, analyze competitors and drive tradeoffs and collaboration.") },
+        { title: localized("研发职责", "研發職責", "Engineering role"), description: localized("负责具体技术分析、问题排查与方案落地。", "負責具體技術分析、問題排查與方案落地。", "Carry out technical analysis, investigate problems and implement the solution.") },
+      ],
+      technicalPlan: {
+        title: localized("保活方案示意", "保活方案示意", "Reliability strategy"),
+        cause: localized("系统冻结 / 终止进程", "系統凍結 / 終止進程", "System freezes or terminates processes"),
+        branches: [
+          { title: localized("降低自身消耗", "降低自身消耗", "Reduce resource use"), description: localized("提出与睡眠无关的进程消耗问题，推动研发逐步排查、停止无效运行。", "提出與睡眠無關的進程消耗問題，推動研發逐步排查、停止無效執行。", "Flagged resource use by processes unrelated to sleep and worked with engineering to investigate and stop unnecessary activity.") },
+          { title: localized("合理获取权限", "合理取得權限", "Earn permission"), description: localized("结合平台对录音状态的后台支持，说明睡眠监测价值与隐私边界，合理引导用户主动授权。", "結合平台對錄音狀態的背景支援，說明睡眠監測價值與隱私邊界，合理引導使用者主動授權。", "Considered platform support for background operation while recording, explaining monitoring value and privacy boundaries to support informed permission choices.") },
+          { title: localized("争取官方支持", "爭取官方支援", "Seek official support"), description: localized("通过官方渠道沟通，申请适用的保活豁免。", "透過官方渠道溝通，申請適用的保活豁免。", "Communicated through official channels and applied for relevant background-operation exemptions.") },
+          { title: localized("遵循平台标准", "遵循平台標準", "Follow platform standards"), description: localized("按平台标准使用权限与系统能力，避免非常规方式被识别为异常行为。", "依平台標準使用權限與系統能力，避免非常規方式被識別為異常行為。", "Used permissions and system capabilities according to platform standards to avoid unconventional behavior being flagged as abnormal.") },
+        ],
+        goal: localized("降低无效消耗，改善整夜监测可靠性", "降低無效消耗，改善整夜監測可靠性", "Reduce unnecessary load and improve overnight reliability"),
+        caption: localized("方案取舍：不同平台对“空白音频”的播放策略存在差异，因此不沿用空白音频保活，优先按平台标准使用系统能力。", "方案取捨：不同平台對「空白音訊」的播放策略存在差異，因此不沿用空白音訊保活，優先依平台標準使用系統能力。", "Tradeoff: platform policies for silent-audio playback differed, so the solution did not rely on silent audio to keep the app alive. It prioritized standard platform capabilities."),
+      },
+      approachTitle: localized("方案推进与权限引导", "方案推進與權限引導", "Delivery and permission guidance"),
+      approach: [
+        localized("以性能消耗与平台边界为切入点，结合竞品分析、官方沟通和研发技术分析推进多维度方案；具体排查与技术实现由研发负责。", "以效能消耗與平台邊界為切入點，結合競品分析、官方溝通和研發技術分析推進多面向方案；具體排查與技術實作由研發負責。", "Framed the work around resource use and platform constraints, combining competitor research, official communication and engineering analysis. Engineering owned the detailed investigation and implementation."),
+        localized("将权限引导作为方案的配套落地：解释录音权限带来的使用价值与隐私边界，处理缺失权限和中断后的修复路径，并通过安卓 A/B 实验验证授权体验。", "將權限引導作為方案的配套落地：解釋錄音權限帶來的使用價值與隱私邊界，處理缺失權限和中斷後的修復路徑，並透過 Android A/B 實驗驗證授權體驗。", "Supported the strategy with permission guidance: explain the value and privacy boundaries of microphone access, handle missing permissions and recovery paths, and validate the authorization experience through an Android A/B experiment."),
+      ],
+      outcome: localized('安卓实验覆盖 2,000+ 用户，权限开启率提升 3%–5%，引导完成率达 95%，保活率提升 3%。专项整体优化后，Android 整夜保活率由 72% 提升至 88%，iOS 由 91% 提升至 98%。', 'Android 實驗涵蓋 2,000+ 使用者，權限開啟率提升 3%–5%，引導完成率達 95%，保活率提升 3%。專項整體優化後，Android 整夜保活率由 72% 提升至 88%，iOS 由 91% 提升至 98%。', 'The Android experiment covered 2,000+ users: permission enablement rose 3%–5%, onboarding completion reached 95%, and survival improved 3%. After the overall initiative, overnight survival rose from 72% to 88% on Android and 91% to 98% on iOS.'),
+      results: [
+        { title: localized("专项整体结果", "專項整體成果", "Overall initiative"), description: localized("专项整体优化后，Android 整夜保活率由 72% 提升至 88%，iOS 由 91% 提升至 98%。", "專項整體優化後，Android 整夜保活率由 72% 提升至 88%，iOS 由 91% 提升至 98%。", "After the overall initiative, overnight survival rose from 72% to 88% on Android and from 91% to 98% on iOS.") },
+        { title: localized("权限引导 A/B 实验", "權限引導 A/B 實驗", "Permission-guidance A/B experiment"), description: localized("安卓实验覆盖 2,000+ 用户，权限开启率提升 3%–5%，引导完成率达 95%，保活率提升 3%；这组结果对应引导实验。", "Android 實驗涵蓋 2,000+ 使用者，權限開啟率提升 3%–5%，引導完成率達 95%，保活率提升 3%；這組成果對應引導實驗。", "The Android guidance experiment covered 2,000+ users: permission enablement improved 3%–5%, completion reached 95%, and survival improved 3%. These results refer specifically to the guidance experiment.") },
+      ],
+    },
+    {
+      id: 'deeptracker', navTitle: localized('Deeptracker', 'Deeptracker', 'Deeptracker'), company: localized('晓多科技', '曉多科技', 'Xiaoduo Technology'), period: '2025.08 — 2025.12',
+      title: localized('Deeptracker 投资信息产品', 'Deeptracker 投資資訊產品', 'Deeptracker investment research'),
+      subtitle: localized('从策略追踪，转向个股级舆情与事件分析。', '從策略追蹤，轉向個股級輿情與事件分析。', 'Refocusing on stock-level sentiment and event analysis.'),
+      tags: ['Product Strategy', 'LLM', 'Embedding'],
+      metrics: [
+        ['≈60% ↓', localized('整体 Token 消耗', '整體 Token 消耗', 'Overall token usage')],
+        ['≈30% ↑', localized('图谱交互率', '圖譜互動率', 'Graph interaction rate')],
+        ['13% ↑', localized('七日留存', '七日留存', 'Seven-day retention')],
+      ],
+      challenge: localized('在留存率不足 10% 的背景下，产品需要重新确认投资者的高价值场景，同时减少重复 LLM 调用和过长全文输入带来的成本。', '在留存率不足 10% 的背景下，產品需要重新確認投資者的高價值情境，同時減少重複 LLM 呼叫與過長全文輸入帶來的成本。', 'With retention below 10%, the product needed to identify higher-value investor use cases while reducing duplicate LLM calls and excessive full-text input.'),
+      approach: [
+        localized('访谈 8 位欧美资深投资者并开展竞品分析，推动从策略追踪转向个股级舆情追踪，按“概览—事件—深度分析”设计并落地个股详情页。', '訪談 8 位歐美資深投資者並進行競品分析，推動從策略追蹤轉向個股級輿情追蹤，依「概覽—事件—深度分析」設計並落地個股詳情頁。', 'Interviewed eight experienced European and US investors, helping shift the product from strategy tracking to stock-level sentiment. Designed and shipped a stock page organized around overview, events and deeper analysis.'),
+        localized('合并需要全文输入的任务，后续分析用摘要替代全文；在事件聚合、图谱召回及 AI 搜索中以 Embedding 替代部分 LLM 推理，将召回收敛至 top 5。', '合併需要全文輸入的任務，後續分析以摘要取代全文；在事件聚合、圖譜召回與 AI 搜尋中以 Embedding 取代部分 LLM 推理，將召回收斂至 top 5。', 'Combined tasks requiring full text, reused summaries downstream, and replaced some LLM reasoning with embeddings for event aggregation, graph retrieval and AI search, narrowing retrieval to the top five candidates.'),
+        localized('建立访问与交互埋点，将 AI 摘要前置并将事件图谱调整为桑基图，完成原型与 AI demo，结合数据推进体验优化。', '建立造訪與互動埋點，將 AI 摘要前置並將事件圖譜調整為桑基圖，完成原型與 AI demo，結合數據推進體驗優化。', 'Instrumented page visits and interactions, moved AI summaries forward, and redesigned the event graph as a Sankey diagram, producing prototypes and an AI demo.'),
+      ],
+      outcome: localized('事件聚合准确率达 92%，图谱交互率提升约 30%，七日留存提升 13%；整体 Token 消耗降低约 60%，月度模型成本由约 8k 降至 4k–5k。', '事件聚合準確率達 92%，圖譜互動率提升約 30%，七日留存提升 13%；整體 Token 消耗降低約 60%，每月模型成本由約 8k 降至 4k–5k。', 'Event aggregation accuracy reached 92%, graph interaction rose about 30%, and seven-day retention improved 13%. Overall token usage fell about 60%, with monthly model cost reduced from around 8k to 4k–5k.'),
+    },
+  ],
+  experience: [
+    { company: localized("潮汐", "潮汐", "TIDE"), role: localized("产品经理", "產品經理", "Product Manager"), period: "2026.01 — 2026.10", city: localized("广州", "廣州", "Guangzhou"), description: localized("负责成熟期冥想与睡眠 App 的核心迭代、AI 交互式混音、睡眠监测可靠性与内部多 Agent 内容生产，覆盖产品策略、功能设计、Prompt 优化、评测、工作流编排及数据分析；借助 AI 交付混音管理后台。", "負責成熟期冥想與睡眠 App 的核心迭代、AI 互動式混音、睡眠監測可靠性與內部多 Agent 內容生產，涵蓋產品策略、功能設計、Prompt 優化、評測、工作流程編排及數據分析；藉助 AI 交付混音管理後台。", "Led core improvements to a mature meditation and sleep app, AI sound mixing, sleep-monitoring reliability and internal multi-agent content production. Work spanned strategy, design, prompts, evaluation, workflow orchestration and data analysis, alongside AI-assisted delivery of the mixing admin tool.") },
+    { company: localized("晓多科技", "曉多科技", "Xiaoduo Technology"), role: localized("AI 产品经理", "AI 產品經理", "AI Product Manager"), period: "2025.08 — 2025.12", city: localized("成都", "成都", "Chengdu"), description: localized("参与美股投资工具 Deeptracker 的产品定位调整、功能构建与市场验证，设计个股分析体验，并通过调用链路重构与 Embedding 替代部分推理优化大模型成本。", "參與美股投資工具 Deeptracker 的產品定位調整、功能建構與市場驗證，設計個股分析體驗，並透過呼叫鏈路重構與 Embedding 取代部分推理優化大型語言模型成本。", "Helped reposition, build and validate Deeptracker, an AI tool for US-equity investors. Designed the stock-research experience and reduced model costs by restructuring calls and replacing some reasoning with embeddings.") },
+    { company: localized("36 氪", "36 氪", "36Kr"), role: localized("AI 产品实习生", "AI 產品實習生", "AI Product Intern"), period: "2025.01 — 2025.07", city: localized("北京", "北京", "Beijing"), description: localized("开展 10+ 次用户访谈与竞品分析，从 0 到 1 设计专家观点模块，阅读完成率提升 41%。优化 Prompt 与内容评测，AI 内容达标率达 91%、响应延迟在 30 秒内；新增订阅用户 2,000+，DAU 提升 59%。", "進行 10+ 次使用者訪談與競品分析，從 0 到 1 設計專家觀點模組，閱讀完成率提升 41%。優化 Prompt 與內容評測，AI 內容達標率達 91%、回應延遲在 30 秒內；新增訂閱使用者 2,000+，DAU 提升 59%。", "Conducted 10+ user interviews and competitor analysis, designing the expert-opinion module from scratch and increasing reading completion by 41%. Improved prompts and evaluation to reach a 91% AI-content pass rate with responses within 30 seconds; subscriptions grew by 2,000+ and DAU by 59%.") },
+    { company: localized("有鱼科技", "有魚科技", "Youyu Technology"), role: localized("AI 产品实习生", "AI 產品實習生", "AI Product Intern"), period: "2024.10 — 2024.12", city: localized("广州", "廣州", "Guangzhou"), description: localized("设计日处理 2,000+ 条数据的投研信源工作流，内容生成达标率达 93%。优化 RAG 切分与检索，标题识别准确率由 65% 提升至 93%、检索准确率提升 36%；重构检索与展示链路，用户信息获取时间缩短 69%。", "設計每日處理 2,000+ 條數據的投研信源工作流程，內容生成達標率達 93%。優化 RAG 切分與檢索，標題識別準確率由 65% 提升至 93%、檢索準確率提升 36%；重構檢索與展示流程，使用者資訊取得時間縮短 69%。", "Designed an investment-research workflow processing 2,000+ items daily, with a 93% generated-content pass rate. Improved RAG chunking and retrieval: title-recognition accuracy rose from 65% to 93% and retrieval accuracy improved 36%. Redesigned search and presentation to reduce information-access time by 69%.") },
+    { company: localized("热联集团", "熱聯集團", "热联集团"), role: localized("B 端产品实习生", "B 端產品實習生", "B2B Product Intern"), period: "2023.02 — 2023.08", city: localized("杭州", "杭州", "Hangzhou"), description: localized("设计供应链订单、仓储及调度看板，订单核对效率提升 42%、结算周期缩短 36%；出入库操作时长缩短 49%、失误率下降 35%；调度决策效率提升 30%，区域资源配置响应从天级缩短至小时级。", "設計供應鏈訂單、倉儲及調度看板，訂單核對效率提升 42%、結算週期縮短 36%；出入庫操作時長縮短 49%、失誤率下降 35%；調度決策效率提升 30%，區域資源配置回應從天級縮短至小時級。", "Designed supply-chain order, warehouse and dispatch tools. Order-checking efficiency improved 42% and settlement time fell 36%; stock-movement time fell 49% and errors 35%. Dispatch decision efficiency improved 30%, with regional resource-allocation response reduced from days to hours.") },
+  ],
+  education: [
+    { school: localized('格拉斯哥艺术学院', '格拉斯哥藝術學院', 'The Glasgow School of Art'), degree: localized('硕士 · 服务设计', '碩士 · 服務設計', 'Master’s · Service Design'), period: '2023.09 — 2024.11', city: localized('英国 · 格拉斯哥', '英國 · 格拉斯哥', 'Glasgow, United Kingdom') },
+    { school: localized('宁波诺丁汉大学', '寧波諾丁漢大學', 'University of Nottingham Ningbo China'), degree: localized('本科 · 工业设计', '學士 · 工業設計', 'Bachelor’s · Industrial Design'), period: '2018.09 — 2022.07', city: localized('中国 · 宁波', '中國 · 寧波', 'Ningbo, China') },
+  ],
+};

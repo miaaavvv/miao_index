@@ -1,0 +1,452 @@
+{
+  "source": "https://oscardumlao.com/",
+  "retrieved": "2026-11-03",
+  "assets": [
+    {
+      "path": "/_p/049709836fae67eb9dd982e98da2",
+      "bytes": 1060522,
+      "ok": true
+    },
+    {
+      "path": "/_p/13645a87ea6d9e787f9fbc0bd197",
+      "bytes": 723290,
+      "ok": true
+    },
+    {
+      "path": "/_p/168c0c18691197ce4628ce1ea5c7",
+      "bytes": 5394066,
+      "ok": true
+    },
+    {
+      "path": "/_p/26334193c42086687ce2479a708e",
+      "bytes": 30542,
+      "ok": true
+    },
+    {
+      "path": "/_p/3369230665bc1fe2ea719205ac20",
+      "bytes": 2103258,
+      "ok": true
+    },
+    {
+      "path": "/_p/3f9bdf44879eb0a6470b02cb8279",
+      "bytes": 1882236,
+      "ok": true
+    },
+    {
+      "path": "/_p/3fa5b9baf5d53335a70d880a44a9",
+      "bytes": 168080,
+      "ok": true
+    },
+    {
+      "path": "/_p/42c4bd80da6d02a3c3ee0711e3b1",
+      "bytes": 619648,
+      "ok": true
+    },
+    {
+      "path": "/_p/65e268a9ccab7148e3fb34097d17",
+      "bytes": 2020710,
+      "ok": true
+    },
+    {
+      "path": "/_p/6a25c7e5fe41114cc4a20c4e05e7",
+      "bytes": 39852,
+      "ok": true
+    },
+    {
+      "path": "/_p/6aa08bf6b2938334966156bb637a",
+      "bytes": 2049656,
+      "ok": true
+    },
+    {
+      "path": "/_p/7b41aa2b1b4af1046f7aa5acd120",
+      "bytes": 35848,
+      "ok": true
+    },
+    {
+      "path": "/_p/7fb51d350882bb22006e8327e329",
+      "bytes": 1173766,
+      "ok": true
+    },
+    {
+      "path": "/_p/82170745ee59212e8ce045899fa4",
+      "bytes": 271433,
+      "ok": true
+    },
+    {
+      "path": "/_p/8c746679e8b9ae5442a78739a6ab",
+      "bytes": 174234,
+      "ok": true
+    },
+    {
+      "path": "/_p/8fbbe2595ebd0fb19ae44cb65904",
+      "bytes": 2366553,
+      "ok": true
+    },
+    {
+      "path": "/_p/90a094ecf9f5aaff4982717af6b4",
+      "bytes": 133108,
+      "ok": true
+    },
+    {
+      "path": "/_p/a030810303080a7d8ddc069bc2a8",
+      "bytes": 3224892,
+      "ok": true
+    },
+    {
+      "path": "/_p/a5d114919ae53f4430dd6a7b0d93",
+      "bytes": 970156,
+      "ok": true
+    },
+    {
+      "path": "/_p/a98f6c0244a0801698ca39c7cf32",
+      "bytes": 581414,
+      "ok": true
+    },
+    {
+      "path": "/_p/b12555fe28126e4fb4ad489e0cc8",
+      "bytes": 567390,
+      "ok": true
+    },
+    {
+      "path": "/_p/c17762064f74f2110db27091e947",
+      "bytes": 581143,
+      "ok": true
+    },
+    {
+      "path": "/_p/cec9df2370fa67dc30402ff79445",
+      "bytes": 527090,
+      "ok": true
+    },
+    {
+      "path": "/_p/d5c2d84892d18a7828ce3bfac0d2",
+      "bytes": 1931518,
+      "ok": true
+    },
+    {
+      "path": "/_p/d60463c0951dbb5d1a4565cc316d",
+      "bytes": 8119102,
+      "ok": true
+    },
+    {
+      "path": "/_p/d83031d8a650b58f0ca6f9b0eebc",
+      "bytes": 1977518,
+      "ok": true
+    },
+    {
+      "path": "/_p/d8ecfbc00cc7ba8d1260fcdf0cbf",
+      "bytes": 7854595,
+      "ok": true
+    },
+    {
+      "path": "/_p/data-gz-0667a7d2ff600d18ab45932b45e6",
+      "bytes": 5944664,
+      "ok": true
+    },
+    {
+      "path": "/_p/data-gz-351f19f21e791f9e941da6cc0642",
+      "bytes": 5585188,
+      "ok": true
+    },
+    {
+      "path": "/_p/data-gz-38ff48084c233db825552420f4a4",
+      "bytes": 36864000,
+      "ok": true
+    },
+    {
+      "path": "/_p/data-gz-4ef07b75669881b76babec714bc0",
+      "bytes": 7099460,
+      "ok": true
+    },
+    {
+      "path": "/_p/data-gz-5da63c9db5bd74e69dd285211337",
+      "bytes": 8388608,
+      "ok": true
+    },
+    {
+      "path": "/_p/data-gz-ca39cbca18cdd338259f3eb29187",
+      "bytes": 8388608,
+      "ok": true
+    },
+    {
+      "path": "/_p/data-gz-f6e11f8314db7c5ad58be5a4ee29",
+      "bytes": 7576652,
+      "ok": true
+    },
+    {
+      "path": "/_p/e719c1a930612058a5e8ea41102d.png",
+      "bytes": 12882,
+      "ok": true
+    },
+    {
+      "path": "/_p/ea0d6aafe334993349a394c44296",
+      "bytes": 3573696,
+      "ok": true
+    },
+    {
+      "path": "/_p/fdcd276779073494ce48819f2ff2",
+      "bytes": 6341317,
+      "ok": true
+    },
+    {
+      "path": "/_p/matte-2a6b35efafb8c9bf0c8001cd63db",
+      "bytes": 659849,
+      "ok": true
+    },
+    {
+      "path": "/_p/matte-3bc764fe86cf6829dccaca3eec76",
+      "bytes": 558669,
+      "ok": true
+    },
+    {
+      "path": "/_p/matte-adca677378c70858a114475c02be",
+      "bytes": 916236,
+      "ok": true
+    },
+    {
+      "path": "/_p/matte-bcd79d7b4e48f09d90668f4e76f6",
+      "bytes": 269860,
+      "ok": true
+    },
+    {
+      "path": "/_p/matte-e74d52e8c423828257fad89c86ad",
+      "bytes": 260924,
+      "ok": true
+    },
+    {
+      "path": "/_p/matte-f2f2428f50609a9e56ed6ad801fc",
+      "bytes": 2071295,
+      "ok": true
+    },
+    {
+      "path": "/_p/staging-water-loop.mp3",
+      "bytes": 421101,
+      "ok": true
+    },
+    {
+      "path": "/_media/03be61b8b67336e5d0370d332937.m4a",
+      "bytes": 3717033,
+      "ok": true
+    },
+    {
+      "path": "/_media/090bd0e9eb8d10cb04649812bd3b.flac",
+      "bytes": 23412,
+      "ok": true
+    },
+    {
+      "path": "/_media/09e72ccc6b77d35e268e6e035e2f.mp3",
+      "bytes": 5784901,
+      "ok": true
+    },
+    {
+      "path": "/_media/0e1539e88517fb360e4875fc2bb0.mp3",
+      "bytes": 7770416,
+      "ok": true
+    },
+    {
+      "path": "/_media/1307e69d8b2a317d2333dd22fd36.mp3",
+      "bytes": 5220909,
+      "ok": true
+    },
+    {
+      "path": "/_media/1f57403f9b31d276b684327afe84.mp3",
+      "bytes": 7835617,
+      "ok": true
+    },
+    {
+      "path": "/_media/2095463886c2c3c15991ef806694.mp3",
+      "bytes": 2718604,
+      "ok": true
+    },
+    {
+      "path": "/_media/30f05d0808078cade7b284d80fe8.mp3",
+      "bytes": 5606223,
+      "ok": true
+    },
+    {
+      "path": "/_media/3c49e69401e9a68fa4c17a779b55.mp3",
+      "bytes": 4941110,
+      "ok": true
+    },
+    {
+      "path": "/_media/4b08dddce8f0f3beb02b1edf008b.mp3",
+      "bytes": 4249691,
+      "ok": true
+    },
+    {
+      "path": "/_media/4ca52a37ed48702bb7fe2d3a7e79.mp3",
+      "bytes": 3250814,
+      "ok": true
+    },
+    {
+      "path": "/_media/5122e86454a11ade818f9fffc6a5.mp3",
+      "bytes": 7720888,
+      "ok": true
+    },
+    {
+      "path": "/_media/61fa7626ca63a0a5a3215a50ef8c.mp3",
+      "bytes": 4678981,
+      "ok": true
+    },
+    {
+      "path": "/_media/66c8d3d57091681530afe67ca8e6.flac",
+      "bytes": 26617,
+      "ok": true
+    },
+    {
+      "path": "/_media/67755876c535c1072ed9d3453c9e.mp3",
+      "bytes": 5623777,
+      "ok": true
+    },
+    {
+      "path": "/_media/6b93404a7e3323fd08374d3079a6.mp3",
+      "bytes": 3748173,
+      "ok": true
+    },
+    {
+      "path": "/_media/7198828891f2b383c766578f437e.mp3",
+      "bytes": 6000633,
+      "ok": true
+    },
+    {
+      "path": "/_media/71f27c10fc50b390c46f7c7fd26d.mp3",
+      "bytes": 5643839,
+      "ok": true
+    },
+    {
+      "path": "/_media/788690f901dae257a078ea7fe56f.mp3",
+      "bytes": 16989,
+      "ok": true
+    },
+    {
+      "path": "/_media/7b0943e89914c8e55bdc7a6a94bb.mp3",
+      "bytes": 4749741,
+      "ok": true
+    },
+    {
+      "path": "/_media/85d3545b93f7ae560b4481cfee36.mp3",
+      "bytes": 6958530,
+      "ok": true
+    },
+    {
+      "path": "/_media/8642f4424be9e15abbd95f95a4d2.flac",
+      "bytes": 27361,
+      "ok": true
+    },
+    {
+      "path": "/_media/87a2aae64abe65cc7c0c7036d686.m4a",
+      "bytes": 2848298,
+      "ok": true
+    },
+    {
+      "path": "/_media/8a59df048190c3a9cb01e9858852.mp3",
+      "bytes": 5045008,
+      "ok": true
+    },
+    {
+      "path": "/_media/9559ed7d792b032b39c01e20c6ab.mp3",
+      "bytes": 411838,
+      "ok": true
+    },
+    {
+      "path": "/_media/9568c42edc0b7d4e2dcc1d525cd8.mp3",
+      "bytes": 5347297,
+      "ok": true
+    },
+    {
+      "path": "/_media/9d8f17c5f2ce6c793d1b4b8992c0.flac",
+      "bytes": 32794,
+      "ok": true
+    },
+    {
+      "path": "/_media/a654eb6ac0294c84a6ce5c709c84.mp3",
+      "bytes": 18285,
+      "ok": true
+    },
+    {
+      "path": "/_media/a70457981c3b72fd32f9fb6c78a6.mp3",
+      "bytes": 6272109,
+      "ok": true
+    },
+    {
+      "path": "/_media/a9cc8c82a5996631e49a92131ed1.m4a",
+      "bytes": 2502201,
+      "ok": true
+    },
+    {
+      "path": "/_media/aee18c2e11749eceea226b1e44c2.mp3",
+      "bytes": 7777939,
+      "ok": true
+    },
+    {
+      "path": "/_media/b2c6fdaf6df228b207fb723a912c.mp3",
+      "bytes": 7008685,
+      "ok": true
+    },
+    {
+      "path": "/_media/b456dbd86d913e09194e02b3b515.m4a",
+      "bytes": 2989653,
+      "ok": true
+    },
+    {
+      "path": "/_media/be6aa52587c465bfb31d8dfcb9ef.mp3",
+      "bytes": 16173,
+      "ok": true
+    },
+    {
+      "path": "/_media/c32d7b4a3ac95aadc2559bbfaf22.mp3",
+      "bytes": 6357923,
+      "ok": true
+    },
+    {
+      "path": "/_media/c6c78cfebd2c6b4e9a25081ed0e9.m4a",
+      "bytes": 2851392,
+      "ok": true
+    },
+    {
+      "path": "/_media/d77440cba7af298467fe66e2bf82.flac",
+      "bytes": 55150,
+      "ok": true
+    },
+    {
+      "path": "/_media/d9c0bd0727e2fadd2c946619c39c.flac",
+      "bytes": 80167,
+      "ok": true
+    },
+    {
+      "path": "/_media/dd3cbe88218f04b0c3fec47d0261.mp3",
+      "bytes": 5658259,
+      "ok": true
+    },
+    {
+      "path": "/_media/e2e1f356a57fc384a07fbca66c9e.flac",
+      "bytes": 41153,
+      "ok": true
+    },
+    {
+      "path": "/_media/e5dc05da9b28a913fdf11441c552.m4a",
+      "bytes": 4026714,
+      "ok": true
+    },
+    {
+      "path": "/_media/ea53a9d5a99be7b0fd8b7c7de4f3.mp3",
+      "bytes": 4903863,
+      "ok": true
+    },
+    {
+      "path": "/_media/ed50833893831dea2e43b7fca3ff.mp3",
+      "bytes": 5267853,
+      "ok": true
+    },
+    {
+      "path": "/_media/fcd413d49e32d03e5ac8d77f9467.mp3",
+      "bytes": 20925,
+      "ok": true
+    },
+    {
+      "path": "/_p/miao-portrait-watercolor.jpg",
+      "bytes": 69815,
+      "ok": true,
+      "source": "Generated watercolor silhouette with deliberately simplified face; original portrait archived outside public site (2026-11-19)"
+    }
+  ]
+}

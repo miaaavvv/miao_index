@@ -1,0 +1,13 @@
+{
+  "name": "oscar-lake-local",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Local recreation of Oscar Dumlao's interactive lake website",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "start": "node scripts/serve.mjs",
+    "check": "node scripts/check.mjs"
+  },
+  "engines": { "node": ">=20" }
+}

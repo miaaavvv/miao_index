@@ -1,0 +1,19 @@
+.DS_Store
+node_modules/
+.local/
+
+# Private or generated files must never be pushed.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.zip
+*.log
+.auth/
+.credentials/
+handoffs/
+deliveries/
+node_modules/

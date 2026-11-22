@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <base href="/" />
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="MIAO · 产品经理，关注 AI 交互、Agent 工作流与 AI 驱动的自主交付。"
+    />
+    <title>MIAO</title>
+    <link id="site-favicon" rel="icon" href="/_p/e719c1a930612058a5e8ea41102d.png?v=e719c1a93061" type="image/png" sizes="96x96" />
+    <link
+      rel="preload"
+      href="/_p/7b41aa2b1b4af1046f7aa5acd120"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/_p/6a25c7e5fe41114cc4a20c4e05e7"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <script src="/_v/src/lake-prelude.18109bbad9a6df8e.js?v=18109bbad9a6df8e"></script>
+    <link rel="stylesheet" href="/_v/styles.cb6b238f72177f1a.css?v=cb6b238f72177f1a" />
+  <link rel="stylesheet" href="/_v/alt.c7b141401fcc6ce2.css?v=c7b141401fcc6ce2" />
+  <style>@media(pointer:fine){.lake.is-over-backdrop canvas,.lake.is-backdrop-scrubbing,.lake.is-backdrop-scrubbing canvas{cursor:ew-resize}}.cursor-cross.has-projected-circle{width:0;height:0;transform:translate3d(var(--cursor-x),var(--cursor-y),0)}
+.cursor-cross.has-projected-circle:before{display:none}
+.cursor-cross:not(.has-projected-circle) .cursor-water-ring{display:none}
+.cursor-water-ring{position:absolute;left:0;top:0;width:1px;height:1px;overflow:visible;fill:transparent;stroke:#fff;stroke-width:1.5px;stroke-linejoin:round;pointer-events:none;transition:transform .18s var(--gentle-ease),fill .18s var(--gentle-ease)}
+.cursor-cross.is-pressed .cursor-water-ring{fill:#fff;transform:scale(.9)}
+.cursor-cross.is-tap-pulsing .cursor-water-ring{animation:projected-cursor-tap .3s var(--gentle-ease)}
+@keyframes projected-cursor-tap{0%{fill:#fff;transform:scale(.9)}100%{fill:transparent;transform:scale(1)}}
+/* Prose wraps as one paragraph; line length follows the actual type size. */
+html.is-alt-layout .about-panel {
+  box-sizing: border-box;
+  font-size: var(--interface-font-size);
+  width: min(22.5em, calc(100vw - 24px - env(safe-area-inset-left) - env(safe-area-inset-right)));
+  max-width: none;
+}
+html.is-alt-layout .about-panel p {
+  text-wrap: pretty;
+}
+/* Set before a gesture starts, including the fallback renderer. */
+.lake, #water, #fallback-water {
+  touch-action: none;
+  overscroll-behavior: none;
+}
+.water-tuning-panel { touch-action: pan-y; }
+
+/* The canvas and range share the same fitted width. Preserve breathing room
+   and keep both ends clear of a landscape phone's display cutout. */
+.track-waveform {
+  left: var(--track-waveform-left, 50%);
+  max-width: calc(100% - 32px - max(env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px)) - max(env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px)));
+}
+/* Keep the shared interface free of text halos, including baseline controls. */
+html.is-alt-layout .interface-control,html.is-alt-layout .about-panel,html.is-alt-layout .context-link,html.is-alt-layout .water-tuning-button {
+  text-shadow: none;
+}
+.track-controls svg {filter:none;}
+/* Time digits update directly, just like the change-time readout. */
+.time-slot-value { will-change: auto; }
+</style><script>document.documentElement.classList.add('is-alt-layout');</script><style>.context-links{transform:none}
+#change-scene{width:190px;white-space:nowrap;margin-bottom:16px;font-style:normal}
+</style><style>#traveling{position:fixed;inset:0;z-index:30;display:grid;place-items:center;margin:0;color:#ffffffeb;font:inherit;font-size:var(--interface-font-size,20px);pointer-events:none}
+#traveling-word{font-style:italic;position:absolute;left:50%;top:calc(50% - 28px);transform:translateX(-50%);height:28px;line-height:28px}
+#traveling-dots{position:absolute;left:100%;top:0;white-space:nowrap}
+#traveling-dots::after{content:"";animation:traveling-dots 2s steps(1,end) infinite}
+@keyframes traveling-dots{0%,100%{content:""}25%{content:"."}50%{content:".."}75%{content:"…"}}
+#water,#fallback-water{transition:opacity 1.2s ease-out}
+.is-arriving .interface,.arrival-revealing .interface{transition:opacity 1.2s ease-out!important}
+@media(prefers-reduced-motion:reduce){#traveling-dots::after{animation:none;content:"…"}}
+.is-arriving .lake>:not(canvas){opacity:0!important;visibility:hidden!important}
+.water-ready #traveling,.webgl-unavailable #traveling{visibility:hidden}
+@media(prefers-reduced-motion:reduce){#water,#fallback-water,.is-arriving .interface,.arrival-revealing .interface{transition:none!important}}
+</style><script>document.documentElement.classList.add('is-arriving')</script><script src="/_v/src/scene-cycle.77d0cc14a6dc8426.js?v=3"></script><link rel="stylesheet" href="/_v/local-ui.css?v=privacy-20261119" />
+</head>
+  <body data-lake-view="alt">
+    <div id="traveling" role="status"><span id="traveling-word">Traveling<span id="traveling-dots" aria-hidden="true"></span></span></div><main inert class="lake" aria-label="Interactive lake">
+      <canvas id="water" aria-hidden="true"></canvas>
+      <canvas id="fallback-water" aria-hidden="true"></canvas>
+      <div class="cursor-cross" id="cursor-cross" aria-hidden="true"></div>
+      <header class="local-site-header">
+        <a class="local-brand" href="/" aria-label="MIAO">MIAO</a>
+        <div class="local-language" role="group" aria-label="Language">
+          <button type="button" data-language="zh-Hans" lang="zh-Hans" aria-label="简体中文" aria-pressed="false">简</button>
+          <button type="button" data-language="zh-Hant" lang="zh-Hant" aria-label="繁體中文" aria-pressed="false">繁</button>
+          <button type="button" data-language="en" lang="en" aria-label="English" aria-pressed="false">EN</button>
+        </div>
+      </header>
+
+      <nav
+        class="context-links"
+        id="context-links"
+        aria-label="Scene options"
+        aria-hidden="true"
+      >
+        <a class="context-link cursor-text" id="change-scene" href="/" tabindex="-1">Change scene</a>
+      </nav>
+
+      <div class="interface is-resting is-paired" aria-label="Lake controls">
+        <div class="time-control">
+          <button
+            class="time-button interface-control"
+            id="time-button"
+            type="button"
+            aria-controls="time-scrubber"
+            aria-expanded="false"
+            aria-label="Change the time of day"
+          >
+            <span class="time-label cursor-text" id="time-label" aria-live="off">
+              <span
+                class="time-label-value"
+                id="time-label-value"
+                data-display="6:17 p.m."
+                aria-hidden="true"
+              >
+                <span class="time-slot" data-time-part="hour-tens"><span class="time-slot-value"></span></span><span class="time-slot" data-time-part="hour-ones"><span class="time-slot-value">6</span></span><span class="time-separator">:</span><span class="time-slot" data-time-part="minute-tens"><span class="time-slot-value">1</span></span><span class="time-slot" data-time-part="minute-ones"><span class="time-slot-value">7</span></span><span class="time-slot time-meridiem" data-time-part="meridiem"><span class="time-slot-value">p.m.</span></span>
+              </span>
+            </span>
+          </button>
+        </div>
+
+        <button
+          class="site-title interface-control cursor-text"
+          id="site-title"
+          type="button"
+          aria-controls="about-panel"
+          aria-expanded="false"
+        >
+          <span class="site-title-main">MIAO</span>
+          <span class="site-title-alt" aria-hidden="true">Info</span>
+        </button>
+
+        <span class="about-title" id="about-title" aria-hidden="true">MIAO</span>
+
+        <div
+          class="about-panel cursor-text resume-about"
+          id="about-panel"
+          role="dialog"
+          aria-modal="true"
+          aria-label="About MIAO"
+          aria-hidden="true"
+          tabindex="-1"
+        >
+          <button class="resume-about-close" id="resume-about-close" type="button" aria-label="关闭个人介绍">×</button>
+          <div id="portfolio-about-content"></div>
+        </div>
+
+        <div
+          class="time-scrubber"
+          id="time-scrubber"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Change time"
+          aria-hidden="true"
+          inert
+        >
+          <button class="local-core-close" type="button" data-close-core="time" data-i18n="closeTime">Close time controls</button>
+          <div class="time-ticks" id="time-ticks" aria-hidden="true"></div>
+          <div class="time-active-tick" aria-hidden="true"></div>
+          <output
+            class="time-slider-value cursor-text"
+            id="time-slider-value"
+            for="time-range"
+            aria-label="6:17 p.m."
+          ><span class="time-slider-numerals" id="time-slider-numerals">6:17</span><span class="time-slider-meridiem" id="time-slider-meridiem"> p.m.</span></output>
+          <button
+            class="time-slider-mode cursor-text"
+            id="time-slider-mode"
+            type="button"
+            aria-label="Now"
+          >
+            <span class="time-slider-mode-current" id="time-slider-mode-current" aria-live="polite">Now</span>
+          </button>
+          <input
+            id="time-range"
+            type="range"
+            min="0"
+            max="1439"
+            step="1"
+            value="1097"
+            aria-label="Time of day"
+            aria-orientation="vertical"
+          />
+        </div>
+
+        <div
+          class="track-waveform"
+          id="track-waveform"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Song waveform"
+          aria-hidden="true"
+          inert
+        >
+          <button class="local-core-close" type="button" data-close-core="waveform" data-i18n="closeWaveform">Close waveform</button>
+          <span class="track-waveform-artist cursor-text" id="track-waveform-artist" aria-hidden="true"></span>
+          <span class="track-waveform-title cursor-text" id="track-waveform-title" aria-hidden="true"><span class="track-waveform-title-text" id="track-waveform-title-text"></span><span class="track-waveform-year" id="track-waveform-year"></span></span>
+          <canvas class="track-waveform-canvas" id="track-waveform-canvas" aria-hidden="true"></canvas>
+          <input
+            class="track-waveform-range interface-control"
+            id="track-waveform-range"
+            type="range"
+            min="0"
+            max="1000"
+            step="1"
+            value="0"
+            aria-label="Song position"
+          />
+        </div>
+
+        <div class="track-control">
+          <button
+            class="track-previous interface-control"
+            id="track-previous"
+            type="button"
+            aria-label="Previous track"
+          >
+            <span class="track-next-icon track-previous-icon cursor-text"></span>
+          </button>
+          <div
+            class="track-playback"
+            id="track-playback"
+            data-playback="paused"
+          >
+            <button
+              class="track-current-title interface-control cursor-text"
+              id="track-current-title"
+              type="button"
+              aria-controls="track-waveform"
+              aria-expanded="false"
+              aria-label="Play music"
+              aria-live="polite"
+            ><span class="track-current-title-text">Play music</span></button>
+            <button
+              class="track-playback-toggle interface-control"
+              id="track-playback-toggle"
+              type="button"
+              aria-label="Play music"
+            >
+              <span class="track-playback-icon cursor-text"></span>
+            </button>
+          </div>
+          <button
+            class="track-next interface-control"
+            id="track-next"
+            type="button"
+            aria-label="Next track. Lost by Frank Ocean"
+          >
+            <span class="track-next-icon cursor-text"></span>
+          </button>
+          <div class="local-audio" aria-label="播放器音量">
+            <button class="local-volume-button interface-control" id="local-volume-toggle" type="button" aria-label="音量" aria-controls="local-volume-popover" aria-expanded="false">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m11 5-6 4H2v6h3l6 4z"/><path class="volume-waves" d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/><path class="volume-muted" d="m16 9 6 6m0-6-6 6"/></svg>
+            </button>
+            <div class="local-volume-popover" id="local-volume-popover" hidden>
+              <label for="local-volume">音量 <output id="local-volume-value">100%</output></label>
+              <input id="local-volume" aria-label="主音量" type="range" min="0" max="100" value="100" />
+              <button id="local-mute" type="button">静音</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="local-tools" aria-label="快捷导航">
+        <nav class="local-dock" aria-label="右侧导航">
+          <button class="local-dock-button" type="button" data-nav="scene" aria-label="场景" aria-controls="tool-scene" aria-expanded="false"><span class="local-nav-icon" aria-hidden="true"></span><span class="local-nav-label">场景</span></button>
+          <button class="local-dock-button" type="button" data-nav="projects" aria-label="项目" aria-controls="water-project-layer" aria-expanded="false"><span class="local-nav-icon" aria-hidden="true"></span><span class="local-nav-label">项目</span></button>
+          <button class="local-dock-button" type="button" data-nav="about" aria-label="个人介绍" aria-controls="about-panel" aria-expanded="false"><span class="local-nav-icon" aria-hidden="true"></span><span class="local-nav-label">个人介绍</span></button>
+          <button class="local-dock-button" type="button" data-nav="education" aria-label="教育经历" aria-controls="tool-education" aria-expanded="false"><span class="local-nav-icon" aria-hidden="true"></span><span class="local-nav-label">教育经历</span></button>
+        </nav>
+        <section class="local-tool-panel" tabindex="-1" id="tool-scene" aria-label="场景与效果" hidden>
+          <header><h2>场景</h2><button type="button" data-close aria-label="关闭场景">×</button></header>
+          <button type="button" class="local-change-scene" id="local-change-scene"><span data-i18n="changeScene">Change scene</span> <span aria-hidden="true">↻</span></button>
+          <div class="local-scene-options" role="group" aria-label="湖面场景">
+            <button type="button" data-environment="disola">山间湖泊</button>
+            <button type="button" data-environment="lakeside">林边湖岸</button>
+            <button type="button" data-environment="mountains">群山倒影</button>
+          </div>
+          <div class="local-section-label">视角</div>
+          <div class="local-view-options" role="group" aria-label="场景视角">
+            <button type="button" data-view="alt">纯水面</button>
+            <button type="button" data-view="vast">远景</button>
+          </div>
+          <div class="local-scene-effects">
+            <button class="local-time-travel" id="local-time-travel" type="button"><span data-i18n="timeTravel">时光转换</span><span aria-hidden="true">↕</span></button>
+            <label class="local-setting" for="local-breeze"><span>微风</span><output id="local-breeze-value"></output></label>
+            <input id="local-breeze" data-setting="breeze" aria-label="微风强度" type="range" min="0" max="160" />
+            <label class="local-setting" for="local-ripple"><span>涟漪</span><output id="local-ripple-value"></output></label>
+            <input id="local-ripple" data-setting="ripple" aria-label="涟漪强度" type="range" min="45" max="160" />
+            <label class="local-setting" for="local-exposure"><span>光线</span><output id="local-exposure-value"></output></label>
+            <input id="local-exposure" data-setting="exposure" aria-label="光线亮度" type="range" min="55" max="155" />
+            <button class="local-text-button" id="local-reset-settings" type="button">恢复默认效果</button>
+          </div>
+        </section>
+        <section class="water-project-layer" id="water-project-layer" aria-label="水面项目导航" hidden>
+          <div class="water-project-points" id="water-project-points"></div>
+          <div class="water-project-caption"><span id="water-project-hint"></span><button id="water-project-exit" type="button"></button></div>
+        </section>
+        <section class="water-project-detail" id="water-project-detail" role="dialog" aria-modal="false" aria-labelledby="water-project-title" tabindex="-1" hidden>
+          <header class="water-detail-toolbar"><span id="water-project-counter"></span><button id="water-project-back" type="button" aria-label="关闭项目详情">×</button></header>
+          <div class="water-project-switcher" id="water-project-switcher" role="group" aria-label="切换项目"></div>
+          <div id="water-project-body"></div>
+          <footer class="water-detail-footer"><button id="water-project-previous" type="button"></button><button id="water-project-next" type="button"></button></footer>
+        </section>
+        <section class="local-tool-panel resume-education-panel" tabindex="-1" id="tool-education" aria-label="教育经历" hidden>
+          <header><h2>教育经历</h2><button type="button" data-close aria-label="关闭教育经历">×</button></header>
+          <div id="portfolio-education-content"></div>
+        </section>
+        <dialog class="project-design-viewer" id="project-design-viewer" aria-labelledby="project-design-viewer-title" aria-describedby="project-design-viewer-caption">
+          <header class="project-design-viewer-toolbar">
+            <div><span id="project-design-viewer-counter"></span><h2 id="project-design-viewer-title"></h2></div>
+            <button id="project-design-viewer-close" type="button" aria-label="关闭大图">×</button>
+          </header>
+          <div class="project-design-stage" id="project-design-stage"><img id="project-design-image" alt="" draggable="false" decoding="async" /></div>
+          <footer class="project-design-viewer-footer">
+            <button id="project-design-image-previous" type="button" aria-label="上一张界面图">←</button>
+            <div><p id="project-design-viewer-caption"></p></div>
+            <button id="project-design-image-next" type="button" aria-label="下一张界面图">→</button>
+          </footer>
+        </dialog>
+      </aside>
+    </main>
+
+    <script type="module" src="/_v/src/alt-main.e37b8660abd26238.js?v=mobile-20261118"></script>
+    <script type="module" src="/_v/src/local-ui.js?v=privacy-20261119"></script>
+</body>
+</html>

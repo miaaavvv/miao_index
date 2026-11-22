@@ -1,0 +1,44 @@
+{
+  "screens": [
+    {
+      "image": "reading-dark.png",
+      "thumbnail": "reading-dark-thumb.jpg",
+      "width": 1290,
+      "height": 2796,
+      "bytes": 378984,
+      "thumbnailBytes": 24705,
+      "thumbnailWidth": 320,
+      "thumbnailHeight": 693
+    },
+    {
+      "image": "discovery-dark.png",
+      "thumbnail": "discovery-dark-thumb.jpg",
+      "width": 1290,
+      "height": 2796,
+      "bytes": 334441,
+      "thumbnailBytes": 20837,
+      "thumbnailWidth": 320,
+      "thumbnailHeight": 693
+    },
+    {
+      "image": "reading-light.png",
+      "thumbnail": "reading-light-thumb.jpg",
+      "width": 1290,
+      "height": 2796,
+      "bytes": 1138531,
+      "thumbnailBytes": 33935,
+      "thumbnailWidth": 320,
+      "thumbnailHeight": 693
+    },
+    {
+      "image": "discovery-light.png",
+      "thumbnail": "discovery-light-thumb.jpg",
+      "width": 1290,
+      "height": 2796,
+      "bytes": 587714,
+      "thumbnailBytes": 29805,
+      "thumbnailWidth": 320,
+      "thumbnailHeight": 693
+    }
+  ]
+}
