@@ -20,7 +20,7 @@ function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutati
     constructor(tag = 'div', attributes = {}) {
       this.tagName = tag.toUpperCase(); this.attributes = { ...attributes };
       this.id = attributes.id ?? ''; this.hidden = 'hidden' in attributes;
-      this.inert = 'inert' in attributes; this.textContent = ''; this.value = '';
+      this.inert = 'inert' in attributes; this.disabled = 'disabled' in attributes; this.textContent = ''; this.value = '';
       this.events = new Map(); this.selected = false;
       const classes = new Set((attributes.class ?? '').split(/\s+/).filter(Boolean));
       this.classList = {
@@ -104,11 +104,34 @@ function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutati
   };
   return {
     node: id => nodes.get(id), root, lake, appended, navigations, document, advance,
+    keywords: () => all.filter(node => /^rotate\d+$/.test(node.getAttribute('data-entry-text') ?? '')).map(node => node.textContent),
     ready() { root.classList.add('water-ready'); for (const observer of observers) if (observer.target === root) observer.callback([]); },
     loadModules() { for (const script of appended) script.onload?.(); },
     state: () => nodes.get('entry-screen').getAttribute('data-state'),
     language(value) { documentEvents.get('miao:languagechange')?.({ detail: { language: value } }); },
   };
+}
+
+for (const expected of [
+  { browser: 'zh-CN', locale: 'zh-Hans', title: '欢迎访问 MIAO 的个人页面', loading: '页面正在加载中...', words: ['格拉斯哥艺术学院 硕士', '实践 AI 工作流', '使用 Codex', '使用 AirBuild'] },
+  { browser: 'zh-TW', locale: 'zh-Hant', title: '歡迎訪問 MIAO 的個人頁面', loading: '頁面正在載入中...', words: ['格拉斯哥藝術學院 碩士', '實踐 AI 工作流程', '使用 Codex', '使用 AirBuild'] },
+  { browser: 'en-GB', locale: 'en', title: 'Welcome to MIAO’s personal page', loading: 'The page is loading...', words: ['Master’s · The Glasgow School of Art', 'Practising AI workflows', 'Working with Codex', 'Working with AirBuild'] },
+]) {
+  const app = entrance({ browserLanguage: expected.browser });
+  assert.equal(app.node('entry-headline').textContent, expected.title);
+  assert.equal(app.node('entry-screen').getAttribute('lang'), expected.locale);
+  assert.equal(app.node('entry-status').textContent, expected.loading);
+  assert.equal(app.node('entry-loading').disabled, true, 'The status button must not promise a clickable loading action');
+  assert.equal(app.node('entry-loading').hidden, false);
+  assert.deepEqual([...new Set(app.keywords())], expected.words, 'Rotate the four concise, factual experience phrases');
+  assert.equal(app.node('entry-note').hidden, true, 'Do not restore the long introduction during normal loading');
+  assert.equal(app.node('entry-read').hidden, true);
+  assert.equal(app.node('entry-retry').hidden, true);
+  app.advance(10000);
+  assert.equal(app.state(), 'slow');
+  assert.equal(app.node('entry-headline').textContent, expected.title, 'A slow network must keep the minimal welcome screen');
+  assert.equal(app.node('entry-status').textContent, expected.loading);
+  assert.equal(app.node('entry-retry').hidden, true);
 }
 
 {
@@ -144,7 +167,7 @@ function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutati
   app.advance(1);
   assert.equal(app.state(), 'slow', 'A 10-second wait is a slow load, not proof of incompatibility');
   assert.doesNotMatch(app.node('entry-headline').textContent, /Chrome|Safari/);
-  assert.equal(app.node('entry-retry').hidden, false);
+  assert.equal(app.node('entry-retry').hidden, true);
   app.loadModules(); app.ready();
   assert.equal(app.node('entry-screen').hidden, true, 'A slow page can recover normally');
 }
@@ -169,30 +192,22 @@ function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutati
   assert.deepEqual(app.navigations, []);
 }
 {
-  const app = entrance(); app.node('entry-read').click();
-  assert.equal(app.node('entry-details').hidden, false);
-  app.loadModules(); app.ready();
-  app.lake.inert = false; // The independent renderer can release its inert flag later.
-  app.advance(0);
-  assert.equal(app.node('entry-screen').hidden, false, 'Readiness must not interrupt someone already reading');
-  assert.equal(app.node('entry-details').hidden, false);
-  assert.equal(app.lake.inert, true, 'Background controls must stay inactive while the reader remains open');
-  assert.equal(app.node('entry-enter').hidden, false);
-  app.node('entry-enter').click();
-  assert.equal(app.node('entry-screen').hidden, true);
-  assert.equal(app.lake.inert, false);
-}
-{
   const app = entrance({ wechat: true }); app.appended[1].onerror();
   assert.equal(app.state(), 'failed', 'A failed module request needs a readable recovery state');
   assert.equal(app.node('entry-screen').hidden, false);
   assert.equal(app.node('entry-retry').hidden, false);
+  assert.equal(app.node('entry-loading').hidden, true, 'A known failure must not leave a perpetual loading status');
+  assert.equal(app.node('entry-read').hidden, false, 'Recovery offers a usable reading action');
+  app.node('entry-read').click();
+  assert.equal(app.node('entry-details').hidden, false);
   assert.equal(app.node('browser-notice').hidden, true, 'Failure screens also hide the covered persistent CTA');
   app.advance(10000);
   assert.equal(app.state(), 'failed', 'A network failure must not be softened into a slow load');
   app.appended[0].onload(); app.ready();
   assert.equal(app.state(), 'failed', 'An unrelated ready signal must not hide a failed application module');
   assert.equal(app.node('entry-screen').hidden, false);
+  assert.equal(app.node('entry-details').hidden, false, 'The recovery summary remains readable after unrelated readiness');
+  assert.equal(app.lake.inert, true);
 }
 {
   const app = entrance({ mutation: false });
@@ -225,4 +240,4 @@ for (const expected of [
   assert.match(app.node('browser-copy-status').textContent, expected.copy);
   assert.deepEqual(app.navigations, []);
 }
-console.log('Verified entry capability guard, ready/slow/failure states, uninterrupted reading, WeChat CTA focus visibility, clipboard fallbacks and Traditional Chinese/English recovery text.');
+console.log('Verified minimal three-language welcome and experience ticker, disabled loading status, capability guards, readiness races, recovery reading, WeChat guidance and clipboard fallbacks.');

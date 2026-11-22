@@ -3,7 +3,7 @@
   "snapshotDate": "2026-11-23",
   "archiveRoot": "MIAO",
   "fileCount": 152,
-  "payloadBytes": 313316790,
+  "payloadBytes": 313319368,
   "files": [
     {
       "path": ".github/workflows/pages.yml",
@@ -27,13 +27,13 @@
     },
     {
       "path": "HANDOFF.md",
-      "bytes": 24081,
-      "sha256": "a7d263e6e32d3a4a2aa3412c08699b38782f59b0af9cfa4c760ae5692eb46bc0"
+      "bytes": 24585,
+      "sha256": "09f67a90e88dceaed73001a16de9722a326d41c73a1fe5a10b8df33998f0a86c"
     },
     {
       "path": "README.md",
-      "bytes": 15964,
-      "sha256": "7764bd1e234e243e8e8cde4895ea8c6419baec74ba1395cf8b84c954ba3a117f"
+      "bytes": 16468,
+      "sha256": "8e656eebde8ba976c76706fe7ade8526c9dd1f83278570a25608d4782b3e6bed"
     },
     {
       "path": "WECHAT_SHARING.md",
@@ -612,8 +612,8 @@
     },
     {
       "path": "_v/entry-experience.css",
-      "bytes": 6238,
-      "sha256": "9916390b9a8449527cd97976f8678dfd6304373eceed422b95e41c7759180b08"
+      "bytes": 6604,
+      "sha256": "bc9a1a1b74ed4b18720039d0764c2dd7c40b916e3bc8be2b284c85d18eb18713"
     },
     {
       "path": "_v/local-ui.css",
@@ -627,8 +627,8 @@
     },
     {
       "path": "_v/src/entry-experience.js",
-      "bytes": 13352,
-      "sha256": "dcb491fca6996ab7c55fdb820ebe9b246ab5bfdee0d30fdc2d03b223fc8056bd"
+      "bytes": 13397,
+      "sha256": "3e57fe20dd273006da61900d7f85cb7e2e667da2ef448904489c7943e0fa469f"
     },
     {
       "path": "_v/src/lake-prelude.18109bbad9a6df8e.js",
@@ -717,8 +717,8 @@
     },
     {
       "path": "index.html",
-      "bytes": 25660,
-      "sha256": "3cce6594297555e221c45328528313f4e46edd1420b6686d1d78c72ae341dedb"
+      "bytes": 25042,
+      "sha256": "a98306d2c05c47a1cafabb50cde783f8976a1bb38b562f7db22fa086193d16ca"
     },
     {
       "path": "package.json",
@@ -732,8 +732,8 @@
     },
     {
       "path": "scripts/check-entry-experience.mjs",
-      "bytes": 12539,
-      "sha256": "b80e242ec2e757aa93ef1be355b94a39ee5220089880bee286406c47fe90a2ec"
+      "bytes": 14316,
+      "sha256": "faa684e0ca23e107ff725567e937d736b9505f5cc9d3d9c912089e4e146ef2a5"
     },
     {
       "path": "scripts/check-social-sharing.mjs",
