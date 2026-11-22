@@ -20,3 +20,9 @@
 @media(max-width:600px){#entry-headline{font-size:27px;letter-spacing:0}.entry-ticker{font-size:clamp(12px,3.4vw,14px)}.entry-cases{grid-template-columns:1fr}.browser-guide-card{padding:24px}}
 @media(max-width:999px){#browser-notice{bottom:calc(86px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);white-space:nowrap;text-align:center}html.is-wechat .water-project-detail,html.is-wechat .about-panel,html.is-wechat .local-tool-panel{bottom:calc(154px + env(safe-area-inset-bottom))!important;max-height:calc(100svh - 244px)!important}}
 @media(prefers-reduced-motion:reduce){.entry-ticker>div{animation:none}}
+
+/* A gentle activity dot accompanies each line; no extra text or progress claim. */
+.entry-ticker p:before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;margin-right:9px;vertical-align:middle;position:relative;top:-1px;background:#bed9c9;box-shadow:0 0 7px #bddcc83d;animation:entry-dot 1.6s ease-in-out infinite}
+#entry-screen[data-state=loading] #entry-headline,#entry-screen[data-state=slow] #entry-headline{font-size:clamp(36px,5vw,56px);letter-spacing:.14em}
+@keyframes entry-dot{0%,100%{opacity:.35}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.entry-ticker p:before{animation:none;opacity:.7}}

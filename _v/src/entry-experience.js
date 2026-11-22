@@ -16,7 +16,7 @@
   var language = 'zh-Hans';
   var copy = {
     'zh-Hans': {
-      role:'产品经理 · AI 交互与 Agent 工作流', headline:'欢迎访问 MIAO 的个人页面',
+      role:'产品经理 · AI 交互与 Agent 工作流', headline:'MIAO',
       intro:'我是 MIAO。关注模型能力如何成为可参与、可验证、可交付的产品体验。',
       waiting:'页面正在加载中...', slow:'湖面还在准备，先认识一下我。',
       slowNote:'加载比平时稍慢，你可以先读项目摘要，不必等待动效。',
@@ -37,7 +37,7 @@
       nojs:'当前浏览器未运行 JavaScript。你可以先阅读这些内容，或使用启用 JavaScript 的 Chrome / Safari 打开。'
     },
     'zh-Hant': {
-      role:'產品經理 · AI 互動與 Agent 工作流程', headline:'歡迎訪問 MIAO 的個人頁面',
+      role:'產品經理 · AI 互動與 Agent 工作流程', headline:'MIAO',
       intro:'我是 MIAO。關注模型能力如何成為可參與、可驗證、可交付的產品體驗。',
       waiting:'頁面正在載入中...', slow:'湖面還在準備，先認識一下我。', slowNote:'載入比平時稍慢，你可以先讀專案摘要，不必等待動效。',
       unsupported:'使用 Chrome 或 Safari 開啟', unsupportedNote:'目前環境無法執行完整的動態體驗。你仍然可以在這裡閱讀簡介與專案摘要。',
@@ -53,7 +53,7 @@
       small:'C 端產品經驗 · B 端 SaaS 實踐 · 從需求到交付', nojs:'目前瀏覽器未執行 JavaScript。可先閱讀內容，或使用啟用 JavaScript 的 Chrome / Safari 開啟。'
     },
     en: {
-      role:'Product Manager · AI Interaction & Agent Workflows', headline:'Welcome to MIAO’s personal page',
+      role:'Product Manager · AI Interaction & Agent Workflows', headline:'MIAO',
       intro:'I’m MIAO. I turn model capabilities into product experiences people can shape, evaluate and use.',
       waiting:'The page is loading...', slow:'While the lake takes shape, meet MIAO.', slowNote:'Loading is taking a little longer. You can read the project summaries without waiting for the animation.',
       unsupported:'Open in Chrome or Safari', unsupportedNote:'This environment cannot run the full interactive experience. You can still read my introduction and project summaries here.',
