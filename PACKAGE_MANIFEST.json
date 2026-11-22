@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "snapshotDate": "2026-11-23",
   "archiveRoot": "MIAO",
-  "fileCount": 152,
-  "payloadBytes": 313322679,
+  "fileCount": 155,
+  "payloadBytes": 313372125,
   "files": [
     {
       "path": ".github/workflows/pages.yml",
@@ -17,8 +17,8 @@
     },
     {
       "path": "AGENTS.md",
-      "bytes": 3580,
-      "sha256": "1fd8968fc7b045e9376bee70a7e13b9c9501d67d0c6202ce9ca0ba69a2f26b5d"
+      "bytes": 4126,
+      "sha256": "e8394d467d7916bf963cb01c2178ff0cc8a0d81542200eb44e9acac1ad9b8ae3"
     },
     {
       "path": "CODEX_HANDOFF.md",
@@ -27,13 +27,13 @@
     },
     {
       "path": "HANDOFF.md",
-      "bytes": 25213,
-      "sha256": "181eca0f46219a9ae37eac9a73e416109945fe4120549dc3321584b851c0d29f"
+      "bytes": 26480,
+      "sha256": "71f02f1f0e1ee3bb7010f84ca66e4eab5bc88169646fabaa490cfadb90c80ba6"
     },
     {
       "path": "README.md",
-      "bytes": 17096,
-      "sha256": "c5665434293d9c105460fa1652b678a8bf3699dced33493b55333dd6dd39c00e"
+      "bytes": 18363,
+      "sha256": "10bfa9d0160a1385ca8f20f9479e726599c28581ec5cde7d4c145efdb1d05841"
     },
     {
       "path": "WECHAT_SHARING.md",
@@ -476,6 +476,21 @@
       "sha256": "f2f2428f50609a9e56ed6ad801fc056e7a999970cdd2ec08f607a9da333f7286"
     },
     {
+      "path": "_p/miao-apple-touch-icon.png",
+      "bytes": 18604,
+      "sha256": "a90db9541d51cc58a14a1de85aafd4a1183faee6fd6a931b8a52d914f4d39831"
+    },
+    {
+      "path": "_p/miao-icon.png",
+      "bytes": 21514,
+      "sha256": "fa4c41ff63bf5934ec6de8ce7eed3ebf635c50665c1492c1ca63d3d2a3aa66c8"
+    },
+    {
+      "path": "_p/miao-icon.svg",
+      "bytes": 538,
+      "sha256": "1137ba1d4b72e5b93c89cb57013efa9307f9ffb2eb9588308b970a6a9f67ae09"
+    },
+    {
       "path": "_p/miao-portrait-watercolor.jpg",
       "bytes": 69815,
       "sha256": "7ee4df13f768bfacf7b44f9902194d08e68203aefc358297d977bcd5a5537527"
@@ -612,8 +627,8 @@
     },
     {
       "path": "_v/entry-experience.css",
-      "bytes": 7397,
-      "sha256": "ae8c51daf215ac7a95cfac866dd5ced3476ae7c76f7850d282f3bf8d10a54535"
+      "bytes": 7081,
+      "sha256": "bb396d709a4eccd81c6ecb9732ef29bd1d13f6a28846fbe23b727415dd740a9e"
     },
     {
       "path": "_v/local-ui.css",
@@ -627,8 +642,8 @@
     },
     {
       "path": "_v/src/entry-experience.js",
-      "bytes": 13925,
-      "sha256": "5064816eda182a14a7b924c49398cf6fe2b0e5bbacc782131af7280cb1ccef5e"
+      "bytes": 16709,
+      "sha256": "e0c0b5c079f58c92a864789464ced5b2d127fb845e04bd50308e0394a0e0ee75"
     },
     {
       "path": "_v/src/lake-prelude.18109bbad9a6df8e.js",
@@ -642,8 +657,8 @@
     },
     {
       "path": "_v/src/local-i18n.js",
-      "bytes": 13535,
-      "sha256": "022fc2fbd8c9a9b54784153f51da4ef216a39c191ab45cc115fa0ab5a90fc9f1"
+      "bytes": 13648,
+      "sha256": "cba378d8794a9655885b1519555b64c7f8da20bebc691683a5f626f895983a40"
     },
     {
       "path": "_v/src/local-performance.js",
@@ -657,8 +672,8 @@
     },
     {
       "path": "_v/src/local-ui.js",
-      "bytes": 9112,
-      "sha256": "dd6695a0d90bbec18d48a9433823e22a02803851da39feefe477e07d85a9380f"
+      "bytes": 9110,
+      "sha256": "3c80696b9db037399cea5a0a756c3339331309a04d8a9a4ea2497d2f46769eb1"
     },
     {
       "path": "_v/src/portfolio-content.js",
@@ -717,8 +732,8 @@
     },
     {
       "path": "index.html",
-      "bytes": 25300,
-      "sha256": "b1bfee4d572dbcec609e229c329c163cabdb24098414035cdbb6b4aa5ac15457"
+      "bytes": 25967,
+      "sha256": "1cfd324d114b47d546b795dbbf0caeffc870520c3d0377a6e046d584a9a87139"
     },
     {
       "path": "package.json",
@@ -732,8 +747,8 @@
     },
     {
       "path": "scripts/check-entry-experience.mjs",
-      "bytes": 14792,
-      "sha256": "55898a724b5a973a58ae2f8eede1f92386b92a3485bbd233d3a6d560ad5c9010"
+      "bytes": 17229,
+      "sha256": "ad2e236554cd3f57072facba8ad6690e889316f2039858073a4ffbe7d3211f6b"
     },
     {
       "path": "scripts/check-social-sharing.mjs",
@@ -757,8 +772,8 @@
     },
     {
       "path": "scripts/serve.mjs",
-      "bytes": 4441,
-      "sha256": "000659f3bce6ed9028cae37f705c7e96fe81a8a13953baf93abb6ffc18b088e5"
+      "bytes": 4468,
+      "sha256": "4a0a080662c3b78b10b634fc41a38b5314c4ce99a07dff3b130a256480aad194"
     },
     {
       "path": "开始使用.txt",

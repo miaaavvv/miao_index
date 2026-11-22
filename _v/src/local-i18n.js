@@ -13,7 +13,7 @@ const messages = {
     changeTime: '调整时间', closeTime: '关闭时间调节', timeDial: '时光转换', timeOfDay: '昼夜时间', now: '现在', restoreTime: '恢复当前时间', am: '上午', pm: '下午',
     playMusic: '播放音乐', play: '播放', pause: '暂停', previous: '上一首', next: '下一首', waveform: '查看波形', closeWaveform: '关闭波形', songPosition: '播放进度',
     sceneOptions: '场景选项', lakeControls: '湖面控制', interactiveLake: '互动湖面', traveling: '正在前往',
-    aboutTitle: '关于 MIAO',
+    siteTitle: 'MIAO · 产品与 AI', aboutTitle: '关于 MIAO',
     closeDesignViewer: '关闭大图', previousDesign: '上一张界面图', nextDesign: '下一张界面图',
     waterProjects: '水面项目导航', waterProjectsHint: '04 个项目 · 点击坐标探索', exitProjects: '返回湖面', backToCoordinates: '返回项目坐标', switchProject: '切换项目', previousProject: '上一个项目', nextProject: '下一个项目',
   },
@@ -28,7 +28,7 @@ const messages = {
     changeTime: '調整時間', closeTime: '關閉時間調整', timeDial: '時光轉換', timeOfDay: '日夜時間', now: '現在', restoreTime: '恢復目前時間', am: '上午', pm: '下午',
     playMusic: '播放音樂', play: '播放', pause: '暫停', previous: '上一首', next: '下一首', waveform: '檢視波形', closeWaveform: '關閉波形', songPosition: '播放進度',
     sceneOptions: '場景選項', lakeControls: '湖面控制', interactiveLake: '互動湖面', traveling: '正在前往',
-    aboutTitle: '關於 MIAO',
+    siteTitle: 'MIAO · 產品與 AI', aboutTitle: '關於 MIAO',
     closeDesignViewer: '關閉大圖', previousDesign: '上一張介面圖', nextDesign: '下一張介面圖',
     waterProjects: '水面專案導覽', waterProjectsHint: '04 個專案 · 點擊座標探索', exitProjects: '返回湖面', backToCoordinates: '返回專案座標', switchProject: '切換專案', previousProject: '上一個專案', nextProject: '下一個專案',
   },
@@ -43,7 +43,7 @@ const messages = {
     changeTime: 'Change the time of day', closeTime: 'Close time controls', timeDial: 'Time travel', timeOfDay: 'Time of day', now: 'Now', restoreTime: 'Back to local time', am: 'a.m.', pm: 'p.m.',
     playMusic: 'Play music', play: 'Play', pause: 'Pause', previous: 'Previous track', next: 'Next track', waveform: 'Show waveform', closeWaveform: 'Close waveform', songPosition: 'Song position',
     sceneOptions: 'Scene options', lakeControls: 'Lake controls', interactiveLake: 'Interactive lake', traveling: 'Traveling',
-    aboutTitle: 'About MIAO',
+    siteTitle: 'MIAO · Product & AI', aboutTitle: 'About MIAO',
     closeDesignViewer: 'Close image viewer', previousDesign: 'Previous screen', nextDesign: 'Next screen',
     waterProjects: 'Project coordinates on the water', waterProjectsHint: '04 projects · Follow the ripples', exitProjects: 'Back to the lake', backToCoordinates: 'Back to project coordinates', switchProject: 'Switch project', previousProject: 'Previous project', nextProject: 'Next project',
   },
@@ -103,8 +103,8 @@ function applyLanguage(language, { persist = false } = {}) {
     try { localStorage.setItem(preferenceKey, language); } catch {}
   }
   document.documentElement.lang = language;
-  document.title = 'MIAO';
   const t = translate;
+  document.title = t('siteTitle');
   document.querySelectorAll('[data-language]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.language === language)));
   document.querySelectorAll('[data-i18n]').forEach(element => {
     const text = t(element.dataset.i18n);

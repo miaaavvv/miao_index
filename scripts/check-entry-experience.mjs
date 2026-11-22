@@ -7,7 +7,7 @@ const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 
 // A deliberately small browser boundary, with the real page's IDs and data
 // attributes. No GPU, network or wall-clock waits are involved in these checks.
-function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutation = true, browserLanguage = 'zh-CN' } = {}) {
+function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutation = true, browserLanguage = 'zh-CN', randomSeed = 1, random, session = new Map() } = {}) {
   const nodes = new Map();
   const all = [];
   const timers = [];
@@ -59,12 +59,13 @@ function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutati
   }
   const root = new Element('html', { class: 'is-alt-layout is-arriving' });
   const lake = all.find(node => (node.attributes.class ?? '').split(/\s+/).includes('lake'));
+  const brand = all.find(node => (node.attributes.class ?? '').split(/\s+/).includes('local-brand'));
   const body = new Element('body'); body.appendChild = node => { appended.push(node); return node; };
   const documentEvents = new Map();
   document = {
     documentElement: root, body, activeElement: body,
     getElementById: id => nodes.get(id),
-    querySelector: selector => selector === '.lake' ? lake : null,
+    querySelector: selector => selector === '.lake' ? lake : selector === '.local-brand' ? brand : null,
     querySelectorAll(selector) {
       const match = /^([a-z]+)?\[([\w-]+)\]$/.exec(selector);
       return match ? all.filter(node => match[2] in node.attributes && (!match[1] || node.tagName === match[1].toUpperCase())) : [];
@@ -82,9 +83,13 @@ function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutati
   Object.defineProperty(location, 'href', { get: () => 'https://miaaavvv.github.io/miao_index/?source=hr#projects', set: value => navigations.push(value) });
   const navigator = { userAgent: wechat ? 'Mozilla/5.0 iPhone MicroMessenger/8.0' : 'Mozilla/5.0 Chrome/140 Safari/537', language: browserLanguage };
   if (clipboard !== 'missing') navigator.clipboard = { writeText: () => clipboard === 'reject' ? Promise.reject(new Error('Clipboard denied')) : Promise.resolve() };
+  let seed = randomSeed >>> 0;
+  const math = Object.create(Math);
+  math.random = random ?? (() => { seed = (Math.imul(1664525, seed) + 1013904223) >>> 0; return seed / 4294967296; });
   const sandbox = {
-    document, navigator, location, Promise, fetch() {}, AbortController,
+    document, navigator, location, Promise, Math: math, fetch() {}, AbortController,
     localStorage: { getItem() { return null; } },
+    sessionStorage: { getItem(key) { return session.has(key) ? session.get(key) : null; }, setItem(key, value) { session.set(key, String(value)); } },
     setTimeout(callback, delay = 0) { timers.push({ callback, at: now + delay }); return timers.length; },
     clearTimeout() {},
     open(url) { navigations.push(url); return null; },
@@ -103,8 +108,9 @@ function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutati
     }
   };
   return {
-    node: id => nodes.get(id), root, lake, appended, navigations, document, advance,
+    node: id => nodes.get(id), root, lake, brand, appended, navigations, document, advance, session,
     keywords: () => all.filter(node => /^rotate\d+$/.test(node.getAttribute('data-entry-text') ?? '')).map(node => node.textContent),
+    keywordKeys: () => all.filter(node => /^rotate\d+$/.test(node.getAttribute('data-entry-text') ?? '')).map(node => node.getAttribute('data-entry-text')),
     ready() { root.classList.add('water-ready'); for (const observer of observers) if (observer.target === root) observer.callback([]); },
     loadModules() { for (const script of appended) script.onload?.(); },
     state: () => nodes.get('entry-screen').getAttribute('data-state'),
@@ -112,26 +118,50 @@ function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutati
   };
 }
 
+const expectedKeys = Array.from({ length: 16 }, (_, i) => `rotate${i + 1}`);
 for (const expected of [
-  { browser: 'zh-CN', locale: 'zh-Hans', title: 'MIAO', loading: '页面正在加载中...', words: ['在格拉斯哥艺术学院，读过服务设计硕士', '做过 C 端产品，也做过 B 端 SaaS', '让 AI 拆出的书摘，走进岛读 App', '让 Agent 一起工作，也让审核有据可查', '从用户访谈，走到上线后的数据验证', '和 Codex、AirBuild 一起，把想法做出来'] },
-  { browser: 'zh-TW', locale: 'zh-Hant', title: 'MIAO', loading: '頁面正在載入中...', words: ['在格拉斯哥藝術學院，讀過服務設計碩士', '做過 C 端產品，也做過 B 端 SaaS', '讓 AI 拆出的書摘，走進島讀 App', '讓 Agent 一起工作，也讓審核有據可查', '從使用者訪談，走到上線後的數據驗證', '和 Codex、AirBuild 一起，把想法做出來'] },
-  { browser: 'en-GB', locale: 'en', title: 'MIAO', loading: 'The page is loading...', words: ['A service design master’s from Glasgow', 'Experience in consumer products and SaaS', 'Bringing AI book notes into Daodu', 'Agents working together, reviews you can trace', 'From user interviews to product metrics', 'Building ideas with Codex and AirBuild'] },
+  { browser: 'zh-CN', locale: 'zh-Hans', title: 'MIAO · 产品与 AI', loading: '页面正在加载中...' },
+  { browser: 'zh-TW', locale: 'zh-Hant', title: 'MIAO · 產品與 AI', loading: '頁面正在載入中...' },
+  { browser: 'en-GB', locale: 'en', title: 'MIAO · Product & AI', loading: 'The page is loading...' },
 ]) {
   const app = entrance({ browserLanguage: expected.browser });
-  assert.equal(app.node('entry-headline').textContent, expected.title);
+  assert.equal(app.node('entry-headline').textContent, 'MIAO');
+  assert.equal(app.document.title, expected.title, 'Use the localized website name in the tab from the entrance');
   assert.equal(app.node('entry-screen').getAttribute('lang'), expected.locale);
   assert.equal(app.node('entry-status').textContent, expected.loading);
   assert.equal(app.node('entry-loading').disabled, true, 'The status button must not promise a clickable loading action');
   assert.equal(app.node('entry-loading').hidden, false);
-  assert.deepEqual([...new Set(app.keywords())], expected.words, 'Rotate concise, factual stories from the resume');
+  const keys = app.keywordKeys();
+  assert.equal(keys.length, 17, 'Expanded ticker includes sixteen facts and a seamless closing repeat');
+  assert.deepEqual([...keys.slice(0, -1)].sort(), [...expectedKeys].sort(), 'Shuffling must not omit or duplicate resume facts');
+  assert.equal(keys.at(-1), keys[0], 'Repeat the randomized first line at the loop boundary');
+  assert(app.keywords().every(text => text.length > 0 && !/^rotate\d+$/.test(text)), 'Each displayed fact must have real localized copy');
+  assert.equal(app.keywords().at(-1), app.keywords()[0]);
   assert.equal(app.node('entry-note').hidden, true, 'Do not restore the long introduction during normal loading');
   assert.equal(app.node('entry-read').hidden, true);
   assert.equal(app.node('entry-retry').hidden, true);
   app.advance(10000);
   assert.equal(app.state(), 'slow');
-  assert.equal(app.node('entry-headline').textContent, expected.title, 'A slow network must keep the minimal welcome screen');
+  assert.equal(app.node('entry-headline').textContent, 'MIAO', 'A slow network must keep the minimal entrance');
   assert.equal(app.node('entry-status').textContent, expected.loading);
   assert.equal(app.node('entry-retry').hidden, true);
+}
+{
+  const first = entrance({ randomSeed: 1 });
+  const second = entrance({ randomSeed: 222 });
+  assert.notDeepEqual(first.keywordKeys(), second.keywordKeys(), 'Different random draws should produce different visit orders');
+  assert.notDeepEqual(first.keywordKeys().slice(0, -1), expectedKeys, 'Do not keep the original chronological order');
+  const order = first.keywordKeys();
+  first.language('en');
+  assert.deepEqual(first.keywordKeys(), order, 'Language changes preserve the visit’s randomized sequence');
+  assert.equal(first.document.title, 'MIAO · Product & AI');
+  first.language('zh-Hant');
+  assert.deepEqual(first.keywordKeys(), order);
+  assert.equal(first.document.title, 'MIAO · 產品與 AI');
+  const session = new Map();
+  const visit = entrance({ random: () => 0, session });
+  const revisit = entrance({ random: () => 0, session });
+  assert.notEqual(visit.keywordKeys()[0], revisit.keywordKeys()[0], 'A repeated random draw must not repeat the previous visit’s first fact');
 }
 
 {
@@ -173,10 +203,10 @@ for (const expected of [
 }
 {
   const app = entrance({ wechat: true });
-  assert.equal(app.node('browser-notice').hidden, true, 'Do not expose a background tab stop behind the entrance');
+  assert.equal(app.node('browser-notice'), undefined, 'Remove the persistent browser banner from the document');
   assert.equal(app.node('entry-browser').hidden, false);
   app.node('entry-browser').click();
-  assert.equal(app.node('browser-guide').hidden, false, 'The WeChat CTA must show usable browser instructions');
+  assert.equal(app.node('browser-guide').hidden, false, 'The entrance CTA must show usable browser instructions');
   assert.match(app.node('browser-guide-title').textContent, /窗口|旅程/);
   assert.deepEqual(app.navigations, [], 'Do not fake a successful external-browser launch');
   assert.equal(app.document.activeElement.id, 'browser-guide-close');
@@ -184,13 +214,36 @@ for (const expected of [
   assert.equal(app.node('browser-guide').hidden, true);
   assert.equal(app.document.activeElement.id, 'entry-browser');
   app.loadModules(); app.ready();
-  assert.equal(app.node('browser-notice').hidden, false, 'The persistent browser CTA appears after leaving the entrance');
-  app.node('browser-notice').click();
-  assert.equal(app.node('browser-guide').hidden, false);
-  app.node('browser-guide-close').click();
-  assert.equal(app.document.activeElement.id, 'browser-notice');
+  assert.equal(app.node('entry-browser').hidden, true, 'No browser-opening CTA remains after entering the website');
+  assert.equal(app.node('entry-screen').hidden, true);
   assert.deepEqual(app.navigations, []);
 }
+{
+  const app = entrance({ wechat: true });
+  app.node('entry-browser').click();
+  app.loadModules(); app.ready();
+  app.node('browser-guide-close').click();
+  assert.equal(app.node('entry-browser').hidden, true);
+  assert.equal(app.document.activeElement, app.brand, 'If loading ends with the guide open, close returns focus to a visible page control');
+}
+
+
+{
+  const app = entrance({ wechat: true });
+  app.root.classList.add('webgl-unavailable');
+  app.loadModules();
+  assert.equal(app.state(), 'failed');
+  app.node('entry-read').click();
+  app.root.classList.remove('webgl-unavailable');
+  app.ready();
+  app.advance(0);
+  assert.equal(app.node('entry-screen').hidden, false, 'An active reader may remain open after renderer recovery');
+  assert.equal(app.node('entry-browser').hidden, true, 'Once ready, an active reader is not a loading/error browser prompt');
+  assert.equal(app.node('entry-enter').hidden, false);
+  app.node('entry-enter').click();
+  assert.equal(app.node('entry-screen').hidden, true);
+}
+
 {
   const app = entrance({ wechat: true }); app.appended[1].onerror();
   assert.equal(app.state(), 'failed', 'A failed module request needs a readable recovery state');
@@ -200,7 +253,8 @@ for (const expected of [
   assert.equal(app.node('entry-read').hidden, false, 'Recovery offers a usable reading action');
   app.node('entry-read').click();
   assert.equal(app.node('entry-details').hidden, false);
-  assert.equal(app.node('browser-notice').hidden, true, 'Failure screens also hide the covered persistent CTA');
+  assert.equal(app.node('browser-notice'), undefined, 'Failure pages do not recreate a persistent page banner');
+  assert.equal(app.node('entry-browser').hidden, false, 'WeChat recovery retains its browser-opening action');
   app.advance(10000);
   assert.equal(app.state(), 'failed', 'A network failure must not be softened into a slow load');
   app.appended[0].onload(); app.ready();
@@ -240,4 +294,4 @@ for (const expected of [
   assert.match(app.node('browser-copy-status').textContent, expected.copy);
   assert.deepEqual(app.navigations, []);
 }
-console.log('Verified minimal three-language welcome and experience ticker, disabled loading status, capability guards, readiness races, recovery reading, WeChat guidance and clipboard fallbacks.');
+console.log('Verified localized site titles, shuffled resume facts, no repeated visit opener, entrance-only WeChat guidance, readiness races, recovery reading and clipboard fallbacks.');

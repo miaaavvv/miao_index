@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="MIAO">
+  <defs><linearGradient id="lake" x2="0" y2="1"><stop stop-color="#183740"/><stop offset="1" stop-color="#0b1e26"/></linearGradient></defs>
+  <rect width="64" height="64" rx="15" fill="url(#lake)"/>
+  <path d="M15 40V19l17 17 17-17v21" fill="none" stroke="#eef1e6" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <ellipse cx="32" cy="49" rx="19" ry="3.5" fill="none" stroke="#9ebfb3" stroke-width="1.8" opacity=".75"/>
+</svg>
