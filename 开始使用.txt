@@ -23,4 +23,7 @@ MIAO 个人网站 · 2026-11-21 交付版
 姓名仅使用 MIAO，无电话和邮箱。岛读截图随网页场景昼夜切换。
 
 当前启动方式只在这台电脑本机访问；把本机地址发给别人不能远程查看。
-本包未配置云端托管、外网分享链接或域名，后续如需上线再指定部署服务。
+2026-11-23 起已授权通过 GitHub Pages 上线：
+https://miaaavvv.github.io/miao_index/
+公开代码：https://github.com/miaaavvv/miao_index
+main 分支更新后会自动检查并部署，详见 README.md。

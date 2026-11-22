@@ -199,3 +199,11 @@ Multi-Agent 案例补充“AI 拆书 → 审核 → 发布至岛读 App”的产
 `npm run check` 增加公开文本中的个人姓名、联系地址与原照片残留检查，确认三语均使用 MIAO。本地服务器仅公开页面和 `_v`、`_p`、`_media`，不提供文档、检查脚本或 `.local`。
 
 验证补充：完整检查通过；浏览器核验个人介绍三语均为 MIAO、无电话或邮件链接、水彩头像加载正常；390×844 无横向溢出。岛读图集的简繁英模式说明、亮 / 暗缩略图及对应大图已验证。HTTP 核验旧原照片和旧私有预览地址均为 404，新水彩 JPEG 为 200。开发截图保存在 `.local/privacy-mobile.jpg`、`.local/daodu-night.jpg`、`.local/daodu-day.jpg`；旧含个人信息的截图已私有移出。
+
+## 公开仓库与 GitHub Pages（2026-11-23）
+
+用户明确要求将 `miaaavvv/miao_index` 改为公开，并使网页可以直接访问。此授权覆盖旧的仅本地与默认私有限制；仍不得加入真实照片、原始简历、个人联系方式、凭据或前公司内部链接。源码仓库：https://github.com/miaaavvv/miao_index ，网页：https://miaaavvv.github.io/miao_index/ 。
+
+GitHub Pages 使用 `.github/workflows/pages.yml` 在 `main` 更新后自动发布。构建脚本 `scripts/build-pages.mjs` 将 index.html、_p、_v、_media 复制到被 Git 忽略的 `.local/pages-dist`，改写 `/miao_index/` 下的绝对素材路径、主页链接，并检查素材存在及核心模块 URL 一致。只有这些网页资源和 `.nojekyll`、静态地区回退 JSON 进入部署，不上传仓库文档、Git、认证配置或旧预览。
+
+本地服务继续使用原有路径。在线静态版的地区接口返回空 country，沿用已有浏览器语言与时区判断；手动切换优先。项目不新增外部分析或追踪脚本。GitHub Pages 可访问状态不等同于中国大陆三网测速，后续大陆节点部署仍需单独选择服务。

@@ -1,10 +1,15 @@
 {
   "schemaVersion": 1,
-  "snapshotDate": "2026-11-22",
+  "snapshotDate": "2026-11-23",
   "archiveRoot": "MIAO",
-  "fileCount": 140,
-  "payloadBytes": 312591044,
+  "fileCount": 142,
+  "payloadBytes": 312598394,
   "files": [
+    {
+      "path": ".github/workflows/pages.yml",
+      "bytes": 849,
+      "sha256": "959c35c8645e61b12db07504275d35e7f6b66524b9ce2c187e1f323e50e7f9e4"
+    },
     {
       "path": ".gitignore",
       "bytes": 203,
@@ -12,23 +17,23 @@
     },
     {
       "path": "AGENTS.md",
-      "bytes": 2665,
-      "sha256": "74618cd85a0cd3eb69b2454a4444ae1879a701689fde8fab2e32db110f92bef5"
+      "bytes": 3580,
+      "sha256": "1fd8968fc7b045e9376bee70a7e13b9c9501d67d0c6202ce9ca0ba69a2f26b5d"
     },
     {
       "path": "CODEX_HANDOFF.md",
-      "bytes": 9205,
-      "sha256": "1d5427b103951cbe262cfb7b9166cdd4941175d114f123c48c70afa39d6f0f4e"
+      "bytes": 9810,
+      "sha256": "00e333d42c3d05bd744f0601c65896018df704fe9389577cf76b585ebb5174a5"
     },
     {
       "path": "HANDOFF.md",
-      "bytes": 20715,
-      "sha256": "a945699eb791da297dd213fb10e37e144a67a926e4394e8b4703bf4b35354ebd"
+      "bytes": 21900,
+      "sha256": "454d0ebd3387be4b52cb8aca42eae5e58d9fb413c436ea1fb0769c81ccc73abf"
     },
     {
       "path": "README.md",
-      "bytes": 12942,
-      "sha256": "64e1f9209d4d2507cd164cf24bd60d7c72d8023c2377054e1ead42bf57f626a6"
+      "bytes": 13783,
+      "sha256": "64a00aaf3d4331ca3345392553aae9ba85c0171896b6df69d0e9a76f014f514c"
     },
     {
       "path": "_media/03be61b8b67336e5d0370d332937.m4a",
@@ -682,8 +687,13 @@
     },
     {
       "path": "package.json",
-      "bytes": 341,
-      "sha256": "27405e518fe8c1a3425110c3e08f5feed5a9f7933bf571e9b58af92d017d315c"
+      "bytes": 398,
+      "sha256": "20cf0fde7bd3b17f53bfbb91ce10bb8ee03d9e5a2fe5eaf4d128ca3977624cda"
+    },
+    {
+      "path": "scripts/build-pages.mjs",
+      "bytes": 2788,
+      "sha256": "b1eb3ca90f400728e2035d3a3450fc272c7480794191148924e8716b448bc5dd"
     },
     {
       "path": "scripts/check.mjs",
@@ -702,8 +712,8 @@
     },
     {
       "path": "开始使用.txt",
-      "bytes": 1174,
-      "sha256": "d9b514d62ec6b8e8ef235b138acf324f31aa30159bb9bd1baac6caebd28177d8"
+      "bytes": 1284,
+      "sha256": "99852f0e2c7b01f24dcb0938db598f88e3276b3fbe2a8fe946a3b715918a5160"
     }
   ]
 }
