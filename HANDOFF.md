@@ -207,3 +207,13 @@ Multi-Agent 案例补充“AI 拆书 → 审核 → 发布至岛读 App”的产
 GitHub Pages 使用 `.github/workflows/pages.yml` 在 `main` 更新后自动发布。构建脚本 `scripts/build-pages.mjs` 将 index.html、_p、_v、_media 复制到被 Git 忽略的 `.local/pages-dist`，改写 `/miao_index/` 下的绝对素材路径、主页链接，并检查素材存在及核心模块 URL 一致。只有这些网页资源和 `.nojekyll`、静态地区回退 JSON 进入部署，不上传仓库文档、Git、认证配置或旧预览。
 
 本地服务继续使用原有路径。在线静态版的地区接口返回空 country，沿用已有浏览器语言与时区判断；手动切换优先。项目不新增外部分析或追踪脚本。GitHub Pages 可访问状态不等同于中国大陆三网测速，后续大陆节点部署仍需单独选择服务。
+
+## 加载入口、客户端兼容与分享（2026-11-23）
+
+加载入口直接在 HTML 呈现 MIAO 简介、水彩剪影、四个项目摘要，使用系统字体、轻涟漪与轮换短句，不依赖 WebGL。独立的 classic 脚本 `entry-experience.js` 先检测模块、fetch、AbortController 与 WebGL2，再加载原有两个重模块；两者均 load 且 water-ready 才收起入口。资源错误保持可读入口；10 秒超时仅提示慢加载，不宣称浏览器不兼容；手动展开摘要后不会因场景就绪强制关闭。明确不支持时建议使用 Chrome 或 Safari，无 JavaScript 时仍能阅读简介与摘要。核心模块的 HTML URL 与 local-ui import 完全相同。
+
+微信环境始终提供“使用系统浏览器打开”的可见入口，点击显示右上角菜单操作说明及复制链接，复制失败时选中真实链接供手动复制。普通 H5 没有可靠的强制系统浏览器跳转能力，因此未使用非公开 bridge、伪装 window.open 或不可靠的 intent。微信检测不等同于“不兼容”：能力正常仍尝试湖面。手机提示避让底部导航与阅读面板。
+
+已加入 Open Graph / Twitter 分享标题、简介与宽封面，微信预备方形封面，两种 PNG 均来自原生图形和已有匿名化水彩剪影。用户确认目前没有公众号与自有域名，本次仅上线通用预览及分享模块的授权接口预备，不能保证微信采用指定卡片。未来具备公众号接口权限与安全签名服务后，可通过空的 `wechat-signature-endpoint` 元信息配置启用；无配置不请求 SDK、不请求签名。朋友圈没有独立副标题字段，角色与方向信息已并入标题。细节见 WECHAT_SHARING.md，不得把 AppSecret 等密钥放到前端、仓库或 Actions 公共变量中。
+
+`npm run check` 同时覆盖加载状态竞态、能力降级、微信打开指引与复制失败，以及分享配置开关、精确签名 URL、两类 API 字段与超时回退。本地 `.local/entry-fixtures.mjs` 仅用于模拟慢网 / 微信 / 不支持环境的视觉测试，不提交、不部署；不将桌面模拟写成微信真机验证。

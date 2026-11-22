@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "snapshotDate": "2026-11-23",
   "archiveRoot": "MIAO",
-  "fileCount": 142,
-  "payloadBytes": 312598394,
+  "fileCount": 152,
+  "payloadBytes": 313316790,
   "files": [
     {
       "path": ".github/workflows/pages.yml",
@@ -27,13 +27,18 @@
     },
     {
       "path": "HANDOFF.md",
-      "bytes": 21900,
-      "sha256": "454d0ebd3387be4b52cb8aca42eae5e58d9fb413c436ea1fb0769c81ccc73abf"
+      "bytes": 24081,
+      "sha256": "a7d263e6e32d3a4a2aa3412c08699b38782f59b0af9cfa4c760ae5692eb46bc0"
     },
     {
       "path": "README.md",
-      "bytes": 13783,
-      "sha256": "64a00aaf3d4331ca3345392553aae9ba85c0171896b6df69d0e9a76f014f514c"
+      "bytes": 15964,
+      "sha256": "7764bd1e234e243e8e8cde4895ea8c6419baec74ba1395cf8b84c954ba3a117f"
+    },
+    {
+      "path": "WECHAT_SHARING.md",
+      "bytes": 3801,
+      "sha256": "afa551839abe5cd8c3acc5657992976edfddb56e68eeefb8c85224ef8e8ba961"
     },
     {
       "path": "_media/03be61b8b67336e5d0370d332937.m4a",
@@ -476,6 +481,16 @@
       "sha256": "7ee4df13f768bfacf7b44f9902194d08e68203aefc358297d977bcd5a5537527"
     },
     {
+      "path": "_p/miao-share-card-square.png",
+      "bytes": 237956,
+      "sha256": "7f1d5530a54d3176c5cd223d5bd49b8b879fac6f8c2334673f30aac64a48d147"
+    },
+    {
+      "path": "_p/miao-share-card.png",
+      "bytes": 418644,
+      "sha256": "91a150a5fc093ff2b7777e48b8bd7ead223aa7f9bb94bb778cea4cc2773ad8de"
+    },
+    {
       "path": "_p/projects/agent-workflow/discovery-dark-thumb.jpg",
       "bytes": 20837,
       "sha256": "c037bfa36d557c7da9b94e2322d5886722334acfd73930dad0f23fad86e5e019"
@@ -596,6 +611,11 @@
       "sha256": "c7b141401fcc6ce2b427a2785579630520be70f1d993a13afcc6a0f965386150"
     },
     {
+      "path": "_v/entry-experience.css",
+      "bytes": 6238,
+      "sha256": "9916390b9a8449527cd97976f8678dfd6304373eceed422b95e41c7759180b08"
+    },
+    {
       "path": "_v/local-ui.css",
       "bytes": 45232,
       "sha256": "9614f1b9e94254f9ab7562f9d2e6a9c567157c0888bb1af4fb2e11d04c06e8e6"
@@ -604,6 +624,11 @@
       "path": "_v/src/alt-main.e37b8660abd26238.js",
       "bytes": 463708,
       "sha256": "b449f73a9cefe2b3bd947bccb80b0eb15109dec9c856b6162dcad98bfca64079"
+    },
+    {
+      "path": "_v/src/entry-experience.js",
+      "bytes": 13352,
+      "sha256": "dcb491fca6996ab7c55fdb820ebe9b246ab5bfdee0d30fdc2d03b223fc8056bd"
     },
     {
       "path": "_v/src/lake-prelude.18109bbad9a6df8e.js",
@@ -671,6 +696,16 @@
       "sha256": "e6fdb76dfeee8ad054cf1d8b8c81bac85876e4d4c334f1d7ae9a0b8cea85507b"
     },
     {
+      "path": "_v/src/social-sharing-init.js",
+      "bytes": 197,
+      "sha256": "c66e39a9e16f02f948b75efd55cdfeaabe403032e71e957257faae1671a0c5e5"
+    },
+    {
+      "path": "_v/src/social-sharing.js",
+      "bytes": 5293,
+      "sha256": "00f9c52fcc2ee441d67a21dfff4ab06ec6c9c973ce85241ef16a6dbd6856a4c6"
+    },
+    {
       "path": "_v/styles.cb6b238f72177f1a.css",
       "bytes": 38632,
       "sha256": "cb6b238f72177f1ac37d898430aae7533f0274e818001c6f2c2b3702ed1cab5d"
@@ -682,13 +717,13 @@
     },
     {
       "path": "index.html",
-      "bytes": 19114,
-      "sha256": "bcf2cae9e5fef2a6ecb503ed359f53a22266a41111d19dbaf99c0a4e5bc68dff"
+      "bytes": 25660,
+      "sha256": "3cce6594297555e221c45328528313f4e46edd1420b6686d1d78c72ae341dedb"
     },
     {
       "path": "package.json",
-      "bytes": 398,
-      "sha256": "20cf0fde7bd3b17f53bfbb91ce10bb8ee03d9e5a2fe5eaf4d128ca3977624cda"
+      "bytes": 482,
+      "sha256": "e769be8f32b9ef3afeb1be13f6beff984fc8cb683a244493966c1475ee797a4f"
     },
     {
       "path": "scripts/build-pages.mjs",
@@ -696,9 +731,24 @@
       "sha256": "b1eb3ca90f400728e2035d3a3450fc272c7480794191148924e8716b448bc5dd"
     },
     {
+      "path": "scripts/check-entry-experience.mjs",
+      "bytes": 12539,
+      "sha256": "b80e242ec2e757aa93ef1be355b94a39ee5220089880bee286406c47fe90a2ec"
+    },
+    {
+      "path": "scripts/check-social-sharing.mjs",
+      "bytes": 4299,
+      "sha256": "481907aca9320e90aef572d98243cefb7ddbf69a46069f31ee633646de8b2ba9"
+    },
+    {
       "path": "scripts/check.mjs",
-      "bytes": 8960,
-      "sha256": "6f4be267b3b715bdb6c74b7cf1eb533a450c2b58aa25af4472149a2795af7ef3"
+      "bytes": 9078,
+      "sha256": "4f039a1ad84f527cf054f75e63ff315969a1acde9a73a16f3b3014d87bfa12b2"
+    },
+    {
+      "path": "scripts/generate-share-card.swift",
+      "bytes": 4967,
+      "sha256": "494e91e439ef181cb74c4431e5b3b280b3cb46fff3cd4959d9499e03808774e1"
     },
     {
       "path": "scripts/region.mjs",

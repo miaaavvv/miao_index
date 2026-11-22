@@ -14,7 +14,7 @@ for (const asset of manifest.assets) {
   const info = await stat(new URL(asset.path.slice(1), root));
   assert.equal(info.size, asset.bytes, `Asset size mismatch: ${asset.path}`);
 }
-const sources = ['index.html', '_v/local-ui.css', '_v/src/local-ui.js', '_v/src/local-i18n.js', '_v/src/language-utils.js', '_v/src/portfolio.js', '_v/src/portfolio-content.js', '_v/src/project-water.js', '_v/src/project-gallery.js', '_v/src/project-water-layout.js', '_v/src/local-render-quality.js', '_v/src/local-performance.js', '_v/styles.cb6b238f72177f1a.css', '_v/alt.c7b141401fcc6ce2.css',
+const sources = ['_v/entry-experience.css', '_v/src/entry-experience.js', '_v/src/social-sharing.js', '_v/src/social-sharing-init.js', 'index.html', '_v/local-ui.css', '_v/src/local-ui.js', '_v/src/local-i18n.js', '_v/src/language-utils.js', '_v/src/portfolio.js', '_v/src/portfolio-content.js', '_v/src/project-water.js', '_v/src/project-gallery.js', '_v/src/project-water-layout.js', '_v/src/local-render-quality.js', '_v/src/local-performance.js', '_v/styles.cb6b238f72177f1a.css', '_v/alt.c7b141401fcc6ce2.css',
   '_v/src/alt-main.e37b8660abd26238.js', '_v/src/lake-prelude.18109bbad9a6df8e.js',
   '_v/src/scene-cycle.77d0cc14a6dc8426.js'];
 for (const source of sources) {
