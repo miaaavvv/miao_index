@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "snapshotDate": "2026-11-23",
   "archiveRoot": "MIAO",
-  "fileCount": 155,
-  "payloadBytes": 313379897,
+  "fileCount": 156,
+  "payloadBytes": 313391327,
   "files": [
     {
       "path": ".github/workflows/pages.yml",
@@ -27,13 +27,13 @@
     },
     {
       "path": "HANDOFF.md",
-      "bytes": 28087,
-      "sha256": "cc7d47282a9e1bf723e11e6d02ee2ec882f9852358d589db32b4db9013438301"
+      "bytes": 29918,
+      "sha256": "79806804635d02cd19deb5fa24845334bfcd811070875fe91b303048d9896df2"
     },
     {
       "path": "README.md",
-      "bytes": 18363,
-      "sha256": "10bfa9d0160a1385ca8f20f9479e726599c28581ec5cde7d4c145efdb1d05841"
+      "bytes": 18529,
+      "sha256": "9dfb700a214b2c055c01311c204812712751bad9e9dabbc9dc8e81501a8b2a50"
     },
     {
       "path": "WECHAT_SHARING.md",
@@ -637,8 +637,8 @@
     },
     {
       "path": "_v/src/alt-main.e37b8660abd26238.js",
-      "bytes": 463708,
-      "sha256": "b449f73a9cefe2b3bd947bccb80b0eb15109dec9c856b6162dcad98bfca64079"
+      "bytes": 465493,
+      "sha256": "67c9d268e4b7346baeb05cfe323c16b5c9c10a99570222ed7ddbcad55fa9ec69"
     },
     {
       "path": "_v/src/entry-experience.js",
@@ -672,8 +672,8 @@
     },
     {
       "path": "_v/src/local-ui.js",
-      "bytes": 9390,
-      "sha256": "f5d686c2fc57c1e66460f715aee946a245169a80c658abfc73892d337ea70c27"
+      "bytes": 9395,
+      "sha256": "bc911ec7cc0c38255f0d315b5528bc74df88d576eb79cca1f4181aea548c4c40"
     },
     {
       "path": "_v/src/portfolio-content.js",
@@ -732,13 +732,13 @@
     },
     {
       "path": "index.html",
-      "bytes": 25978,
-      "sha256": "cc1bd9575fd66ab6accebfa56b65cd48aebf7f0d81466679f2977b76a58f3632"
+      "bytes": 25980,
+      "sha256": "60b5643add464999850c1d396c35a3fe4445d07ac0c122a2fa525b0058599f84"
     },
     {
       "path": "package.json",
-      "bytes": 482,
-      "sha256": "e769be8f32b9ef3afeb1be13f6beff984fc8cb683a244493966c1475ee797a4f"
+      "bytes": 525,
+      "sha256": "5632b651d541b8792308bb198d790d57bacd052327f112ddb7e5ffde4e608709"
     },
     {
       "path": "scripts/build-pages.mjs",
@@ -749,6 +749,11 @@
       "path": "scripts/check-entry-experience.mjs",
       "bytes": 21443,
       "sha256": "c81d2fb022adc7cd04c3ad34e69b0cbc529e257b0be0ecdb23514265711a8bef"
+    },
+    {
+      "path": "scripts/check-progressive-lake.mjs",
+      "bytes": 7598,
+      "sha256": "03a8e000dde4dc883578d43914c7c6dbfa650513b77fbc3c6b45a93a0ecd0da1"
     },
     {
       "path": "scripts/check-social-sharing.mjs",

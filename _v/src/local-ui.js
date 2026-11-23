@@ -1,7 +1,7 @@
 import { initPerformance } from './local-performance.js?v=1';
 import { initProjectGallery } from './project-gallery.js?v=privacy-20261119';
 import { initLanguage, translate } from './local-i18n.js?v=brand-20261123';
-import { localLakeControls as lake } from './alt-main.e37b8660abd26238.js?v=mobile-20261118';
+import { localLakeControls as lake } from './alt-main.e37b8660abd26238.js?v=progressive-20261123';
 
 import { createWaterProjects } from './project-water.js?v=privacy-20261119';
 
