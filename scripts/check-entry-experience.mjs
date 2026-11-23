@@ -10,11 +10,12 @@ const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutation = true, browserLanguage = 'zh-CN', randomSeed = 1, random, session = new Map() } = {}) {
   const nodes = new Map();
   const all = [];
-  const timers = [];
+  const timers = new Map();
   const observers = [];
   const appended = [];
   const navigations = [];
   let now = 0;
+  let timerId = 0;
   let document;
   class Element {
     constructor(tag = 'div', attributes = {}) {
@@ -62,8 +63,9 @@ function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutati
   const brand = all.find(node => (node.attributes.class ?? '').split(/\s+/).includes('local-brand'));
   const body = new Element('body'); body.appendChild = node => { appended.push(node); return node; };
   const documentEvents = new Map();
+  const windowEvents = new Map();
   document = {
-    documentElement: root, body, activeElement: body,
+    documentElement: root, body, activeElement: body, hidden: false,
     getElementById: id => nodes.get(id),
     querySelector: selector => selector === '.lake' ? lake : selector === '.local-brand' ? brand : null,
     querySelectorAll(selector) {
@@ -90,9 +92,10 @@ function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutati
     document, navigator, location, Promise, Math: math, fetch() {}, AbortController,
     localStorage: { getItem() { return null; } },
     sessionStorage: { getItem(key) { return session.has(key) ? session.get(key) : null; }, setItem(key, value) { session.set(key, String(value)); } },
-    setTimeout(callback, delay = 0) { timers.push({ callback, at: now + delay }); return timers.length; },
-    clearTimeout() {},
+    setTimeout(callback, delay = 0) { const id = ++timerId; timers.set(id, { callback, at: now + delay }); return id; },
+    clearTimeout(id) { timers.delete(id); },
     open(url) { navigations.push(url); return null; },
+    addEventListener(type, callback) { windowEvents.set(type, callback); },
   };
   if (mutation) sandbox.MutationObserver = class {
     constructor(callback) { this.callback = callback; }
@@ -103,8 +106,8 @@ function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutati
   vm.runInNewContext(source, sandbox, { filename: 'entry-experience.js', timeout: 1000 });
   const advance = milliseconds => {
     now += milliseconds;
-    for (let i = 0; i < timers.length;) {
-      if (timers[i].at <= now) timers.splice(i, 1)[0].callback(); else i++;
+    for (const [id, timer] of timers) {
+      if (timer.at <= now) { timers.delete(id); timer.callback(); }
     }
   };
   return {
@@ -112,6 +115,9 @@ function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutati
     keywords: () => all.filter(node => /^rotate\d+$/.test(node.getAttribute('data-entry-text') ?? '')).map(node => node.textContent),
     keywordKeys: () => all.filter(node => /^rotate\d+$/.test(node.getAttribute('data-entry-text') ?? '')).map(node => node.getAttribute('data-entry-text')),
     ready() { root.classList.add('water-ready'); for (const observer of observers) if (observer.target === root) observer.callback([]); },
+    uiReady() { root.setAttribute('data-miao-ui-ready', 'true'); documentEvents.get('miao:uiready')?.({}); },
+    documentEvent(type) { documentEvents.get(type)?.({}); },
+    windowEvent(type) { windowEvents.get(type)?.({}); },
     loadModules() { for (const script of appended) script.onload?.(); },
     state: () => nodes.get('entry-screen').getAttribute('data-state'),
     language(value) { documentEvents.get('miao:languagechange')?.({ detail: { language: value } }); },
@@ -191,6 +197,21 @@ for (const expected of [
   app.appended[1].onload();
   assert.equal(app.node('entry-screen').hidden, true, 'The final module load should release an already-rendered page');
 }
+for (const order of ['scene-first', 'ui-first']) {
+  const app = entrance();
+  if (order === 'scene-first') app.ready(); else app.uiReady();
+  assert.equal(app.node('entry-screen').hidden, false, `${order}: wait for both a presented frame and initialized controls`);
+  if (order === 'scene-first') app.uiReady(); else app.ready();
+  assert.equal(app.node('entry-screen').hidden, true, `${order}: explicit UI readiness must release the entrance even without module load callbacks`);
+  assert.equal(app.lake.inert, false);
+}
+for (const signal of ['pageshow', 'visibilitychange']) {
+  const app = entrance();
+  app.root.classList.add('water-ready');
+  app.root.setAttribute('data-miao-ui-ready', 'true');
+  if (signal === 'pageshow') app.windowEvent(signal); else app.documentEvent(signal);
+  assert.equal(app.node('entry-screen').hidden, true, `${signal}: restored pages must reconcile an already-ready scene`);
+}
 {
   const app = entrance(); app.advance(9999);
   assert.equal(app.state(), 'loading');
@@ -200,6 +221,63 @@ for (const expected of [
   assert.equal(app.node('entry-retry').hidden, true);
   app.loadModules(); app.ready();
   assert.equal(app.node('entry-screen').hidden, true, 'A slow page can recover normally');
+}
+for (const browserLanguage of ['zh-CN', 'zh-TW', 'en-GB']) {
+  const app = entrance({ browserLanguage, wechat: true });
+  app.advance(44999);
+  assert.equal(app.state(), 'slow');
+  app.advance(1);
+  assert.equal(app.state(), 'timeout', 'A stalled first frame must eventually offer a recovery action');
+  assert.equal(app.node('entry-loading').hidden, true);
+  assert.equal(app.node('entry-retry').hidden, false);
+  assert.equal(app.node('entry-read').hidden, false);
+  assert.equal(app.node('entry-note').hidden, false);
+  assert.doesNotMatch(app.node('entry-headline').textContent, /Chrome|Safari|^timeout$/);
+  assert.doesNotMatch(app.node('entry-note').textContent, /^timeoutNote$/);
+  assert.equal(app.node('entry-browser').hidden, false);
+  if (browserLanguage === 'zh-CN') {
+    app.node('entry-retry').click();
+    assert.deepEqual(app.navigations, ['reload'], 'The timeout retry must perform a real page reload');
+  }
+  app.uiReady(); app.ready();
+  assert.equal(app.node('entry-screen').hidden, true, 'A late successful render must recover without requiring a reload');
+  assert.equal(app.node('entry-browser').hidden, true);
+}
+{
+  const app = entrance(); app.advance(45000);
+  app.node('entry-read').click();
+  app.uiReady(); app.ready(); app.advance(0);
+  assert.equal(app.state(), 'ready');
+  assert.equal(app.node('entry-screen').hidden, false, 'A timeout reader must not lose the summary when the scene arrives');
+  assert.equal(app.node('entry-details').hidden, false);
+  assert.equal(app.lake.inert, true);
+  assert.equal(app.node('entry-enter').hidden, false);
+  app.node('entry-enter').click();
+  assert.equal(app.node('entry-screen').hidden, true);
+  assert.equal(app.lake.inert, false);
+}
+{
+  const app = entrance(); app.advance(20000);
+  app.document.hidden = true; app.documentEvent('visibilitychange');
+  app.advance(90000);
+  assert.equal(app.state(), 'slow', 'Time spent hidden must not turn loading into a timeout');
+  app.document.hidden = false; app.documentEvent('visibilitychange');
+  app.advance(44999);
+  assert.equal(app.state(), 'slow', 'Returning to the page starts a fresh visible loading window');
+  app.advance(1);
+  assert.equal(app.state(), 'timeout');
+}
+for (const failure of ['renderer', 'module']) {
+  const app = entrance(); app.uiReady(); app.ready();
+  assert.equal(app.node('entry-screen').hidden, true);
+  if (failure === 'renderer') {
+    app.root.classList.add('webgl-unavailable'); app.documentEvent('visibilitychange');
+  } else app.appended[1].onerror();
+  assert.equal(app.state(), 'failed', `${failure}: a hard failure after readiness must show recovery`);
+  assert.equal(app.node('entry-screen').hidden, false);
+  assert.equal(app.node('entry-enter').hidden, true, `${failure}: do not offer entry into a failed scene`);
+  assert.equal(app.node('entry-retry').hidden, false);
+  assert.equal(app.lake.inert, true);
 }
 {
   const app = entrance({ wechat: true });
@@ -257,7 +335,7 @@ for (const expected of [
   assert.equal(app.node('entry-browser').hidden, false, 'WeChat recovery retains its browser-opening action');
   app.advance(10000);
   assert.equal(app.state(), 'failed', 'A network failure must not be softened into a slow load');
-  app.appended[0].onload(); app.ready();
+  app.appended[0].onload(); app.uiReady(); app.ready();
   assert.equal(app.state(), 'failed', 'An unrelated ready signal must not hide a failed application module');
   assert.equal(app.node('entry-screen').hidden, false);
   assert.equal(app.node('entry-details').hidden, false, 'The recovery summary remains readable after unrelated readiness');
@@ -294,4 +372,4 @@ for (const expected of [
   assert.match(app.node('browser-copy-status').textContent, expected.copy);
   assert.deepEqual(app.navigations, []);
 }
-console.log('Verified localized site titles, shuffled resume facts, no repeated visit opener, entrance-only WeChat guidance, readiness races, recovery reading and clipboard fallbacks.');
+console.log('Verified localized site titles, shuffled resume facts, entrance-only WeChat guidance, explicit UI/first-frame readiness, timeout recovery, preserved reading and clipboard fallbacks.');

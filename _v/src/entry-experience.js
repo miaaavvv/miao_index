@@ -11,6 +11,7 @@
   var failed = false;
   var loadFailed = false;
   var pendingModules = 0;
+  var loadTimer = 0;
   var opener;
   var guide = document.getElementById('browser-guide');
   var language = 'zh-Hans';
@@ -22,6 +23,7 @@
       slowNote:'加载比平时稍慢，你可以先读项目摘要，不必等待动效。',
       unsupported:'使用 Chrome 或者 Safari 打开', unsupportedNote:'当前环境无法运行完整的动态体验。你仍然可以在这里阅读简介和项目摘要。',
       failed:'动态场景暂时没有到达', failedNote:'网络或浏览器可能影响了场景加载。建议使用 Chrome 或 Safari 打开，也可以先阅读下方内容。',
+      timeout:'湖面加载有些久', timeoutNote:'场景资源暂未就绪。可以重新加载，或先读项目摘要；湖面准备好后会自动进入。',
       ready:'湖面已经就绪', enter:'进入湖面', read:'先读项目摘要', hideRead:'收起项目摘要', retry:'重新加载',
       browser:'使用系统浏览器打开', browserHint:'查看打开方式', guideTitle:'换一个窗口，继续这段旅程。',
       guideNote:'在微信中，请通过右上角菜单切换到系统浏览器。',
@@ -42,6 +44,7 @@
       waiting:'頁面正在載入中...', slow:'湖面還在準備，先認識一下我。', slowNote:'載入比平時稍慢，你可以先讀專案摘要，不必等待動效。',
       unsupported:'使用 Chrome 或 Safari 開啟', unsupportedNote:'目前環境無法執行完整的動態體驗。你仍然可以在這裡閱讀簡介與專案摘要。',
       failed:'動態場景暫時沒有到達', failedNote:'網路或瀏覽器可能影響了場景載入。建議使用 Chrome 或 Safari 開啟，也可以先閱讀下方內容。',
+      timeout:'湖面載入有些久', timeoutNote:'場景資源尚未就緒。可以重新載入，或先讀專案摘要；湖面準備好後會自動進入。',
       ready:'湖面已經就緒', enter:'進入湖面', read:'先讀專案摘要', hideRead:'收起專案摘要', retry:'重新載入',
       browser:'使用系統瀏覽器開啟', browserHint:'檢視開啟方式', guideTitle:'換一個視窗，繼續這段旅程。',
       guideNote:'在微信中，請透過右上角選單切換到系統瀏覽器。',
@@ -58,6 +61,7 @@
       waiting:'The page is loading...', slow:'While the lake takes shape, meet MIAO.', slowNote:'Loading is taking a little longer. You can read the project summaries without waiting for the animation.',
       unsupported:'Open in Chrome or Safari', unsupportedNote:'This environment cannot run the full interactive experience. You can still read my introduction and project summaries here.',
       failed:'The scene could not arrive just yet', failedNote:'The network or browser may have interrupted loading. Try Chrome or Safari, or read the summaries below.',
+      timeout:'The lake is taking a little longer', timeoutNote:'The scene resources are not ready yet. Reload or read the project summaries; the lake will open when ready.',
       ready:'The lake is ready', enter:'Enter the lake', read:'Read project summaries', hideRead:'Hide project summaries', retry:'Reload',
       browser:'Open in your system browser', browserHint:'See how to open', guideTitle:'A new window. The same journey.',
       guideNote:'In WeChat, use the top-right menu to continue in your system browser.',
@@ -91,7 +95,7 @@
     document.getElementById('entry-read').textContent=t(reading?'hideRead':'read');
     document.getElementById('entry-headline').textContent=t(failed ? screen.getAttribute('data-state') : 'headline');
     var note=screen.getAttribute('data-state');
-    document.getElementById('entry-note').textContent=t(note==='unsupported'?'unsupportedNote':note==='failed'?'failedNote':note==='slow'?'slowNote':'intro');
+    document.getElementById('entry-note').textContent=t(failed?note+'Note':note==='slow'?'slowNote':'intro');
     document.getElementById('entry-status').textContent=t(ready?'ready':'waiting');
     document.getElementById('entry-note').hidden=!failed;
     document.getElementById('entry-loading').hidden=failed || ready;
@@ -107,7 +111,8 @@
     language=/^zh.*(?:tw|hk|mo|hant)/.test(lang)?'zh-Hant':/^zh/.test(lang)?'zh-Hans':'en';
   }
   function show(mode) {
-    failed=mode==='unsupported'||mode==='failed';
+    failed=mode==='unsupported'||mode==='failed'||mode==='timeout';
+    if(failed)ready=false;
     screen.setAttribute('data-state',mode);screen.hidden=false;if(lake)lake.inert=true;
     document.getElementById('entry-retry').hidden=!failed;
     document.getElementById('entry-enter').hidden=!ready;
@@ -154,14 +159,19 @@
   function checkReadiness(){
     if(loadFailed){show('failed');return;}
     if(root.classList.contains('webgl-unavailable')) {show('failed');return;}
-    if(root.classList.contains('water-ready') && pendingModules===0) {
+    // The UI module imports the core itself. Its explicit completion signal is
+    // stronger than waiting for both injected script load callbacks to arrive.
+    var uiReady=root.getAttribute('data-miao-ui-ready')==='true';
+    if(root.classList.contains('water-ready') && (pendingModules===0 || uiReady)) {
+      clearTimeout(loadTimer);
       ready=true;failed=false;if(root.classList.contains('is-arriving'))root.classList.remove('is-arriving');screen.setAttribute('data-state','ready');
       document.getElementById('entry-enter').hidden=false;
       if(!reading)dismiss();else {translate();setTimeout(function(){if(reading&&!screen.hidden&&lake)lake.inert=true;},0);}
     }
   }
   var observer=new MutationObserver(checkReadiness);
-  observer.observe(root,{attributes:true,attributeFilter:['class']});
+  observer.observe(root,{attributes:true,attributeFilter:['class','data-miao-ui-ready']});
+  document.addEventListener('miao:uiready',checkReadiness);
   var capable=('noModule' in document.createElement('script'))&&typeof Promise!=='undefined'&&typeof fetch==='function'&&typeof AbortController!=='undefined';
   if(capable) {
     try {
@@ -179,4 +189,14 @@
     script.onerror=function(){loadFailed=true;show('failed');};document.body.appendChild(script);
   }
   setTimeout(function(){if(!ready&&!failed)show('slow');},10000);
+  // A stalled texture request must not leave an unusable loading button
+  // forever. Keep loading in the background so a genuine first frame recovers.
+  function armLoadTimeout(){
+    clearTimeout(loadTimer);
+    if(ready||failed||document.hidden)return;
+    loadTimer=setTimeout(function(){checkReadiness();if(!ready&&!failed&&!document.hidden)show('timeout');},45000);
+  }
+  document.addEventListener('visibilitychange',function(){checkReadiness();armLoadTimeout();});
+  window.addEventListener('pageshow',function(){checkReadiness();armLoadTimeout();});
+  armLoadTimeout();
 })();

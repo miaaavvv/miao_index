@@ -198,3 +198,8 @@ document.querySelectorAll('[data-close-core]').forEach(button => {
     requestAnimationFrame(() => document.getElementById(button.dataset.closeCore === 'time' ? 'time-button' : 'track-current-title').focus({ preventScroll: true }));
   });
 });
+
+// The entrance can release as soon as both the interface and a lake frame
+// exist, even if an embedded browser delays a module script's load callback.
+document.documentElement.setAttribute('data-miao-ui-ready', 'true');
+document.dispatchEvent(new CustomEvent('miao:uiready'));
