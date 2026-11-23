@@ -52,20 +52,23 @@ console.log('Verified public files contain no personal contact details, real nam
 const viewports = [[1280,720],[1440,900],[1000,720],[1280,480],[844,390],[768,1024],[690,954],[390,844],[390,640],[375,667],[320,568],[320,480],[320,390],[320,360],[667,375],[932,430],[360,640]];
 for (const [width,height] of viewports) {
   for (const detailLeft of [null, ...(width >= 1000 ? [width - 568] : [])]) {
-    const layout = layoutProjectCoordinates({width,height,detailLeft});
-    const boxes = layout.points.map(point => ({
-      left:point.x-layout.anchorX, right:point.x-layout.anchorX+layout.nodeWidth,
-      top:point.y-40, bottom:point.y-40+layout.nodeHeight,
-    }));
-    assert(layout.nodeHeight >= 44);
-    for (const box of boxes) {
-      assert(box.left >= 0 && box.right <= width-(width < 1000 ? 16 : 80), `Coordinate leaves horizontal bounds at ${width}x${height}`);
-      const readingBoundary = width < 1000 ? height - (height < 540 ? 68 : 174) : height - 72;
-      assert(box.top >= 90 && box.bottom <= readingBoundary, `Coordinate overlaps header/player at ${width}x${height}`);
-    }
-    for (let i=0;i<boxes.length;i++) for (let j=i+1;j<boxes.length;j++) {
-      const a=boxes[i],b=boxes[j];
-      assert(a.right <= b.left || b.right <= a.left || a.bottom <= b.top || b.bottom <= a.top, `Coordinate hit targets overlap at ${width}x${height}: ${i}/${j}`);
+    for (const count of new Set([portfolio.projects.length, 3, 4])) {
+      const layout = layoutProjectCoordinates({width,height,detailLeft,count});
+      assert.equal(layout.points.length, count, 'Generate one coordinate per actual project');
+      const boxes = layout.points.map(point => ({
+        left:point.x-layout.anchorX, right:point.x-layout.anchorX+layout.nodeWidth,
+        top:point.y-40, bottom:point.y-40+layout.nodeHeight,
+      }));
+      assert(layout.nodeHeight >= 44);
+      for (const box of boxes) {
+        assert(box.left >= 0 && box.right <= width-(width < 1000 ? 16 : 80), `Coordinate leaves horizontal bounds at ${width}x${height}`);
+        const readingBoundary = width < 1000 ? height - (height < 540 ? 68 : 174) : height - 72;
+        assert(box.top >= 90 && box.bottom <= readingBoundary, `Coordinate overlaps header/player at ${width}x${height}`);
+      }
+      for (let i=0;i<boxes.length;i++) for (let j=i+1;j<boxes.length;j++) {
+        const a=boxes[i],b=boxes[j];
+        assert(a.right <= b.left || b.right <= a.left || a.bottom <= b.top || b.bottom <= a.top, `Coordinate hit targets overlap at ${width}x${height}: ${i}/${j}`);
+      }
     }
   }
 }

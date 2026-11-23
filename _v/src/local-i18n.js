@@ -1,4 +1,4 @@
-import { renderPortfolio } from './portfolio.js?v=privacy-20261119';
+import { renderPortfolio } from './portfolio.js?v=projects-20261123';
 import { supportedLanguages, languageForCountry, browserCountry } from './language-utils.js';
 
 const messages = {
@@ -15,7 +15,7 @@ const messages = {
     sceneOptions: '场景选项', lakeControls: '湖面控制', interactiveLake: '互动湖面', traveling: '正在前往',
     siteTitle: 'MIAO · 产品与 AI', aboutTitle: '关于 MIAO',
     closeDesignViewer: '关闭大图', previousDesign: '上一张界面图', nextDesign: '下一张界面图',
-    waterProjects: '水面项目导航', waterProjectsHint: '04 个项目 · 点击坐标探索', exitProjects: '返回湖面', backToCoordinates: '返回项目坐标', switchProject: '切换项目', previousProject: '上一个项目', nextProject: '下一个项目',
+    waterProjects: '水面项目导航', waterProjectsHint: '03 个项目 · 点击坐标探索', exitProjects: '返回湖面', backToCoordinates: '返回项目坐标', switchProject: '切换项目', previousProject: '上一个项目', nextProject: '下一个项目',
   },
   'zh-Hant': {
     scene: '場景', projects: '專案', about: '個人介紹', education: '教育經歷', closeEducation: '關閉教育經歷', closeAbout: '關閉個人介紹', quickNav: '快捷導覽', navigation: '網站導覽', language: '語言',
@@ -30,7 +30,7 @@ const messages = {
     sceneOptions: '場景選項', lakeControls: '湖面控制', interactiveLake: '互動湖面', traveling: '正在前往',
     siteTitle: 'MIAO · 產品與 AI', aboutTitle: '關於 MIAO',
     closeDesignViewer: '關閉大圖', previousDesign: '上一張介面圖', nextDesign: '下一張介面圖',
-    waterProjects: '水面專案導覽', waterProjectsHint: '04 個專案 · 點擊座標探索', exitProjects: '返回湖面', backToCoordinates: '返回專案座標', switchProject: '切換專案', previousProject: '上一個專案', nextProject: '下一個專案',
+    waterProjects: '水面專案導覽', waterProjectsHint: '03 個專案 · 點擊座標探索', exitProjects: '返回湖面', backToCoordinates: '返回專案座標', switchProject: '切換專案', previousProject: '上一個專案', nextProject: '下一個專案',
   },
   en: {
     scene: 'Scene', projects: 'Projects', about: 'About', education: 'Education', closeEducation: 'Close education', closeAbout: 'Close about', quickNav: 'Quick navigation', navigation: 'Site navigation', language: 'Language',
@@ -45,7 +45,7 @@ const messages = {
     sceneOptions: 'Scene options', lakeControls: 'Lake controls', interactiveLake: 'Interactive lake', traveling: 'Traveling',
     siteTitle: 'MIAO · Product & AI', aboutTitle: 'About MIAO',
     closeDesignViewer: 'Close image viewer', previousDesign: 'Previous screen', nextDesign: 'Next screen',
-    waterProjects: 'Project coordinates on the water', waterProjectsHint: '04 projects · Follow the ripples', exitProjects: 'Back to the lake', backToCoordinates: 'Back to project coordinates', switchProject: 'Switch project', previousProject: 'Previous project', nextProject: 'Next project',
+    waterProjects: 'Project coordinates on the water', waterProjectsHint: '03 projects · Follow the ripples', exitProjects: 'Back to the lake', backToCoordinates: 'Back to project coordinates', switchProject: 'Switch project', previousProject: 'Previous project', nextProject: 'Next project',
   },
 };
 

@@ -34,7 +34,6 @@
       mix:'AI 交互式混音', mixNote:'设计生成、编辑与质量评测的完整体验。',
       agent:'Multi-Agent 内容生产', agentNote:'AI 拆书、审核，再发布到岛读 App。',
       sleep:'睡眠监测可靠性', sleepNote:'从进程消耗、平台能力与官方沟通推进保活方案。',
-      tracker:'Deeptracker', trackerNote:'围绕投资分析场景，构建产品体验并优化模型成本。',
       small:'C 端产品经验 · B 端 SaaS 实践 · 从需求到交付',
       nojs:'当前浏览器未运行 JavaScript。你可以先阅读这些内容，或使用启用 JavaScript 的 Chrome / Safari 打开。'
     },
@@ -52,7 +51,7 @@
       copy:'複製連結', copied:'連結已複製', select:'請長按連結複製', close:'關閉開啟方式', projects:'我正在做的事',
       rotate1:'在格拉斯哥藝術學院，讀過服務設計碩士', rotate2:'本科在寧波諾丁漢，學習工業設計', rotate3:'做過 C 端產品，也做過 B 端 SaaS', rotate4:'在潮汐，探索冥想與睡眠產品', rotate5:'讓 AI 混音，保留繼續編輯的空間', rotate6:'讓 AI 拆出的書摘，走進島讀 App', rotate7:'讓 Agent 一起工作，也讓審核可追溯', rotate8:'為整夜睡眠監測，推進更穩的方案', rotate9:'在 36 氪，把使用者訪談變成產品設計', rotate10:'做過面向美股投資者的 AI 產品', rotate11:'最佳化 RAG，讓檢索結果更準確', rotate12:'用 200 條 Case，檢驗 AI 生成品質', rotate13:'用批次評測工具，減少重複測試', rotate14:'從使用者訪談，走到 A/B 實驗與驗證', rotate15:'藉助 AI，參與從需求到上線的交付', rotate16:'和 Codex、AirBuild 一起，把想法做出來',
       mix:'AI 互動式混音', mixNote:'設計生成、編輯與品質評測的完整體驗。', agent:'Multi-Agent 內容生產', agentNote:'AI 拆書、審核，再發布到島讀 App。',
-      sleep:'睡眠監測可靠性', sleepNote:'從程序消耗、平台能力與官方溝通推進保活方案。', tracker:'Deeptracker', trackerNote:'圍繞投資分析情境，建構產品體驗並最佳化模型成本。',
+      sleep:'睡眠監測可靠性', sleepNote:'從程序消耗、平台能力與官方溝通推進保活方案。',
       small:'C 端產品經驗 · B 端 SaaS 實踐 · 從需求到交付', nojs:'目前瀏覽器未執行 JavaScript。可先閱讀內容，或使用啟用 JavaScript 的 Chrome / Safari 開啟。'
     },
     en: {
@@ -69,7 +68,7 @@
       copy:'Copy link', copied:'Link copied', select:'Press and hold the link to copy it', close:'Close browser instructions', projects:'What I work on',
       rotate1:'Master’s · Glasgow School of Art', rotate2:'Industrial design at Nottingham Ningbo', rotate3:'Consumer products and B2B SaaS', rotate4:'Meditation and sleep products at TIDE', rotate5:'AI sound mixing that users can still edit', rotate6:'AI book notes, published in Daodu', rotate7:'Agents working together, traceable reviews', rotate8:'More reliable overnight sleep monitoring', rotate9:'User interviews shaping products at 36Kr', rotate10:'AI tools for US-equity investors', rotate11:'Better retrieval through RAG improvements', rotate12:'200 cases to evaluate AI generation', rotate13:'Batch evaluation, less repetitive testing', rotate14:'From interviews to A/B experiments', rotate15:'With AI, from requirements to release', rotate16:'Building ideas with Codex and AirBuild',
       mix:'AI interactive mixing', mixNote:'A complete experience for generating, editing and evaluating creative output.', agent:'Multi-agent content production', agentNote:'AI book extraction and review, published to Daodu.',
-      sleep:'Reliable sleep monitoring', sleepNote:'Background reliability through resource efficiency, platform capabilities and official communication.', tracker:'Deeptracker', trackerNote:'Investment analysis experiences and lower model costs.',
+      sleep:'Reliable sleep monitoring', sleepNote:'Background reliability through resource efficiency, platform capabilities and official communication.',
       small:'Consumer products · B2B SaaS · From requirements to delivery', nojs:'JavaScript is unavailable. Read the content here, or open in Chrome / Safari with JavaScript enabled.'
     }
   };

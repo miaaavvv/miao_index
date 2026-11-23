@@ -3,7 +3,7 @@
   "snapshotDate": "2026-11-23",
   "archiveRoot": "MIAO",
   "fileCount": 156,
-  "payloadBytes": 313410558,
+  "payloadBytes": 313407623,
   "files": [
     {
       "path": ".github/workflows/pages.yml",
@@ -27,13 +27,13 @@
     },
     {
       "path": "HANDOFF.md",
-      "bytes": 31869,
-      "sha256": "c6fa76e8501f715d4e9e3491c251866f18751a20966485aa2b7ad675e988ef5e"
+      "bytes": 32787,
+      "sha256": "4ee6168a3e48cb912463df742207058defc26c72646a7707aabc4d75d6709f0c"
     },
     {
       "path": "README.md",
-      "bytes": 18529,
-      "sha256": "9dfb700a214b2c055c01311c204812712751bad9e9dabbc9dc8e81501a8b2a50"
+      "bytes": 18514,
+      "sha256": "d5476799843a4046c0f3776c879714dce5d010b12a766f9e6b19d798ec5f74cc"
     },
     {
       "path": "WECHAT_SHARING.md",
@@ -642,8 +642,8 @@
     },
     {
       "path": "_v/src/entry-experience.js",
-      "bytes": 18276,
-      "sha256": "8483316319db86027652dfb05822f7756404b39a946d36dec8119f7ff72c74f2"
+      "bytes": 17958,
+      "sha256": "b4da0a49cadf788ae66497a78994630ffdf5dc914abe0dbf3d41d1e7d3f06e01"
     },
     {
       "path": "_v/src/lake-prelude.18109bbad9a6df8e.js",
@@ -657,8 +657,8 @@
     },
     {
       "path": "_v/src/local-i18n.js",
-      "bytes": 13648,
-      "sha256": "cba378d8794a9655885b1519555b64c7f8da20bebc691683a5f626f895983a40"
+      "bytes": 13649,
+      "sha256": "fee876530d960eac9a310b6294352a6a996f774eb6291eb076bd1dcf9d499ccc"
     },
     {
       "path": "_v/src/local-performance.js",
@@ -672,23 +672,23 @@
     },
     {
       "path": "_v/src/local-ui.js",
-      "bytes": 9395,
-      "sha256": "2587702c1965cf923206479326dc1dabe92260e40c333b8ae7a371e081403fef"
+      "bytes": 9400,
+      "sha256": "49c963bfbfb5e7a2b46e34875830d9fa9223e12e5b4b17df3b458deb5b5c69fb"
     },
     {
       "path": "_v/src/portfolio-content.js",
-      "bytes": 38905,
-      "sha256": "72f64f6f4f36906600fbc2929f8345788f96b8137906e752e3aff5c47760ed40"
+      "bytes": 35162,
+      "sha256": "67a5c053cc6a35cf3a42d44d4bfc8f2ac9c26d15d72d61df5b6d3506deaa439e"
     },
     {
       "path": "_v/src/portfolio.js",
-      "bytes": 7295,
-      "sha256": "47983f388323e09f8c14ec02a9a2200d4e26a297de73b31abeaff9f7c76a1856"
+      "bytes": 7296,
+      "sha256": "0f3794b992abd53fb0fedd053bbbea5ea9578e7355835df27acbad8e2ac636f4"
     },
     {
       "path": "_v/src/project-gallery.js",
-      "bytes": 7549,
-      "sha256": "29df3b72dcc24de03e5356f42bb27eeeeb0c3b56cb5027ad1b809ede1d96bc6e"
+      "bytes": 7550,
+      "sha256": "729069e356bf8e680ef49c58e6ffcafb08539d8c332e7baf82a83c24ea52eadb"
     },
     {
       "path": "_v/src/project-image-theme.js",
@@ -697,13 +697,13 @@
     },
     {
       "path": "_v/src/project-water-layout.js",
-      "bytes": 2150,
-      "sha256": "db4ec6192852c2cd5b1e9f2b39de85fcdd300b22539e429a48c0f5a44b0eb9e5"
+      "bytes": 2370,
+      "sha256": "5ce7e7593f6aa121e274ebba8f86938365aeb7b13fda9145a964ae96aa734b74"
     },
     {
       "path": "_v/src/project-water.js",
-      "bytes": 12649,
-      "sha256": "78ec77b2ee388d9a74ab63c3bf20a23ef05c4779d8565a2952336823758d21c7"
+      "bytes": 12674,
+      "sha256": "da07fed13e38810ccf89bb4ba1eb4e62170d74b43f79eab941f55580558824ab"
     },
     {
       "path": "_v/src/scene-cycle.77d0cc14a6dc8426.js",
@@ -732,8 +732,8 @@
     },
     {
       "path": "index.html",
-      "bytes": 27265,
-      "sha256": "fa670a4eed4487597fa63f8a273ae8bd5b29da191426b14c5e0e3f530f8e716b"
+      "bytes": 27028,
+      "sha256": "75ded7ec1e62315df7fddc574b621d32ab17bed7a816c2641f7d511e9ecb5899"
     },
     {
       "path": "package.json",
@@ -762,8 +762,8 @@
     },
     {
       "path": "scripts/check.mjs",
-      "bytes": 9078,
-      "sha256": "4f039a1ad84f527cf054f75e63ff315969a1acde9a73a16f3b3014d87bfa12b2"
+      "bytes": 9285,
+      "sha256": "7a1f76b92cec69f2c18c111787267121ff14848a576f7b1268aef3cd6bf0fa24"
     },
     {
       "path": "scripts/generate-share-card.swift",

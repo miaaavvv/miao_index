@@ -1,4 +1,4 @@
-import { portfolio } from './portfolio-content.js?v=privacy-20261119';
+import { portfolio } from './portfolio-content.js?v=projects-20261123';
 import { screenshotForTheme } from './project-image-theme.js?v=privacy-20261119';
 
 const text = (value, language) => typeof value === 'string' ? value : value[language] ?? value.en;

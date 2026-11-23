@@ -1,6 +1,6 @@
-import { portfolio } from './portfolio-content.js?v=privacy-20261119';
-import { projectDetailMarkup } from './portfolio.js?v=privacy-20261119';
-import { layoutProjectCoordinates } from './project-water-layout.js?v=mobile-20261118';
+import { portfolio } from './portfolio-content.js?v=projects-20261123';
+import { projectDetailMarkup } from './portfolio.js?v=projects-20261123';
+import { layoutProjectCoordinates } from './project-water-layout.js?v=projects-20261123';
 
 const pick = (value, language) => typeof value === 'string' ? value : value[language] ?? value.en;
 const twoDigits = value => String(value).padStart(2, '0');
@@ -108,7 +108,7 @@ export function createWaterProjects({ lake, translate: t, navigationButton }) {
     layoutFrame = undefined;
     if (!opened) return;
     const wideDrawer = innerWidth >= 1000 && selected !== null;
-    const layout = layoutProjectCoordinates({ width: innerWidth, height: innerHeight, detailLeft: wideDrawer ? detail.offsetLeft : null });
+    const layout = layoutProjectCoordinates({ width: innerWidth, height: innerHeight, detailLeft: wideDrawer ? detail.offsetLeft : null, count: nodes.length });
     root.style.setProperty('--node-width', `${layout.nodeWidth}px`);
     root.style.setProperty('--anchor-x', `${layout.anchorX}px`);
     root.style.setProperty('--node-height', `${layout.nodeHeight}px`);

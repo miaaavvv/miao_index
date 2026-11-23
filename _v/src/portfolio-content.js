@@ -173,24 +173,6 @@ export const portfolio = {
         { title: localized("权限引导 A/B 实验", "權限引導 A/B 實驗", "Permission-guidance A/B experiment"), description: localized("安卓实验覆盖 2,000+ 用户，权限开启率提升 3%–5%，引导完成率达 95%，保活率提升 3%；这组结果对应引导实验。", "Android 實驗涵蓋 2,000+ 使用者，權限開啟率提升 3%–5%，引導完成率達 95%，保活率提升 3%；這組成果對應引導實驗。", "The Android guidance experiment covered 2,000+ users: permission enablement improved 3%–5%, completion reached 95%, and survival improved 3%. These results refer specifically to the guidance experiment.") },
       ],
     },
-    {
-      id: 'deeptracker', navTitle: localized('Deeptracker', 'Deeptracker', 'Deeptracker'), company: localized('晓多科技', '曉多科技', 'Xiaoduo Technology'), period: '2025.08 — 2025.12',
-      title: localized('Deeptracker 投资信息产品', 'Deeptracker 投資資訊產品', 'Deeptracker investment research'),
-      subtitle: localized('从策略追踪，转向个股级舆情与事件分析。', '從策略追蹤，轉向個股級輿情與事件分析。', 'Refocusing on stock-level sentiment and event analysis.'),
-      tags: ['Product Strategy', 'LLM', 'Embedding'],
-      metrics: [
-        ['≈60% ↓', localized('整体 Token 消耗', '整體 Token 消耗', 'Overall token usage')],
-        ['≈30% ↑', localized('图谱交互率', '圖譜互動率', 'Graph interaction rate')],
-        ['13% ↑', localized('七日留存', '七日留存', 'Seven-day retention')],
-      ],
-      challenge: localized('在留存率不足 10% 的背景下，产品需要重新确认投资者的高价值场景，同时减少重复 LLM 调用和过长全文输入带来的成本。', '在留存率不足 10% 的背景下，產品需要重新確認投資者的高價值情境，同時減少重複 LLM 呼叫與過長全文輸入帶來的成本。', 'With retention below 10%, the product needed to identify higher-value investor use cases while reducing duplicate LLM calls and excessive full-text input.'),
-      approach: [
-        localized('访谈 8 位欧美资深投资者并开展竞品分析，推动从策略追踪转向个股级舆情追踪，按“概览—事件—深度分析”设计并落地个股详情页。', '訪談 8 位歐美資深投資者並進行競品分析，推動從策略追蹤轉向個股級輿情追蹤，依「概覽—事件—深度分析」設計並落地個股詳情頁。', 'Interviewed eight experienced European and US investors, helping shift the product from strategy tracking to stock-level sentiment. Designed and shipped a stock page organized around overview, events and deeper analysis.'),
-        localized('合并需要全文输入的任务，后续分析用摘要替代全文；在事件聚合、图谱召回及 AI 搜索中以 Embedding 替代部分 LLM 推理，将召回收敛至 top 5。', '合併需要全文輸入的任務，後續分析以摘要取代全文；在事件聚合、圖譜召回與 AI 搜尋中以 Embedding 取代部分 LLM 推理，將召回收斂至 top 5。', 'Combined tasks requiring full text, reused summaries downstream, and replaced some LLM reasoning with embeddings for event aggregation, graph retrieval and AI search, narrowing retrieval to the top five candidates.'),
-        localized('建立访问与交互埋点，将 AI 摘要前置并将事件图谱调整为桑基图，完成原型与 AI demo，结合数据推进体验优化。', '建立造訪與互動埋點，將 AI 摘要前置並將事件圖譜調整為桑基圖，完成原型與 AI demo，結合數據推進體驗優化。', 'Instrumented page visits and interactions, moved AI summaries forward, and redesigned the event graph as a Sankey diagram, producing prototypes and an AI demo.'),
-      ],
-      outcome: localized('事件聚合准确率达 92%，图谱交互率提升约 30%，七日留存提升 13%；整体 Token 消耗降低约 60%，月度模型成本由约 8k 降至 4k–5k。', '事件聚合準確率達 92%，圖譜互動率提升約 30%，七日留存提升 13%；整體 Token 消耗降低約 60%，每月模型成本由約 8k 降至 4k–5k。', 'Event aggregation accuracy reached 92%, graph interaction rose about 30%, and seven-day retention improved 13%. Overall token usage fell about 60%, with monthly model cost reduced from around 8k to 4k–5k.'),
-    },
   ],
   experience: [
     { company: localized("潮汐", "潮汐", "TIDE"), role: localized("产品经理", "產品經理", "Product Manager"), period: "2026.01 — 2026.10", city: localized("广州", "廣州", "Guangzhou"), description: localized("负责成熟期冥想与睡眠 App 的核心迭代、AI 交互式混音、睡眠监测可靠性与内部多 Agent 内容生产，覆盖产品策略、功能设计、Prompt 优化、评测、工作流编排及数据分析；借助 AI 交付混音管理后台。", "負責成熟期冥想與睡眠 App 的核心迭代、AI 互動式混音、睡眠監測可靠性與內部多 Agent 內容生產，涵蓋產品策略、功能設計、Prompt 優化、評測、工作流程編排及數據分析；藉助 AI 交付混音管理後台。", "Led core improvements to a mature meditation and sleep app, AI sound mixing, sleep-monitoring reliability and internal multi-agent content production. Work spanned strategy, design, prompts, evaluation, workflow orchestration and data analysis, alongside AI-assisted delivery of the mixing admin tool.") },
