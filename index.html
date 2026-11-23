@@ -36,20 +36,35 @@
     <link rel="icon" href="/_p/miao-icon.png?v=brand-20261123" type="image/png" sizes="192x192" />
     <link id="miao-favicon" rel="icon" href="/_p/miao-icon.svg?v=brand-20261123" type="image/svg+xml" sizes="any" />
     <link rel="apple-touch-icon" href="/_p/miao-apple-touch-icon.png?v=brand-20261123" sizes="180x180" />
-    <link
-      rel="preload"
-      href="/_p/7b41aa2b1b4af1046f7aa5acd120"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/_p/6a25c7e5fe41114cc4a20c4e05e7"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
+    <script id="miao-startup-preload">
+    // Discover the complete entrance module graph before styles or scripts wait.
+    (function () {
+      var capable=('noModule' in document.createElement('script'))&&typeof Promise!=='undefined'&&typeof fetch==='function'&&typeof AbortController!=='undefined'&&typeof MutationObserver!=='undefined';
+      if(capable)try{
+        var probe=document.createElement('canvas'),gl=probe.getContext('webgl2');capable=!!gl;
+        if(gl){var lose=gl.getExtension('WEBGL_lose_context');if(lose)lose.loseContext();}
+      }catch(e){capable=false;}
+      document.documentElement.setAttribute('data-miao-webgl2',String(capable));
+      if(!capable)return;
+      var modules=[
+        '/_v/src/alt-main.e37b8660abd26238.js?v=quick-entry-20261123',
+        '/_v/src/local-ui.js?v=quick-entry-20261123',
+        '/_v/src/local-render-quality.js?v=1',
+        '/_v/src/local-performance.js?v=1',
+        '/_v/src/project-gallery.js?v=privacy-20261119',
+        '/_v/src/local-i18n.js?v=brand-20261123',
+        '/_v/src/project-water.js?v=privacy-20261119',
+        '/_v/src/portfolio-content.js?v=privacy-20261119',
+        '/_v/src/portfolio.js?v=privacy-20261119',
+        '/_v/src/project-water-layout.js?v=mobile-20261118',
+        '/_v/src/project-image-theme.js?v=privacy-20261119',
+        '/_v/src/language-utils.js'
+      ];
+      for(var i=0;i<modules.length;i++){
+        var link=document.createElement('link');link.rel='modulepreload';link.href=modules[i];document.head.appendChild(link);
+      }
+    })();
+    </script>
     <script src="/_v/src/lake-prelude.18109bbad9a6df8e.js?v=18109bbad9a6df8e"></script>
     <link rel="stylesheet" href="/_v/styles.cb6b238f72177f1a.css?v=cb6b238f72177f1a" />
   <link rel="stylesheet" href="/_v/alt.c7b141401fcc6ce2.css?v=c7b141401fcc6ce2" />
@@ -103,9 +118,9 @@ html.is-alt-layout .interface-control,html.is-alt-layout .about-panel,html.is-al
 .is-arriving .lake>:not(canvas){opacity:0!important;visibility:hidden!important}
 .water-ready #traveling,.webgl-unavailable #traveling{visibility:hidden}
 @media(prefers-reduced-motion:reduce){#water,#fallback-water,.is-arriving .interface,.arrival-revealing .interface{transition:none!important}}
-</style><script>document.documentElement.classList.add('is-arriving')</script><script src="/_v/src/scene-cycle.77d0cc14a6dc8426.js?v=3"></script><link rel="stylesheet" href="/_v/local-ui.css?v=privacy-20261119" />
+</style><script>document.documentElement.classList.add('is-arriving')</script><script defer src="/_v/src/scene-cycle.77d0cc14a6dc8426.js?v=3"></script><link rel="stylesheet" href="/_v/local-ui.css?v=privacy-20261119" />
 <link rel="stylesheet" href="/_v/entry-experience.css?v=entry-recovery-20261123" />
-<script defer src="/_v/src/entry-experience.js?v=entry-recovery-20261123"></script>
+<script defer src="/_v/src/entry-experience.js?v=quick-entry-20261123"></script>
 <script type="module" src="/_v/src/social-sharing-init.js?v=social-20261123"></script>
 </head>
   <body data-lake-view="alt">
@@ -373,7 +388,7 @@ html.is-alt-layout .interface-control,html.is-alt-layout .about-panel,html.is-al
       </aside>
     </main>
 
-    <script type="application/x-miao-module" data-lake-module src="/_v/src/alt-main.e37b8660abd26238.js?v=progressive-20261123"></script>
-    <script type="application/x-miao-module" data-lake-module src="/_v/src/local-ui.js?v=progressive-20261123"></script>
+    <script type="application/x-miao-module" data-lake-module src="/_v/src/alt-main.e37b8660abd26238.js?v=quick-entry-20261123"></script>
+    <script type="application/x-miao-module" data-lake-module src="/_v/src/local-ui.js?v=quick-entry-20261123"></script>
 </body>
 </html>

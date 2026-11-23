@@ -3,7 +3,7 @@
   "snapshotDate": "2026-11-23",
   "archiveRoot": "MIAO",
   "fileCount": 156,
-  "payloadBytes": 313391327,
+  "payloadBytes": 313410558,
   "files": [
     {
       "path": ".github/workflows/pages.yml",
@@ -27,8 +27,8 @@
     },
     {
       "path": "HANDOFF.md",
-      "bytes": 29918,
-      "sha256": "79806804635d02cd19deb5fa24845334bfcd811070875fe91b303048d9896df2"
+      "bytes": 31869,
+      "sha256": "c6fa76e8501f715d4e9e3491c251866f18751a20966485aa2b7ad675e988ef5e"
     },
     {
       "path": "README.md",
@@ -637,13 +637,13 @@
     },
     {
       "path": "_v/src/alt-main.e37b8660abd26238.js",
-      "bytes": 465493,
-      "sha256": "67c9d268e4b7346baeb05cfe323c16b5c9c10a99570222ed7ddbcad55fa9ec69"
+      "bytes": 469859,
+      "sha256": "2a50cb7d961e672886bd58c0913b7a0d0781d55669500728b92b366be19387d9"
     },
     {
       "path": "_v/src/entry-experience.js",
-      "bytes": 18157,
-      "sha256": "9b1f3f76c9059346d71f8628e54ac3a4557385e0ab60295ddfc7e6c727a61d80"
+      "bytes": 18276,
+      "sha256": "8483316319db86027652dfb05822f7756404b39a946d36dec8119f7ff72c74f2"
     },
     {
       "path": "_v/src/lake-prelude.18109bbad9a6df8e.js",
@@ -673,7 +673,7 @@
     {
       "path": "_v/src/local-ui.js",
       "bytes": 9395,
-      "sha256": "bc911ec7cc0c38255f0d315b5528bc74df88d576eb79cca1f4181aea548c4c40"
+      "sha256": "2587702c1965cf923206479326dc1dabe92260e40c333b8ae7a371e081403fef"
     },
     {
       "path": "_v/src/portfolio-content.js",
@@ -732,8 +732,8 @@
     },
     {
       "path": "index.html",
-      "bytes": 25980,
-      "sha256": "60b5643add464999850c1d396c35a3fe4445d07ac0c122a2fa525b0058599f84"
+      "bytes": 27265,
+      "sha256": "fa670a4eed4487597fa63f8a273ae8bd5b29da191426b14c5e0e3f530f8e716b"
     },
     {
       "path": "package.json",
@@ -747,13 +747,13 @@
     },
     {
       "path": "scripts/check-entry-experience.mjs",
-      "bytes": 21443,
-      "sha256": "c81d2fb022adc7cd04c3ad34e69b0cbc529e257b0be0ecdb23514265711a8bef"
+      "bytes": 23908,
+      "sha256": "c75d124c4135c053003ad86e96b9827fa30e205036b18253076b359975d4c734"
     },
     {
       "path": "scripts/check-progressive-lake.mjs",
-      "bytes": 7598,
-      "sha256": "03a8e000dde4dc883578d43914c7c6dbfa650513b77fbc3c6b45a93a0ecd0da1"
+      "bytes": 16643,
+      "sha256": "cadbcdd53dbf907f5169584aed68c1e2de7f9ae9447902b1ec658b7f591a7ec3"
     },
     {
       "path": "scripts/check-social-sharing.mjs",

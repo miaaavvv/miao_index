@@ -4,18 +4,22 @@ import vm from 'node:vm';
 
 const source = await readFile(new URL('../_v/src/entry-experience.js', import.meta.url), 'utf8');
 const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+const preloadSource = html.match(/<script id="miao-startup-preload">([\s\S]*?)<\/script>/)?.[1];
+assert(preloadSource, 'Keep the capability-gated startup preload in the document head');
 
 // A deliberately small browser boundary, with the real page's IDs and data
 // attributes. No GPU, network or wall-clock waits are involved in these checks.
-function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutation = true, browserLanguage = 'zh-CN', randomSeed = 1, random, session = new Map() } = {}) {
+function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutation = true, startup = false, preflight, browserLanguage = 'zh-CN', randomSeed = 1, random, session = new Map() } = {}) {
   const nodes = new Map();
   const all = [];
   const timers = new Map();
   const observers = [];
   const appended = [];
+  const preloads = [];
   const navigations = [];
   let now = 0;
   let timerId = 0;
+  let probes = 0;
   let document;
   class Element {
     constructor(tag = 'div', attributes = {}) {
@@ -59,13 +63,14 @@ function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutati
     all.push(node);
   }
   const root = new Element('html', { class: 'is-alt-layout is-arriving' });
+  if (preflight !== undefined) root.setAttribute('data-miao-webgl2', String(preflight));
   const lake = all.find(node => (node.attributes.class ?? '').split(/\s+/).includes('lake'));
   const brand = all.find(node => (node.attributes.class ?? '').split(/\s+/).includes('local-brand'));
   const body = new Element('body'); body.appendChild = node => { appended.push(node); return node; };
   const documentEvents = new Map();
   const windowEvents = new Map();
   document = {
-    documentElement: root, body, activeElement: body, hidden: false,
+    documentElement: root, body, head: { appendChild: node => preloads.push(node) }, activeElement: body, hidden: false,
     getElementById: id => nodes.get(id),
     querySelector: selector => selector === '.lake' ? lake : selector === '.local-brand' ? brand : null,
     querySelectorAll(selector) {
@@ -75,8 +80,10 @@ function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutati
     createElement(tag) {
       const node = new Element(tag);
       if (tag === 'script') node.noModule = false;
-      if (tag === 'canvas') node.getContext = kind => kind === 'webgl2' && webgl2
-        ? { getExtension: () => ({ loseContext() {} }) } : null;
+      if (tag === 'canvas') node.getContext = kind => {
+        probes++;
+        return kind === 'webgl2' && webgl2 ? { getExtension: () => ({ loseContext() {} }) } : null;
+      };
       return node;
     },
     addEventListener(type, callback) { documentEvents.set(type, callback); },
@@ -103,6 +110,7 @@ function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutati
     disconnect() {}
   };
   sandbox.window = sandbox;
+  if (startup) vm.runInNewContext(preloadSource, sandbox, { filename: 'miao-startup-preload.js', timeout: 1000 });
   vm.runInNewContext(source, sandbox, { filename: 'entry-experience.js', timeout: 1000 });
   const advance = milliseconds => {
     now += milliseconds;
@@ -111,7 +119,8 @@ function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutati
     }
   };
   return {
-    node: id => nodes.get(id), root, lake, brand, appended, navigations, document, advance, session,
+    node: id => nodes.get(id), root, lake, brand, appended, preloads, navigations, document, advance, session,
+    probes: () => probes,
     keywords: () => all.filter(node => /^rotate\d+$/.test(node.getAttribute('data-entry-text') ?? '')).map(node => node.textContent),
     keywordKeys: () => all.filter(node => /^rotate\d+$/.test(node.getAttribute('data-entry-text') ?? '')).map(node => node.getAttribute('data-entry-text')),
     ready() { root.classList.add('water-ready'); for (const observer of observers) if (observer.target === root) observer.callback([]); },
@@ -122,6 +131,43 @@ function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutati
     state: () => nodes.get('entry-screen').getAttribute('data-state'),
     language(value) { documentEvents.get('miao:languagechange')?.({ detail: { language: value } }); },
   };
+}
+
+{
+  const app = entrance({ startup: true });
+  const graph = new Set();
+  async function visit(path) {
+    if (graph.has(path)) return;
+    graph.add(path);
+    const url = new URL(path, 'https://miao.test');
+    const module = await readFile(new URL(`..${url.pathname}`, import.meta.url), 'utf8');
+    for (const [, dependency] of module.matchAll(/\bimport\s+(?:[^'";]*?\sfrom\s+)?['"]([^'"]+)['"]/g)) {
+      const resolved = new URL(dependency, url);
+      assert.equal(resolved.origin, url.origin, 'The entry module graph must remain local');
+      await visit(resolved.pathname + resolved.search);
+    }
+  }
+  for (const tag of html.matchAll(/<script\b[^>]*\bdata-lake-module\b[^>]*>/g)) {
+    await visit(tag[0].match(/\bsrc="([^"]+)"/)[1]);
+  }
+  const urls = app.preloads.map(link => link.href);
+  assert(app.preloads.every(link => link.rel === 'modulepreload'));
+  assert.equal(urls.length, new Set(urls).size, 'Do not preload duplicate module URLs');
+  assert.deepEqual([...urls].sort(), [...graph].sort(), 'Preload the complete static import graph with exact query versions');
+  assert.equal(app.probes(), 1, 'The deferred entrance must reuse the head capability probe');
+  assert.equal(app.appended.length, 2);
+}
+for (const unsupported of [{ webgl2: false, expectedProbes: 1 }, { mutation: false, expectedProbes: 0 }]) {
+  const app = entrance({ startup: true, ...unsupported });
+  assert.equal(app.preloads.length, 0, 'Unsupported browsers must not preload the heavy module graph');
+  assert.equal(app.appended.length, 0);
+  assert.equal(app.root.getAttribute('data-miao-webgl2'), 'false');
+  assert.equal(app.probes(), unsupported.expectedProbes);
+}
+for (const preflight of [true, false]) {
+  const app = entrance({ preflight });
+  assert.equal(app.probes(), 0, 'An existing capability result must prevent another WebGL context probe');
+  assert.equal(app.appended.length, preflight ? 2 : 0);
 }
 
 const expectedKeys = Array.from({ length: 16 }, (_, i) => `rotate${i + 1}`);
@@ -372,4 +418,4 @@ for (const expected of [
   assert.match(app.node('browser-copy-status').textContent, expected.copy);
   assert.deepEqual(app.navigations, []);
 }
-console.log('Verified localized site titles, shuffled resume facts, entrance-only WeChat guidance, explicit UI/first-frame readiness, timeout recovery, preserved reading and clipboard fallbacks.');
+console.log('Verified the exact capability-gated preload graph, one shared WebGL probe, localized entrance, shuffled facts, WeChat guidance and recoverable readiness.');

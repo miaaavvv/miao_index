@@ -173,7 +173,9 @@
   observer.observe(root,{attributes:true,attributeFilter:['class','data-miao-ui-ready']});
   document.addEventListener('miao:uiready',checkReadiness);
   var capable=('noModule' in document.createElement('script'))&&typeof Promise!=='undefined'&&typeof fetch==='function'&&typeof AbortController!=='undefined';
-  if(capable) {
+  var preflight=root.getAttribute('data-miao-webgl2');
+  if(preflight!==null)capable=capable&&preflight==='true';
+  else if(capable) {
     try {
       var canvas=document.createElement('canvas');var gl=canvas.getContext('webgl2');
       capable=!!gl;
