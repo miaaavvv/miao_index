@@ -118,13 +118,39 @@ function entrance({ webgl2 = true, wechat = false, clipboard = 'success', mutati
       if (timer.at <= now) { timers.delete(id); timer.callback(); }
     }
   };
+  const rootMutation = attributeName => {
+    for (const observer of observers) {
+      if (observer.target !== root || !observer.options.attributes) continue;
+      if (observer.options.attributeFilter && !observer.options.attributeFilter.includes(attributeName)) continue;
+      observer.callback([{ type: 'attributes', target: root, attributeName }]);
+    }
+  };
+  const ready = () => { root.classList.add('water-ready'); rootMutation('class'); };
+  const presented = (mode, { preview = true, signal = 'both' } = {}) => {
+    if (preview) ready();
+    root.setAttribute('data-lake-presented', mode);
+    if (signal !== 'event') rootMutation('data-lake-presented');
+    if (signal !== 'mutation') documentEvents.get('miao:lakeready')?.({});
+  };
   return {
     node: id => nodes.get(id), root, lake, brand, appended, preloads, navigations, document, advance, session,
     probes: () => probes,
     keywords: () => all.filter(node => /^rotate\d+$/.test(node.getAttribute('data-entry-text') ?? '')).map(node => node.textContent),
     keywordKeys: () => all.filter(node => /^rotate\d+$/.test(node.getAttribute('data-entry-text') ?? '')).map(node => node.getAttribute('data-entry-text')),
-    ready() { root.classList.add('water-ready'); for (const observer of observers) if (observer.target === root) observer.callback([]); },
-    uiReady() { root.setAttribute('data-miao-ui-ready', 'true'); documentEvents.get('miao:uiready')?.({}); },
+    ready,
+    lakeInert(value) {
+      lake.inert = value;
+      for (const observer of observers) {
+        if (observer.target === lake && observer.options.attributeFilter.includes('inert')) observer.callback([]);
+      }
+    },
+    fullReady: options => presented('full', options),
+    fallbackReady: options => presented('fallback', options),
+    uiReady({ signal = 'both' } = {}) {
+      root.setAttribute('data-miao-ui-ready', 'true');
+      if (signal !== 'event') rootMutation('data-miao-ui-ready');
+      if (signal !== 'mutation') documentEvents.get('miao:uiready')?.({});
+    },
     documentEvent(type) { documentEvents.get(type)?.({}); },
     windowEvent(type) { windowEvents.get(type)?.({}); },
     loadModules() { for (const script of appended) script.onload?.(); },
@@ -228,35 +254,64 @@ for (const expected of [
 {
   const app = entrance();
   assert(app.appended.length >= 2, 'Supported browsers should start both application modules');
-  app.loadModules(); app.ready();
+  app.loadModules(); app.fullReady();
   assert.equal(app.node('entry-screen').hidden, true, 'A ready application should reveal the lake');
   assert.equal(app.lake.inert, false);
   assert.equal(app.root.classList.contains('is-arriving'), false, 'A missing arrival helper must not leave the loaded interface invisible');
   app.advance(10000);
   assert.equal(app.node('entry-screen').hidden, true, 'The slow timer must not reopen a ready page');
 }
-{
-  const app = entrance(); app.ready();
-  assert.equal(app.node('entry-screen').hidden, false, 'A rendered lake alone is insufficient when UI modules are still loading');
+for (const mode of ['fullReady', 'fallbackReady']) {
+  const app = entrance(); app[mode]();
+  assert.equal(app.node('entry-screen').hidden, false, `${mode}: a complete lake alone is insufficient when UI modules are still loading`);
   app.appended[0].onload();
   assert.equal(app.node('entry-screen').hidden, false, 'One module must not substitute for the remaining UI module');
   app.appended[1].onload();
   assert.equal(app.node('entry-screen').hidden, true, 'The final module load should release an already-rendered page');
 }
-for (const order of ['scene-first', 'ui-first']) {
-  const app = entrance();
-  if (order === 'scene-first') app.ready(); else app.uiReady();
-  assert.equal(app.node('entry-screen').hidden, false, `${order}: wait for both a presented frame and initialized controls`);
-  if (order === 'scene-first') app.uiReady(); else app.ready();
-  assert.equal(app.node('entry-screen').hidden, true, `${order}: explicit UI readiness must release the entrance even without module load callbacks`);
-  assert.equal(app.lake.inert, false);
+{
+  const app = entrance(); app.loadModules(); app.uiReady(); app.ready();
+  assert.equal(app.node('entry-screen').hidden, false, 'Preview water and initialized UI must keep the entrance above the unfinished scene');
+  app.lakeInert(false);
+  assert.equal(app.lake.inert, true, 'The base arrival helper must not unlock underlying navigation while the complete scene is still loading');
+  app.root.setAttribute('data-lake-presented', 'preview');
+  app.documentEvent('miao:lakeready');
+  assert.equal(app.node('entry-screen').hidden, false, 'A preview presentation is not the final scene or an explicit enhancement fallback');
+  for (const quality of ['full', 'fallback']) {
+    app.root.setAttribute('data-lake-quality', quality);
+    app.documentEvent('miao:lakeready');
+    assert.equal(app.node('entry-screen').hidden, false, `${quality}: a diagnostic quality marker does not prove a complete frame was presented`);
+  }
+  app.advance(10000);
+  assert.equal(app.state(), 'slow', 'A preview must remain loading while physical enhancement prepares');
+  app.fullReady();
+  assert.equal(app.node('entry-screen').hidden, true, 'Release the entrance after the complete physical frame is presented');
 }
-for (const signal of ['pageshow', 'visibilitychange']) {
-  const app = entrance();
-  app.root.classList.add('water-ready');
-  app.root.setAttribute('data-miao-ui-ready', 'true');
-  if (signal === 'pageshow') app.windowEvent(signal); else app.documentEvent(signal);
-  assert.equal(app.node('entry-screen').hidden, true, `${signal}: restored pages must reconcile an already-ready scene`);
+for (const mode of ['fullReady', 'fallbackReady']) {
+  for (const order of ['scene-first', 'ui-first']) {
+    for (const signal of ['mutation', 'event']) {
+      const app = entrance();
+      if (order === 'scene-first') app[mode]({ signal }); else app.uiReady({ signal });
+      assert.equal(app.node('entry-screen').hidden, false, `${mode}, ${order}, ${signal}: wait for a presented frame and initialized controls`);
+      if (order === 'scene-first') app.uiReady({ signal }); else app[mode]({ signal });
+      assert.equal(app.node('entry-screen').hidden, true, `${mode}, ${order}, ${signal}: either persistent state observation or the ready event releases the entrance`);
+      assert.equal(app.lake.inert, false);
+    }
+  }
+  const app = entrance(); app.uiReady(); app[mode]({ preview: false });
+  assert.equal(app.node('entry-screen').hidden, false, `${mode}: a presented marker without water-ready must not release the entrance`);
+  app.ready();
+  assert.equal(app.node('entry-screen').hidden, true, `${mode}: a later base presentation completes the readiness contract`);
+}
+for (const mode of ['full', 'fallback']) {
+  for (const signal of ['pageshow', 'visibilitychange']) {
+    const app = entrance();
+    app.root.classList.add('water-ready');
+    app.root.setAttribute('data-miao-ui-ready', 'true');
+    app.root.setAttribute('data-lake-presented', mode);
+    if (signal === 'pageshow') app.windowEvent(signal); else app.documentEvent(signal);
+    assert.equal(app.node('entry-screen').hidden, true, `${mode}, ${signal}: restored pages reconcile persistent presentation state without the original ready event`);
+  }
 }
 {
   const app = entrance(); app.advance(9999);
@@ -265,36 +320,39 @@ for (const signal of ['pageshow', 'visibilitychange']) {
   assert.equal(app.state(), 'slow', 'A 10-second wait is a slow load, not proof of incompatibility');
   assert.doesNotMatch(app.node('entry-headline').textContent, /Chrome|Safari/);
   assert.equal(app.node('entry-retry').hidden, true);
-  app.loadModules(); app.ready();
+  app.loadModules(); app.fullReady();
   assert.equal(app.node('entry-screen').hidden, true, 'A slow page can recover normally');
 }
-for (const browserLanguage of ['zh-CN', 'zh-TW', 'en-GB']) {
-  const app = entrance({ browserLanguage, wechat: true });
-  app.advance(44999);
-  assert.equal(app.state(), 'slow');
-  app.advance(1);
-  assert.equal(app.state(), 'timeout', 'A stalled first frame must eventually offer a recovery action');
-  assert.equal(app.node('entry-loading').hidden, true);
-  assert.equal(app.node('entry-retry').hidden, false);
-  assert.equal(app.node('entry-read').hidden, false);
-  assert.equal(app.node('entry-note').hidden, false);
-  assert.doesNotMatch(app.node('entry-headline').textContent, /Chrome|Safari|^timeout$/);
-  assert.doesNotMatch(app.node('entry-note').textContent, /^timeoutNote$/);
-  assert.equal(app.node('entry-browser').hidden, false);
-  if (browserLanguage === 'zh-CN') {
-    app.node('entry-retry').click();
-    assert.deepEqual(app.navigations, ['reload'], 'The timeout retry must perform a real page reload');
+for (const mode of ['fullReady', 'fallbackReady']) {
+  for (const browserLanguage of ['zh-CN', 'zh-TW', 'en-GB']) {
+    const app = entrance({ browserLanguage, wechat: true });
+    app.ready(); app.uiReady();
+    app.advance(44999);
+    assert.equal(app.state(), 'slow');
+    app.advance(1);
+    assert.equal(app.state(), 'timeout', 'Preview readiness must not cancel the timeout for a stalled complete scene');
+    assert.equal(app.node('entry-loading').hidden, true);
+    assert.equal(app.node('entry-retry').hidden, false);
+    assert.equal(app.node('entry-read').hidden, false);
+    assert.equal(app.node('entry-note').hidden, false);
+    assert.doesNotMatch(app.node('entry-headline').textContent, /Chrome|Safari|^timeout$/);
+    assert.doesNotMatch(app.node('entry-note').textContent, /^timeoutNote$/);
+    assert.equal(app.node('entry-browser').hidden, false);
+    if (browserLanguage === 'zh-CN') {
+      app.node('entry-retry').click();
+      assert.deepEqual(app.navigations, ['reload'], 'The timeout retry must perform a real page reload');
+    }
+    app.uiReady(); app.ready();
+    assert.equal(app.state(), 'timeout', 'A late preview must not dismiss the recovery screen before the complete scene arrives');
+    app[mode]();
+    assert.equal(app.node('entry-screen').hidden, true, `${mode}: a late successful presentation recovers without requiring a reload`);
+    assert.equal(app.node('entry-browser').hidden, true);
   }
-  app.uiReady(); app.ready();
-  assert.equal(app.node('entry-screen').hidden, true, 'A late successful render must recover without requiring a reload');
-  assert.equal(app.node('entry-browser').hidden, true);
-}
-{
   const app = entrance(); app.advance(45000);
   app.node('entry-read').click();
-  app.uiReady(); app.ready(); app.advance(0);
+  app.uiReady(); app[mode](); app.advance(0);
   assert.equal(app.state(), 'ready');
-  assert.equal(app.node('entry-screen').hidden, false, 'A timeout reader must not lose the summary when the scene arrives');
+  assert.equal(app.node('entry-screen').hidden, false, `${mode}: a timeout reader must not lose the summary when the scene arrives`);
   assert.equal(app.node('entry-details').hidden, false);
   assert.equal(app.lake.inert, true);
   assert.equal(app.node('entry-enter').hidden, false);
@@ -313,17 +371,20 @@ for (const browserLanguage of ['zh-CN', 'zh-TW', 'en-GB']) {
   app.advance(1);
   assert.equal(app.state(), 'timeout');
 }
-for (const failure of ['renderer', 'module']) {
-  const app = entrance(); app.uiReady(); app.ready();
-  assert.equal(app.node('entry-screen').hidden, true);
-  if (failure === 'renderer') {
-    app.root.classList.add('webgl-unavailable'); app.documentEvent('visibilitychange');
-  } else app.appended[1].onerror();
-  assert.equal(app.state(), 'failed', `${failure}: a hard failure after readiness must show recovery`);
-  assert.equal(app.node('entry-screen').hidden, false);
-  assert.equal(app.node('entry-enter').hidden, true, `${failure}: do not offer entry into a failed scene`);
-  assert.equal(app.node('entry-retry').hidden, false);
-  assert.equal(app.lake.inert, true);
+for (const mode of ['fullReady', 'fallbackReady']) {
+  for (const failure of ['renderer', 'module']) {
+    const app = entrance(); app.uiReady(); app[mode]();
+    assert.equal(app.node('entry-screen').hidden, true);
+    if (failure === 'renderer') {
+      app.root.classList.add('webgl-unavailable'); app.documentEvent('visibilitychange');
+    } else app.appended[1].onerror();
+    app[mode]();
+    assert.equal(app.state(), 'failed', `${mode}, ${failure}: a hard failure takes precedence over a stale presentation marker or ready event`);
+    assert.equal(app.node('entry-screen').hidden, false);
+    assert.equal(app.node('entry-enter').hidden, true, `${failure}: do not offer entry into a failed scene`);
+    assert.equal(app.node('entry-retry').hidden, false);
+    assert.equal(app.lake.inert, true);
+  }
 }
 {
   const app = entrance({ wechat: true });
@@ -337,7 +398,7 @@ for (const failure of ['renderer', 'module']) {
   app.node('browser-guide-close').click();
   assert.equal(app.node('browser-guide').hidden, true);
   assert.equal(app.document.activeElement.id, 'entry-browser');
-  app.loadModules(); app.ready();
+  app.loadModules(); app.fullReady();
   assert.equal(app.node('entry-browser').hidden, true, 'No browser-opening CTA remains after entering the website');
   assert.equal(app.node('entry-screen').hidden, true);
   assert.deepEqual(app.navigations, []);
@@ -345,7 +406,7 @@ for (const failure of ['renderer', 'module']) {
 {
   const app = entrance({ wechat: true });
   app.node('entry-browser').click();
-  app.loadModules(); app.ready();
+  app.loadModules(); app.fullReady();
   app.node('browser-guide-close').click();
   assert.equal(app.node('entry-browser').hidden, true);
   assert.equal(app.document.activeElement, app.brand, 'If loading ends with the guide open, close returns focus to a visible page control');
@@ -359,7 +420,7 @@ for (const failure of ['renderer', 'module']) {
   assert.equal(app.state(), 'failed');
   app.node('entry-read').click();
   app.root.classList.remove('webgl-unavailable');
-  app.ready();
+  app.fullReady();
   app.advance(0);
   assert.equal(app.node('entry-screen').hidden, false, 'An active reader may remain open after renderer recovery');
   assert.equal(app.node('entry-browser').hidden, true, 'Once ready, an active reader is not a loading/error browser prompt');
@@ -381,7 +442,7 @@ for (const failure of ['renderer', 'module']) {
   assert.equal(app.node('entry-browser').hidden, false, 'WeChat recovery retains its browser-opening action');
   app.advance(10000);
   assert.equal(app.state(), 'failed', 'A network failure must not be softened into a slow load');
-  app.appended[0].onload(); app.uiReady(); app.ready();
+  app.appended[0].onload(); app.uiReady(); app.fullReady();
   assert.equal(app.state(), 'failed', 'An unrelated ready signal must not hide a failed application module');
   assert.equal(app.node('entry-screen').hidden, false);
   assert.equal(app.node('entry-details').hidden, false, 'The recovery summary remains readable after unrelated readiness');
@@ -418,4 +479,4 @@ for (const expected of [
   assert.match(app.node('browser-copy-status').textContent, expected.copy);
   assert.deepEqual(app.navigations, []);
 }
-console.log('Verified the exact capability-gated preload graph, one shared WebGL probe, localized entrance, shuffled facts, WeChat guidance and recoverable readiness.');
+console.log('Verified capability-gated preloads, localized shuffled facts, WeChat guidance, complete-frame entrance readiness, fallback and late recovery.');

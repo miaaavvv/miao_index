@@ -133,26 +133,147 @@ function deferredLake({ idleSupport = true } = {}) {
   return {
     renderer, allocations, frames, idles, timers, entry, root, document, window, canvas,
     baseSetup: () => [basePrograms, baseSimulation],
+    observesEntry: () => observers.some(observer => observer.targets.some(record => record.element === entry)),
     frame: () => flush(frames), idle: () => flush(idles),
     timer() { const batch = [...timers.values()]; timers.clear(); for (const item of batch) item.callback(); },
     hideEntry() { entry.hidden = true; mutation(entry, 'hidden'); },
     visible(value) { document.hidden = !value; document.fire('visibilitychange'); },
     contextLost(value) { contextLost = value; },
-    ready() { renderer.hasPresented = true; canvas.fire('waterready'); root.setAttribute('data-miao-ui-ready', 'true'); this.hideEntry(); },
+    ready() { renderer.hasPresented = true; canvas.fire('waterready'); root.setAttribute('data-miao-ui-ready', 'true'); },
   };
+}
+
+// Presentation readiness belongs to the completed draw, rather than shader
+// installation or the earlier preview frame. Run the real post-processing hook
+// and readiness method with GPU calls recording their completion order.
+function presentedLake({ installed = false, disabled = false, running = true } = {}) {
+  const attributes = new Map(), events = [], frames = [], trace = [], upgrades = [], bedUpgrades = [];
+  let contextLost = false;
+  const start = source.indexOf('renderPostProcessing(e){', subclass);
+  const classEnd = source.indexOf('function cn(', start);
+  assert(start >= 0 && classEnd > start, 'Locate the shipped post-processing method');
+  const tail = source.slice(start, classEnd).trimEnd();
+  assert(tail.endsWith('}};'), 'Locate the post-processing and renderer class boundaries');
+  const postProcessing = tail.slice(0, -2);
+  class Base { renderPostProcessing() { trace.push('base-complete'); } }
+  const gl = {
+    isContextLost: () => contextLost,
+    useProgram() {}, bindVertexArray() {}, bindFramebuffer() {}, viewport() {},
+    activeTexture() {}, bindTexture() {}, uniform1i() {}, uniform2f() {}, uniform1f() {},
+    getUniformLocation: (program, name) => name,
+    drawArrays() { trace.push('composite-draw'); },
+    blitFramebuffer() { trace.push('present-blit'); },
+    flush() { trace.push('gpu-flush'); },
+  };
+  const Renderer = vm.runInNewContext(`(class extends Base { ${rendererMethod('markPresented')} ${postProcessing} })`, {
+    Base,
+    va: () => ({ night: 0 }),
+    document: {
+      documentElement: { setAttribute(name, value) { attributes.set(name, value); trace.push(`attribute:${name}`); } },
+      dispatchEvent(event) { events.push(event); trace.push(`event:${event.type}`); },
+    },
+    CustomEvent: class { constructor(type, options) { this.type = type; this.detail = options?.detail; } },
+    requestAnimationFrame: callback => { frames.push(callback); return frames.length; },
+  }, { filename: 'presented-lake-methods.js', timeout: 1000 });
+  const renderer = Object.assign(new Renderer(), {
+    running, gl, physicalInstalled: installed, physicalDisabled: disabled,
+    programs: { composite: {} }, screenVao: {},
+    canvas: { width: 800, height: 600 }, sceneTarget: { texture: {}, width: 400, height: 300 },
+    presentTarget: { framebuffer: {}, width: 800, height: 600 }, isAndroid: true,
+    altSettings: { exposure: 100 }, celestial: {}, activeEnvironment: 'mountains',
+    worldRenderer: { bindDetail() {}, upgradeClouds() { upgrades.push(true); } },
+    upgradeLakeBed() { bedUpgrades.push(true); },
+    setCameraUniforms() {},
+  });
+  return {
+    renderer, attributes, events, frames, trace, upgrades, bedUpgrades,
+    contextLost(value) { contextLost = value; },
+    frame() { const batch = frames.splice(0); for (const callback of batch) callback(); },
+  };
+}
+
+{
+  const app = presentedLake();
+  app.renderer.renderPostProcessing(0);
+  assert.deepEqual(app.trace, ['base-complete']);
+  assert.equal(app.attributes.has('data-lake-presented'), false, 'An ordinary preview is not the final scene');
+  assert.equal(app.events.length, 0, 'Do not dismiss the entrance for the early preview');
+  assert.equal(app.frames.length, 0);
+  assert.equal(app.bedUpgrades.length, 0);
+}
+{
+  const app = presentedLake({ installed: true });
+  app.renderer.renderPostProcessing(0);
+  assert.equal(app.attributes.get('data-lake-presented'), 'full');
+  assert.equal(app.events.length, 1);
+  assert.equal(app.events[0].type, 'miao:lakeready');
+  assert.equal(app.events[0].detail.quality, 'full');
+  assert(app.trace.indexOf('attribute:data-lake-presented') > app.trace.indexOf('gpu-flush'), 'Mark readiness after the composite, presentation blit and flush complete');
+  assert(app.trace.indexOf('event:miao:lakeready') > app.trace.indexOf('attribute:data-lake-presented'));
+  assert.equal(app.upgrades.length, 0, 'Do not start high-resolution clouds inside the first complete draw');
+  assert.equal(app.bedUpgrades.length, 0, 'Do not start high-resolution lake-bed textures inside the first complete draw');
+  assert.equal(app.frames.length, 1, 'Queue both resource upgrades after the first complete scene');
+  app.renderer.renderPostProcessing(1);
+  assert.equal(app.events.length, 1, 'A second complete frame must not repeat readiness');
+  assert.equal(app.frames.length, 1, 'Do not queue the cloud upgrade twice');
+  app.frame();
+  assert.equal(app.upgrades.length, 1);
+  assert.equal(app.bedUpgrades.length, 1);
+  app.renderer.markPresented(); app.frame();
+  assert.equal(app.upgrades.length, 1);
+  assert.equal(app.bedUpgrades.length, 1, 'The lake-bed upgrade also starts at most once');
+  app.renderer.physicalInstalled = false; app.renderer.physicalDisabled = true;
+  app.renderer.renderPostProcessing(2);
+  assert.equal(app.attributes.get('data-lake-presented'), 'full', 'A full presentation marker never regresses to fallback');
+  assert.equal(app.events.length, 1);
+}
+{
+  const app = presentedLake({ disabled: true });
+  app.renderer.renderPostProcessing(0);
+  assert.deepEqual(app.trace.slice(0, 2), ['base-complete', 'attribute:data-lake-presented']);
+  assert.equal(app.attributes.get('data-lake-presented'), 'fallback', 'An exhausted upgrade can release the usable fallback after it draws');
+  assert.equal(app.events[0].detail.quality, 'fallback');
+  app.renderer.renderPostProcessing(1);
+  assert.equal(app.events.length, 1, 'The fallback notification is also emitted only once');
+  assert.equal(app.frames.length, 0, 'A fallback must not trigger detailed cloud downloads');
+  assert.equal(app.bedUpgrades.length, 0, 'A fallback must not trigger detailed lake-bed downloads');
+  app.renderer.physicalDisabled = false; app.renderer.physicalInstalled = true;
+  app.renderer.renderPostProcessing(2);
+  assert.equal(app.attributes.get('data-lake-presented'), 'full', 'A later genuine full draw can supersede fallback');
+  assert.equal(app.events.length, 2);
+  assert.equal(app.events[1].detail.quality, 'full');
+}
+for (const installed of [true, false]) for (const blocked of ['stopped', 'context-lost']) {
+  const app = presentedLake({ installed, disabled: !installed, running: blocked !== 'stopped' });
+  if (blocked === 'context-lost') app.contextLost(true);
+  app.renderer.renderPostProcessing(0);
+  assert.equal(app.attributes.has('data-lake-presented'), false, 'An invalid renderer cannot announce presentation');
+  assert.equal(app.events.length, 0);
+  assert.equal(app.frames.length, 0);
+  assert.equal(app.bedUpgrades.length, 0);
+}
+for (const interruption of ['stopped', 'context-lost']) {
+  const app = presentedLake({ installed: true });
+  app.renderer.renderPostProcessing(0);
+  if (interruption === 'stopped') app.renderer.running = false; else app.contextLost(true);
+  app.frame();
+  assert.equal(app.upgrades.length, 0, 'Recheck rendering and context before starting the deferred cloud upgrade');
+  assert.equal(app.bedUpgrades.length, 0, 'Recheck rendering and context before starting the deferred lake-bed upgrade');
 }
 
 {
   const app = deferredLake();
   assert.deepEqual(app.baseSetup(), [1, 1], 'The constructor still prepares the lightweight water');
   assert.deepEqual(app.allocations, [], 'Do not create detailed shaders, FFT, landscape or textures during construction');
+  assert.equal(app.observesEntry(), false, 'Enhancement readiness must not depend on entrance visibility');
   app.renderer.initEnhancement(); app.renderer.scheduleEnhancement();
   assert.equal(app.frames.size, 0, 'First-frame readiness is required before scheduling enhancement');
   app.renderer.hasPresented = true; app.canvas.fire('waterready');
   assert.equal(app.frames.size, 0, 'The first frame alone does not make the interface ready');
   app.root.setAttribute('data-miao-ui-ready', 'true');
-  assert.equal(app.frames.size, 0, 'Keep the entrance responsive until it is dismissed');
-  app.hideEntry(); app.renderer.scheduleEnhancement();
+  assert.equal(app.entry.hidden, false, 'Keep the entrance visible while the final scene prepares');
+  assert.equal(app.frames.size, 1, 'Prepare the detailed scene underneath the visible entrance');
+  app.renderer.scheduleEnhancement();
   assert.equal(app.frames.size, 1, 'Duplicate readiness notifications schedule only once');
   app.frame();
   assert.equal(app.frames.size, 1); assert.equal(app.idles.size, 0); assert.deepEqual(app.allocations, []);
@@ -160,6 +281,7 @@ function deferredLake({ idleSupport = true } = {}) {
   assert.equal(app.frames.size, 0); assert.equal(app.idles.size, 1); assert.deepEqual(app.allocations, []);
   app.idle();
   assert.equal(app.renderer.enhancementStarted, true);
+  assert.equal(app.entry.hidden, false, 'Starting the enhancement must not dismiss the entrance');
   assert.equal(app.allocations.filter(name => name === 'detailed-program').length, 2);
   for (const name of ['fft', 'spray', 'landscape', 'stars', 'bed-request']) assert.equal(app.allocations.filter(value => value === name).length, 1);
   const allocations = app.allocations.length;
@@ -284,4 +406,4 @@ for (const parallel of [true, false]) for (const failed of ['water', 'composite'
   assert.equal(app.renderer.finishProgramCompilation(), true, 'Browsers without parallel shader compilation can still upgrade');
   assert.equal(app.renderer.physicalInstalled, true);
 }
-console.log('Verified enhancement waits for the visible first frame and usable UI, yields two paints plus idle time, handles interruption, and atomically replaces only ready programs.');
+console.log('Verified enhancement prepares beneath the entrance after two paints and idle time, swaps ready programs atomically, announces only completed full/fallback draws, and defers cloud and lake-bed upgrades once.');

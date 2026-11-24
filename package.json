@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "node scripts/serve.mjs",
     "start": "node scripts/serve.mjs",
-    "check": "node scripts/check.mjs && node scripts/check-entry-experience.mjs && node scripts/check-social-sharing.mjs && node scripts/check-progressive-lake.mjs",
+    "check": "node scripts/check.mjs && node scripts/check-entry-experience.mjs && node scripts/check-social-sharing.mjs && node scripts/check-progressive-lake.mjs && node scripts/check-lake-cloud-resources.mjs && node scripts/check-lake-mesh-resources.mjs && node scripts/check-lake-bed-resources.mjs && node scripts/check-lake-texture-upload.mjs",
     "build:pages": "node scripts/build-pages.mjs"
   },
   "engines": {

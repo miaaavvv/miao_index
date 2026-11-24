@@ -112,12 +112,12 @@
   function show(mode) {
     failed=mode==='unsupported'||mode==='failed'||mode==='timeout';
     if(failed)ready=false;
-    screen.setAttribute('data-state',mode);screen.hidden=false;if(lake)lake.inert=true;
+    screen.setAttribute('data-state',mode);screen.hidden=false;if(lake&&!lake.inert)lake.inert=true;
     document.getElementById('entry-retry').hidden=!failed;
     document.getElementById('entry-enter').hidden=!ready;
     translate();
   }
-  function dismiss() { screen.hidden=true; document.getElementById('entry-browser').hidden=true; if (lake) lake.inert=false; }
+  function dismiss() { screen.hidden=true; document.getElementById('entry-browser').hidden=true; if (lake&&lake.inert) lake.inert=false; }
   function openGuide(event) {
     opener=event.currentTarget;guide.hidden=false;
     document.getElementById('browser-guide-close').focus();
@@ -156,21 +156,26 @@
   translate();
   if(typeof MutationObserver==='undefined'){show('unsupported');return;}
   function checkReadiness(){
+    // The original arrival helper may unlock the lake after its base frame.
+    if(lake&&!screen.hidden&&!lake.inert)lake.inert=true;
     if(loadFailed){show('failed');return;}
     if(root.classList.contains('webgl-unavailable')) {show('failed');return;}
     // The UI module imports the core itself. Its explicit completion signal is
     // stronger than waiting for both injected script load callbacks to arrive.
     var uiReady=root.getAttribute('data-miao-ui-ready')==='true';
-    if(root.classList.contains('water-ready') && (pendingModules===0 || uiReady)) {
+    var presented=root.getAttribute('data-lake-presented');
+    if((presented==='full'||presented==='fallback') && root.classList.contains('water-ready') && (pendingModules===0 || uiReady)) {
       clearTimeout(loadTimer);
       ready=true;failed=false;if(root.classList.contains('is-arriving'))root.classList.remove('is-arriving');screen.setAttribute('data-state','ready');
       document.getElementById('entry-enter').hidden=false;
-      if(!reading)dismiss();else {translate();setTimeout(function(){if(reading&&!screen.hidden&&lake)lake.inert=true;},0);}
+      if(!reading)dismiss();else {translate();setTimeout(function(){if(reading&&!screen.hidden&&lake&&!lake.inert)lake.inert=true;},0);}
     }
   }
   var observer=new MutationObserver(checkReadiness);
-  observer.observe(root,{attributes:true,attributeFilter:['class','data-miao-ui-ready']});
+  observer.observe(root,{attributes:true,attributeFilter:['class','data-miao-ui-ready','data-lake-presented']});
+  if(lake)observer.observe(lake,{attributes:true,attributeFilter:['inert']});
   document.addEventListener('miao:uiready',checkReadiness);
+  document.addEventListener('miao:lakeready',checkReadiness);
   var capable=('noModule' in document.createElement('script'))&&typeof Promise!=='undefined'&&typeof fetch==='function'&&typeof AbortController!=='undefined';
   var preflight=root.getAttribute('data-miao-webgl2');
   if(preflight!==null)capable=capable&&preflight==='true';

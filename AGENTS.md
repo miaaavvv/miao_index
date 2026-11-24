@@ -43,3 +43,11 @@
 - 简历短句每次进入随机排序，语言切换保持本次事实顺序。仅用本地 sessionStorage 保存上一首句 ID，不加入外部追踪。
 - 网站标签名称为 MIAO · 产品与 AI，简繁英同步；中心入口标题仍为 MIAO。
 - 品牌 favicon 使用 miao-favicon ID 与本地 SVG / PNG，避免旧 site-favicon 动态绘制覆盖。
+
+## 湖面首帧（2026-11-25）
+
+- 入口只认 `data-lake-presented=full`（完整物理水面及后处理已完成）或 `fallback`（增强明确失败后的可用水面），不能用 shader 已交换的 `data-lake-quality=full` 或 base `water-ready` 提前放行。
+- 完整场景应在加载层覆盖下启动；不要恢复 `entry.hidden` 前置条件，否则入口等完整帧、完整帧等入口隐藏会死锁。
+- `_p/lake-startup/` 的两份 3D 云数据由 `scripts/generate-lake-startup.mjs` 从已有素材生成，总计 256 KiB；高精云数据仅在完整首帧后下载。云纹理必须成对验证、替换，下载或 GPU 分配失败保留可用场景。
+- 桌面首批湖底用现有 Mobile 纹理，真实完整首帧后才升级；缓存键区分材质与分辨率，未成功的新 pair 不得覆盖旧 pair，缓存持有的纹理不要提前删除。
+- 地形的 gzip 只是传输包装，解压后必须与原几何字节一致；缺少解压能力或压缩资源异常时回原始文件，保留旧浏览器路径。
