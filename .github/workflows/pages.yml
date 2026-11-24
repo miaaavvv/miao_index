@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: read
   contents: read
   pages: write
   id-token: write
@@ -31,8 +32,26 @@ jobs:
         run: npm run build:pages -- --base=/miao_index/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
+        id: upload
         with:
           path: .local/pages-dist
+      - name: Wait for deployment artifact metadata
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ARTIFACT_ID: ${{ steps.upload.outputs.artifact_id }}
+        run: |
+          [[ "$ARTIFACT_ID" =~ ^[0-9]+$ ]] || exit 1
+          for attempt in {1..12}; do
+            visible_id="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts" \
+              -H 'Cache-Control: no-cache' \
+              --jq ".artifacts[] | select(.id == $ARTIFACT_ID) | .id")" || visible_id=""
+            if [[ "$visible_id" == "$ARTIFACT_ID" ]]; then
+              exit 0
+            fi
+            if (( attempt < 12 )); then sleep 5; fi
+          done
+          echo '::error::The uploaded deployment artifact is not visible yet.'
+          exit 1
       - name: Publish
         id: deployment
         uses: actions/deploy-pages@v5
