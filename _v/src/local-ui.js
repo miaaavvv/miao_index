@@ -1,9 +1,9 @@
 import { initPerformance } from './local-performance.js?v=1';
-import { initProjectGallery } from './project-gallery.js?v=projects-20261123';
-import { initLanguage, translate } from './local-i18n.js?v=projects-20261123';
+import { initProjectGallery } from './project-gallery.js?v=sleep-design-20261124';
+import { initLanguage, translate } from './local-i18n.js?v=project-image-numbers-20261125';
 import { localLakeControls as lake } from './alt-main.e37b8660abd26238.js?v=quick-entry-20261123';
 
-import { createWaterProjects } from './project-water.js?v=projects-20261123';
+import { createWaterProjects } from './project-water.js?v=project-image-numbers-20261125';
 
 let projectWater;
 const tools = document.querySelector('.local-tools');

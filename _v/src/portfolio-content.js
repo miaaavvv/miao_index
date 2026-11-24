@@ -140,6 +140,47 @@ export const portfolio = {
       title: localized('睡眠监测稳定性优化', '睡眠監測穩定性優化', 'More reliable sleep monitoring'),
       subtitle: localized("围绕系统冻结与进程终止，推进跨平台保活方案。", "圍繞系統凍結與進程終止，推進跨平台保活方案。", "Improving overnight reliability across platforms when the system freezes or terminates the app."),
       tags: ['Platform Strategy', 'Process Management', 'Validation'],
+      galleryTitle: localized('页面设计', '頁面設計', 'Screen designs'),
+      galleryHint: localized('浏览睡眠功能引导与权限修复界面，点击图片查看大图。', '瀏覽睡眠功能導覽與權限修復介面，點選圖片查看大圖。', 'Browse the sleep onboarding and permission recovery screens. Select a screen to enlarge it.'),
+      galleryPlacement: 'afterOutcome',
+      designScreens: [
+        {
+          id: 'sleep-intro', width: 1242, height: 2622,
+          src: '/_p/projects/sleep-reliability/sleep-intro.png', thumbnail: '/_p/projects/sleep-reliability/sleep-intro-thumb.jpg',
+          title: localized("睡眠功能导览", "睡眠功能導覽", "Sleep feature tour"),
+          caption: localized("介绍睡眠助手、睡眠质量监测与轻唤醒。", "介紹睡眠助手、睡眠品質監測與輕喚醒。", "Introduces the sleep assistant, sleep tracking, and gentle wake-up."),
+        },
+        {
+          id: 'sleep-tracking', width: 1206, height: 2622,
+          src: '/_p/projects/sleep-reliability/sleep-tracking.png', thumbnail: '/_p/projects/sleep-reliability/sleep-tracking-thumb.jpg',
+          title: localized("睡眠记录引导", "睡眠記錄引導", "Sleep tracking guide"),
+          caption: localized("说明如何放置手机，并预览睡眠质量分析。", "說明如何放置手機，並預覽睡眠品質分析。", "Explains where to place the phone and previews sleep quality analysis."),
+        },
+        {
+          id: 'sleep-sounds', width: 1206, height: 2622,
+          src: '/_p/projects/sleep-reliability/sleep-sounds.png', thumbnail: '/_p/projects/sleep-reliability/sleep-sounds-thumb.jpg',
+          title: localized("梦话鼾声记录", "夢話鼾聲記錄", "Sleep talk and snoring"),
+          caption: localized("通过波形和播放控件展示梦话、鼾声记录的回听体验。", "透過波形和播放控制項展示夢話、鼾聲記錄的回聽體驗。", "Shows how to listen back to sleep talk and snoring with waveforms and playback controls."),
+        },
+        {
+          id: 'sleep-notifications', width: 1206, height: 2622,
+          src: '/_p/projects/sleep-reliability/sleep-notifications.png', thumbnail: '/_p/projects/sleep-reliability/sleep-notifications-thumb.jpg',
+          title: localized("睡眠通知设置", "睡眠通知設定", "Sleep notification settings"),
+          caption: localized("预览唤醒通知，提供提醒开关。", "預覽喚醒通知，提供提醒開關。", "Previews a wake-up notification and offers a reminder toggle."),
+        },
+        {
+          id: 'permission-repair-sleep', width: 1206, height: 2622,
+          src: '/_p/projects/sleep-reliability/permission-repair-sleep.png', thumbnail: '/_p/projects/sleep-reliability/permission-repair-sleep-thumb.jpg',
+          title: localized("睡眠页权限修复", "睡眠頁權限修復", "Permission recovery on the sleep screen"),
+          caption: localized("在睡眠页集中提示麦克风和后台应用刷新权限，并提供修复入口。", "在睡眠頁集中提示麥克風和背景 App 重新整理權限，並提供修復入口。", "Surfaces microphone and background app refresh settings on the sleep screen with a recovery action."),
+        },
+        {
+          id: 'permission-repair-home', width: 402, height: 874,
+          src: '/_p/projects/sleep-reliability/permission-repair-home.png', thumbnail: '/_p/projects/sleep-reliability/permission-repair-home-thumb.jpg',
+          title: localized("首页权限修复", "首頁權限修復", "Permission recovery on the home screen"),
+          caption: localized("在首页以弹层引导恢复睡眠监测所需权限。", "在首頁以彈層引導恢復睡眠監測所需權限。", "Uses a home screen sheet to guide recovery of permissions needed for sleep tracking."),
+        },
+      ],
       metrics: [
         ['72% → 88%', localized('Android 整夜保活率', 'Android 整夜保活率', 'Android overnight survival')],
         ['91% → 98%', localized('iOS 整夜保活率', 'iOS 整夜保活率', 'iOS overnight survival')],

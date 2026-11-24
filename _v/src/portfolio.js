@@ -1,4 +1,4 @@
-import { portfolio } from './portfolio-content.js?v=projects-20261123';
+import { portfolio } from './portfolio-content.js?v=sleep-design-20261124';
 import { screenshotForTheme } from './project-image-theme.js?v=privacy-20261119';
 
 const text = (value, language) => typeof value === 'string' ? value : value[language] ?? value.en;
@@ -44,7 +44,7 @@ export function projectDetailMarkup(project, language, screenshotTheme = 'light'
   const label = key => pick(portfolio.labels[key]);
   const gallery = project.designScreens?.length ? `
     <section class="project-design-gallery" aria-labelledby="project-design-heading">
-      <header><h3 id="project-design-heading">${project.galleryTitle ? pick(project.galleryTitle) : label('designGallery')}</h3><span>${String(project.designScreens.length).padStart(2, '0')}</span></header>
+      <header><h3 id="project-design-heading">${project.galleryTitle ? pick(project.galleryTitle) : label('designGallery')}</h3></header>
       <p>${project.galleryHint ? pick(project.galleryHint) : label('designGalleryHint')}</p>
       ${project.designScreens.some(screen => screen.variants) ? `<p class="project-gallery-theme" data-gallery-theme-status aria-live="polite">${label(screenshotTheme === 'dark' ? 'nightScreens' : 'dayScreens')}</p>` : ''}
       <div class="project-design-rail">
@@ -53,7 +53,6 @@ export function projectDetailMarkup(project, language, screenshotTheme = 'light'
           return `<figure>
           <button class="project-design-thumbnail" type="button" data-design-index="${index}" aria-haspopup="dialog" aria-controls="project-design-viewer" aria-label="${label('openDesign')}：${pick(screen.title)}">
             <img src="${escape(asset.thumbnail)}" alt="${pick(screen.title)}" width="${asset.thumbnailWidth ?? 320}" height="${asset.thumbnailHeight ?? 695}" style="aspect-ratio: ${asset.width} / ${asset.height}" loading="lazy" decoding="async" />
-            <span class="project-design-zoom" aria-hidden="true">↗</span>
           </button>
           <figcaption><span>${String(index + 1).padStart(2, '0')}</span>${pick(screen.title)}</figcaption>
         </figure>`; }).join('')}

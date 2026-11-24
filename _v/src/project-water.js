@@ -1,5 +1,5 @@
-import { portfolio } from './portfolio-content.js?v=projects-20261123';
-import { projectDetailMarkup } from './portfolio.js?v=projects-20261123';
+import { portfolio } from './portfolio-content.js?v=sleep-design-20261124';
+import { projectDetailMarkup } from './portfolio.js?v=project-image-numbers-20261125';
 import { layoutProjectCoordinates } from './project-water-layout.js?v=projects-20261123';
 
 const pick = (value, language) => typeof value === 'string' ? value : value[language] ?? value.en;
@@ -10,8 +10,6 @@ export function createWaterProjects({ lake, translate: t, navigationButton }) {
   const pointHost = document.getElementById('water-project-points');
   const detail = document.getElementById('water-project-detail');
   const body = document.getElementById('water-project-body');
-  const switcher = document.getElementById('water-project-switcher');
-  const exit = document.getElementById('water-project-exit');
   const back = document.getElementById('water-project-back');
   const previous = document.getElementById('water-project-previous');
   const next = document.getElementById('water-project-next');
@@ -44,15 +42,8 @@ export function createWaterProjects({ lake, translate: t, navigationButton }) {
       select(index);
     });
     pointHost.append(button);
-    const option = document.createElement('button');
-    option.type = 'button';
-    option.dataset.index = index;
-    option.textContent = twoDigits(index + 1);
-    option.addEventListener('click', () => select(index, { focus: false }));
-    switcher.append(option);
     return button;
   });
-  const options = [...switcher.children];
 
   function pulse(index, holdDuration, force = false) {
     if (!opened || root.inert || reducedMotion.matches) return;
@@ -72,11 +63,9 @@ export function createWaterProjects({ lake, translate: t, navigationButton }) {
     const scrollTop = resetScroll ? 0 : detail.scrollTop;
     body.innerHTML = projectDetailMarkup(project, language, document.documentElement.dataset.projectScreenshotTheme || 'light');
     detail.dataset.project = project.id;
-    document.getElementById('water-project-counter').textContent = `${twoDigits(selected + 1)} / ${twoDigits(nodes.length)}`;
     nodes.forEach((node, index) => {
       node.classList.toggle('is-selected', index === selected);
       node.setAttribute('aria-expanded', String(index === selected));
-      options[index].setAttribute('aria-pressed', String(index === selected));
     });
     detail.scrollTop = scrollTop;
     previous.setAttribute('aria-label', `${t('previousProject')}: ${pick(portfolio.projects[(selected + nodes.length - 1) % nodes.length].navTitle, language)}`);
@@ -86,10 +75,7 @@ export function createWaterProjects({ lake, translate: t, navigationButton }) {
   function updateLanguage(value) {
     language = value;
     root.setAttribute('aria-label', t('waterProjects'));
-    switcher.setAttribute('aria-label', t('switchProject'));
     back.setAttribute('aria-label', t('backToCoordinates'));
-    document.getElementById('water-project-hint').textContent = t('waterProjectsHint');
-    exit.textContent = t('exitProjects');
     previous.textContent = `← ${t('previousProject')}`;
     next.textContent = `${t('nextProject')} →`;
     nodes.forEach((node, index) => {
@@ -98,7 +84,6 @@ export function createWaterProjects({ lake, translate: t, navigationButton }) {
       node.querySelector('.water-project-name').textContent = name;
       node.querySelector('.water-project-preview').textContent = pick(project.subtitle, language);
       node.setAttribute('aria-label', `${twoDigits(index + 1)} ${name}`);
-      options[index].setAttribute('aria-label', `${twoDigits(index + 1)} ${name}`);
     });
     renderSelected();
     requestLayout();
@@ -225,7 +210,6 @@ export function createWaterProjects({ lake, translate: t, navigationButton }) {
     if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); closeDetail(); }
   });
   back.addEventListener('click', () => closeDetail());
-  exit.addEventListener('click', () => close({ restoreFocus: true }));
   previous.addEventListener('click', () => select(selected - 1, { focus: false }));
   next.addEventListener('click', () => select(selected + 1, { focus: false }));
   document.addEventListener('pointerdown', event => {
