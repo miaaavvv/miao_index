@@ -45,7 +45,8 @@ export const portfolio = {
       id: 'ai-mixing', navTitle: localized('AI 交互式混音', 'AI 互動式混音', 'AI sound mixing'), company: localized('潮汐', '潮汐', 'TIDE'), period: '2026.01 — 2026.10',
       title: localized('AI 交互式混音', 'AI 互動式混音', 'AI-powered sound mixing'),
       subtitle: localized('从一句想法，到可以继续编辑的声音场景。', '從一句想法，到可以繼續編輯的聲音情境。', 'From an idea to an editable soundscape.'),
-      tags: ['AI Interaction', '0 → 1', 'Evaluation'],
+      tags: [localized('AI 交互', 'AI 互動', 'AI Interaction'), '0 → 1', localized('评测', '評測', 'Evaluation')],
+      galleryPlacement: 'afterOutcome',
       designScreens: [
         {
           id: 'canvas', width: 402, height: 874,
@@ -104,7 +105,7 @@ export const portfolio = {
       id: 'agent-workflow', navTitle: localized('Agent 内容生产', 'Agent 內容生產', 'Agent workflows'), company: localized('潮汐', '潮汐', 'TIDE'), period: '2026.01 — 2026.10',
       title: localized('Multi-Agent 内容生产', 'Multi-Agent 內容生產', 'Multi-agent content production'),
       subtitle: localized("从 AI 拆书、审核，到发布至岛读 App。", "從 AI 拆書、審核，到發布至島讀 App。", "From AI book analysis and review to publication in the Daodu app."),
-      tags: ['Agent Workflow', 'Hermes', 'Human-in-the-loop'],
+      tags: [localized('智能体工作流', '智慧代理工作流程', 'Agent Workflow'), 'Hermes', localized('人机协作', '人機協作', 'Human-in-the-loop')],
       galleryTitle: localized("产品呈现｜岛读 App", "產品呈現｜島讀 App", "The product · Daodu app"),
       galleryHint: localized("AI 拆书产出经审核后发布到岛读 App，供用户阅读与发现。下方展示首页阅读和内容探索界面，截图随场景昼夜切换。", "AI 拆書產出經審核後發布至島讀 App，供使用者閱讀與探索。下方展示首頁閱讀和內容探索介面，截圖隨場景日夜切換。", "AI-generated book extracts are reviewed and published in the Daodu app for readers to browse and discover. These home and discovery screens follow the scene’s day and night cycle."),
       galleryPlacement: 'afterOutcome',
@@ -139,14 +140,14 @@ export const portfolio = {
       id: 'sleep-reliability', navTitle: localized('睡眠监测优化', '睡眠監測優化', 'Sleep monitoring'), company: localized('潮汐', '潮汐', 'TIDE'), period: '2026.01 — 2026.10',
       title: localized('睡眠监测稳定性优化', '睡眠監測穩定性優化', 'More reliable sleep monitoring'),
       subtitle: localized("围绕系统冻结与进程终止，推进跨平台保活方案。", "圍繞系統凍結與進程終止，推進跨平台保活方案。", "Improving overnight reliability across platforms when the system freezes or terminates the app."),
-      tags: ['Platform Strategy', 'Process Management', 'Validation'],
+      tags: [localized('平台策略', '平台策略', 'Platform Strategy'), localized('进程管理', '處理程序管理', 'Process Management'), localized('验证', '驗證', 'Validation')],
       galleryTitle: localized('页面设计', '頁面設計', 'Screen designs'),
       galleryHint: localized('浏览睡眠功能引导与权限修复界面，点击图片查看大图。', '瀏覽睡眠功能導覽與權限修復介面，點選圖片查看大圖。', 'Browse the sleep onboarding and permission recovery screens. Select a screen to enlarge it.'),
       galleryPlacement: 'afterOutcome',
       designScreens: [
         {
-          id: 'sleep-intro', width: 1242, height: 2622,
-          src: '/_p/projects/sleep-reliability/sleep-intro.png', thumbnail: '/_p/projects/sleep-reliability/sleep-intro-thumb.jpg',
+          id: 'sleep-intro', width: 703, height: 1528, thumbnailHeight: 696,
+          src: '/_p/projects/sleep-reliability/sleep-intro.png?v=sleep-intro-image-20261125', thumbnail: '/_p/projects/sleep-reliability/sleep-intro-thumb.jpg?v=sleep-intro-image-20261125',
           title: localized("睡眠功能导览", "睡眠功能導覽", "Sleep feature tour"),
           caption: localized("介绍睡眠助手、睡眠质量监测与轻唤醒。", "介紹睡眠助手、睡眠品質監測與輕喚醒。", "Introduces the sleep assistant, sleep tracking, and gentle wake-up."),
         },

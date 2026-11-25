@@ -1,5 +1,5 @@
-import { portfolio } from './portfolio-content.js?v=sleep-design-20261124';
-import { projectDetailMarkup } from './portfolio.js?v=project-image-numbers-20261125';
+import { portfolio } from './portfolio-content.js?v=sleep-intro-image-20261125';
+import { projectDetailMarkup } from './portfolio.js?v=sleep-intro-image-20261125';
 import { layoutProjectCoordinates } from './project-water-layout.js?v=projects-20261123';
 
 const pick = (value, language) => typeof value === 'string' ? value : value[language] ?? value.en;

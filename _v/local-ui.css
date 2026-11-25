@@ -1,5 +1,7 @@
 /* Shared type roles for content panels, controls, and the water project titles. */
 :root {
+  --dialog-close-size: 24px;
+  --dialog-close-inset: 16px;
   --portfolio-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --portfolio-serif: _f, Georgia, "Songti SC", serif;
   --heading-1-size: 19px;
@@ -75,6 +77,30 @@ html.is-alt-layout .track-waveform {
 .local-tools button:focus-visible, .local-tools input:focus-visible,
 .local-audio button:focus-visible, .local-audio input:focus-visible { outline: 2px solid rgba(255,255,255,.85); outline-offset: 3px; }
 .local-tools svg, .local-audio svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+button.dialog-close {
+  box-sizing: border-box; display: grid; grid-template: 1fr / 1fr; place-items: center; flex: none;
+  width: var(--dialog-close-size); height: var(--dialog-close-size); margin: 0; padding: 0;
+  border: 1px solid #ffffff26; border-radius: 50%; background: #25332f; color: #edf3e9;
+  appearance: none; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+}
+button.dialog-close::before, button.dialog-close::after {
+  content: ""; grid-area: 1 / 1; width: 11.25px; height: 1.125px; border-radius: .75px; background: currentColor;
+  transform: rotate(45deg);
+}
+button.dialog-close::after { transform: rotate(-45deg); }
+button.dialog-close:hover { background: #354641; }
+button.dialog-close:focus-visible { outline: 2px solid #edf3e9; outline-offset: 3px; }
+.panel-close-bar {
+  --panel-close-offset: calc(-1 * var(--panel-content-padding, 0px));
+  position: sticky; top: var(--panel-close-offset); z-index: 3;
+  display: flex; align-items: flex-start; gap: 12px;
+  margin-block-start: var(--panel-close-offset); margin-inline: var(--panel-close-offset);
+  padding: var(--dialog-close-inset);
+  padding-inline-start: max(var(--dialog-close-inset), var(--panel-content-padding, 0px));
+  background: #111d1c; border-bottom: 1px solid #ffffff13;
+}
+.panel-close-bar .dialog-close { margin-inline-start: auto; }
+.panel-close-bar h2 { align-self: center; }
 .local-dock {
   position: absolute; z-index: 2; top: 50%; right: max(24px, env(safe-area-inset-right));
   display: flex; flex-direction: column; gap: 8px; width: 58px; padding: 8px;
@@ -95,17 +121,17 @@ html.is-alt-layout .track-waveform {
 .local-dock-button:hover, .local-dock-button[aria-expanded="true"] { background: rgba(255,255,255,.14); }
 .local-dock-button:active { transform: scale(.96); }
 .local-tool-panel {
+  --panel-content-padding: 22px;
   position: absolute; right: max(188px, calc(env(safe-area-inset-right) + 164px)); top: 50%;
   width: min(300px, calc(100vw - 212px)); max-height: calc(100dvh - 48px); overflow: auto;
-  padding: 22px; border: 1px solid rgba(255,255,255,.13); border-radius: 20px;
+  padding: var(--panel-content-padding); border: 1px solid rgba(255,255,255,.13); border-radius: 20px;
   background: rgba(17,26,24,.95); backdrop-filter: none; -webkit-backdrop-filter: none;
   box-shadow: 0 16px 60px rgba(0,0,0,.16); transform: translateY(-50%); pointer-events: auto;
   scrollbar-width: thin; scrollbar-color: #ffffff30 transparent;
 }
 .local-tool-panel[hidden], .local-volume-popover[hidden] { display: none; }
-.local-tool-panel header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.local-tool-panel > .panel-close-bar { margin-bottom: 18px; }
 .local-tool-panel h2 { font: var(--type-heading-2); margin: 0; }
-.local-tool-panel header button { width: 28px; height: 28px; padding: 0; border: 0; border-radius: 50%; background: rgba(255,255,255,.07); font-size: 20px; line-height: 1; }
 .local-setting { display: flex; justify-content: space-between; margin-top: 14px; }
 .local-setting output { font: var(--type-label-2); color: rgba(255,255,255,.55); }
 .local-tool-panel input[type="range"] { width: 100%; margin: 12px 0 4px; accent-color: #dce7de; cursor: pointer; }
@@ -158,7 +184,6 @@ html.is-alt-layout .track-waveform {
 }
 @media (max-width: 520px) {
   .local-tool-panel { right: max(88px, calc(env(safe-area-inset-right) + 72px)); width: calc(100vw - 104px); padding: 18px; }
-  .local-dock:is(:hover,:has(:focus-visible)) { background: rgba(17,26,24,.94); }
   .local-volume-popover { left: auto; right: -8px; transform: none; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -201,17 +226,18 @@ html[lang="en"] .local-dock:is(:hover,:has(:focus-visible)) { width: 152px; }
 
 /* Resume-backed portfolio content. */
 html.is-alt-layout .about-panel.resume-about {
+  --panel-content-padding: 36px;
   font: var(--type-body-1);
   left: calc(50% - 48px); top: 50%; width: min(840px, calc(100vw - 240px));
-  max-width: none; max-height: calc(100dvh - 176px); overflow: auto; padding: 36px;
+  max-width: none; max-height: calc(100dvh - 176px); overflow: auto; padding: var(--panel-content-padding);
   border: 1px solid #ffffff24; border-radius: 22px; background: rgba(15,25,25,.96);
   backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: 0 20px 80px #0003;
   color: #f2f5f0; cursor: auto; touch-action: pan-y; overscroll-behavior: contain;
   scrollbar-width: thin; scrollbar-color: #ffffff30 transparent; user-select: text; -webkit-user-select: text;
 }
 html.is-alt-layout .about-panel.resume-about p { font: var(--about-paragraph-type, var(--type-body-1)); text-align: left; text-wrap: pretty; }
-.resume-about-close { position: absolute; top: 15px; right: 15px; display: grid; place-items: center; width: 28px; height: 28px; border: 0; border-radius: 50%; color: #ffffffbb; background: #ffffff0e; font: 20px/1 sans-serif; cursor: pointer; }
-.resume-about-close:focus-visible, .resume-project summary:focus-visible { outline: 2px solid #dce7de; outline-offset: 3px; }
+.resume-about > .panel-close-bar { margin-bottom: 12px; }
+.resume-project summary:focus-visible { outline: 2px solid #dce7de; outline-offset: 3px; }
 .resume-profile-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
 .resume-eyebrow { font: var(--type-footnote-1); display: block; color: #c6d9cb; letter-spacing: .16em; text-transform: uppercase; }
 .resume-profile-header h1 { font: var(--type-heading-1); margin: 9px 0 6px; }
@@ -244,7 +270,7 @@ html.is-alt-layout .resume-about .resume-school .resume-degree { margin: 0 0 7px
 .resume-skills dt { font: var(--type-label-2); color: #ffffff75; }
 .resume-skills dd { font: var(--type-body-2); margin: 0; color: #ffffffbf; }
 .local-tool-panel.resume-project-panel { width: min(880px, calc(100vw - 240px)); max-height: calc(100dvh - 176px); padding: 28px; cursor: auto; user-select: text; -webkit-user-select: text; touch-action: pan-y; overscroll-behavior: contain; }
-.local-tool-panel.resume-project-panel > header, .local-tool-panel.resume-education-panel > header { margin-bottom: 18px; }
+.local-tool-panel.resume-project-panel > header { margin-bottom: 18px; }
 .resume-panel-intro { margin: 0 0 24px; max-width: 45em; color: #ffffff91; font-size: 13px; line-height: 1.8; }
 .resume-project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 18px; }
 .resume-project { min-width: 0; overflow: hidden; padding: 20px; border: 1px solid #ffffff1b; border-radius: 16px; background: #ffffff04; }
@@ -269,7 +295,7 @@ html.is-alt-layout .resume-about .resume-school .resume-degree { margin: 0 0 7px
 .resume-case p, .resume-case ul { font: var(--type-body-1); margin: 0; color: #ffffffa6; }
 .resume-case ul { padding-left: 17px; }
 .resume-case li + li { margin-top: 12px; }
-.local-tool-panel.resume-education-panel { width: min(580px, calc(100vw - 240px)); max-height: calc(100dvh - 176px); padding: 28px; cursor: auto; touch-action: pan-y; user-select: text; -webkit-user-select: text; }
+.local-tool-panel.resume-education-panel { --panel-content-padding: 28px; width: min(580px, calc(100vw - 240px)); max-height: calc(100dvh - 176px); cursor: auto; touch-action: pan-y; user-select: text; -webkit-user-select: text; }
 .resume-language-note { font: var(--type-body-2); margin: 0; color: #ffffffa0; }
 @media (max-width: 1000px) {
   .resume-project-grid { grid-template-columns: minmax(0, 1fr); }
@@ -348,8 +374,6 @@ html.is-alt-layout .resume-about .resume-school .resume-degree { margin: 0 0 7px
   .water-project-detail { width: 560px; }
 }
 .water-project-detail:focus { outline: none; }
-.water-detail-toolbar { position: sticky; top: 0; z-index: 3; display: flex; align-items: center; justify-content: flex-end; padding: 16px 23px; background: rgba(17,29,28,.97); border-bottom: 1px solid #ffffff13; }
-#water-project-back { display: grid; place-items: center; width: 28px; height: 28px; padding: 0; border: 0; border-radius: 50%; background: #ffffff0d; color: #ffffffbd; font-size: 20px; line-height: 1; }
 #water-project-body { padding: 20px 23px 26px; }
 .water-detail-meta { font: var(--type-footnote-1); display: flex; flex-wrap: wrap; align-items: baseline; gap: 5px 12px; margin: 0 0 12px; color: #b7cdbb; }
 .water-detail-meta span { color: #ffffff6d; font-variant-numeric: tabular-nums; }
@@ -388,7 +412,6 @@ html.is-alt-layout .resume-about .resume-school .resume-degree { margin: 0 0 7px
   .water-project-rings > span { opacity: 0; }
 }
 @media (max-width: 999px) {
-  #water-project-back { width: 36px; height: 36px; }
   .water-detail-footer button { min-height: 40px; }
 }
 @media (max-width: 759px) {
@@ -407,8 +430,6 @@ html.is-alt-layout .resume-about .resume-school .resume-degree { margin: 0 0 7px
 }
 @media (max-height: 539px) and (max-width: 999px) {
   .water-project-detail { bottom: 88px; max-height: calc(100dvh - 160px); }
-  .water-detail-toolbar { padding: 8px 18px; }
-  #water-project-back { width: 30px; height: 30px; }
   #water-project-body { padding: 16px 18px 22px; }
   .water-detail-footer { padding: 6px 18px; }
   .water-detail-footer button { min-height: 30px; }
@@ -434,39 +455,44 @@ html.is-alt-layout .resume-about .resume-school .resume-degree { margin: 0 0 7px
 .project-design-viewer {
   position: fixed; inset: 0; z-index: 20; display: none; grid-template-rows: auto minmax(0,1fr) auto; gap: 18px;
   width: 100%; height: 100dvh; max-width: none; max-height: none; margin: 0; box-sizing: border-box;
-  padding: max(22px,env(safe-area-inset-top)) max(28px,env(safe-area-inset-right)) max(22px,env(safe-area-inset-bottom)) max(28px,env(safe-area-inset-left));
-  border: 0; background: rgba(7,16,17,.98); color: #edf3e9; pointer-events: auto;
+  padding: max(var(--dialog-close-inset), env(safe-area-inset-top)) max(var(--dialog-close-inset), env(safe-area-inset-right)) max(22px, env(safe-area-inset-bottom)) max(28px, env(safe-area-inset-left));
+  border: 0; background: rgba(7,16,17,.98); color: #edf3e9; pointer-events: auto; cursor: default;
   font: var(--type-body-2); overscroll-behavior: contain;
 }
 .project-design-viewer[open] { display: grid; }
 .project-design-viewer::backdrop { background: #071011ed; }
-.project-design-viewer-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-width: 0; }
-.project-design-viewer-toolbar > div { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 18px; }
+.project-design-viewer-toolbar { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; min-width: 0; }
+.project-design-viewer-toolbar > div { align-self: center; display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 18px; }
 #project-design-viewer-counter { font: var(--type-footnote-2); color: #ffffff7a; font-variant-numeric: tabular-nums; letter-spacing: .1em; }
 #project-design-viewer-title { font: var(--type-heading-2); margin: 0; color: #e7eee3; }
-.local-tools #project-design-viewer-close { flex: 0 0 auto; display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid #ffffff20; border-radius: 50%; background: #ffffff08; color: #edf3e9; font: 24px/1 sans-serif; }
 .project-design-stage { display: grid; place-items: center; min-width: 0; min-height: 0; }
 #project-design-image { display: block; width: auto; height: 100%; max-width: 100%; max-height: 100%; min-height: 0; object-fit: contain; border-radius: 15px; }
 .project-design-viewer-footer { display: grid; grid-template-columns: 44px minmax(0,1fr) 44px; gap: 22px; align-items: center; width: min(720px,100%); margin-inline: auto; }
 .project-design-viewer-footer > div { min-width: 0; text-align: center; }
 #project-design-viewer-caption { font: var(--type-body-2); margin: 0 0 6px; color: #cbd8c8; }
 .local-tools .project-design-viewer-footer > button { width: 44px; height: 44px; padding: 0; border: 1px solid #ffffff24; border-radius: 50%; background: #ffffff06; color: #edf3e9; font-size: 21px; }
-.local-tools .project-design-viewer button:hover { background: #ffffff12; }
+.local-tools .project-design-viewer-footer button:hover { background: #ffffff12; }
 @media (max-width:759px) {
-  .project-design-viewer { gap: 14px; padding: max(16px,env(safe-area-inset-top)) 16px max(18px,env(safe-area-inset-bottom)); }
+  .project-design-viewer { gap: 14px; padding-bottom: max(18px, env(safe-area-inset-bottom)); padding-left: max(16px, env(safe-area-inset-left)); }
   .project-design-viewer-toolbar > div { display: block; }
   #project-design-viewer-title { margin-top: 4px; }
   .project-design-viewer-footer { gap: 12px; }
 }
 
 /* Touch controls retain the lake interaction; reading surfaces scroll independently. */
-.local-core-close { position: absolute; z-index: 4; top: -60px; right: 0; min-width: 44px; min-height: 44px; padding: 8px 14px; border: 1px solid #ffffff28; border-radius: 24px; background: #111d1cec; color: #edf3e9; font: 12px/1.5 -apple-system,BlinkMacSystemFont,sans-serif; cursor: pointer; pointer-events: auto; touch-action: manipulation; }
-.local-core-close:focus-visible { outline: 2px solid #edf3e9; outline-offset: 3px; }
+.local-core-close {
+  position: absolute; z-index: 4; inset-inline-end: var(--dialog-close-inset);
+  inset-block-start: calc(-1 * (var(--dialog-close-size) + var(--dialog-close-inset)));
+  pointer-events: auto;
+}
 .local-tool-panel, .water-project-detail { touch-action: pan-x pan-y pinch-zoom; overscroll-behavior: contain; }
 .project-design-rail { touch-action: pan-x pan-y pinch-zoom; }
 .project-design-viewer { overflow: auto; touch-action: pan-y pinch-zoom; }
+@media (hover: hover) and (pointer: fine) {
+  .local-dock:hover { background: rgba(16,23,19,.78); }
+}
 @media (hover: hover) and (pointer: fine) and (min-width: 1000px) {
-  .local-dock:hover { width: 148px; background: rgba(16,23,19,.78); }
+  .local-dock:hover { width: 148px; }
   html[lang="en"] .local-dock:hover { width: 152px; }
   .local-dock:hover .local-nav-label { max-width: 90px; opacity: 1; }
 }
@@ -480,12 +506,10 @@ html.is-alt-layout .resume-about .resume-school .resume-degree { margin: 0 0 7px
   :root { --mobile-nav-bottom: max(12px, calc(env(safe-area-inset-bottom) + 8px)); --mobile-panel-top: max(82px, calc(env(safe-area-inset-top) + 70px)); --mobile-panel-bottom: calc(var(--mobile-nav-bottom) + 78px); }
   .local-site-header { top: max(12px, env(safe-area-inset-top)); left: max(16px, env(safe-area-inset-left)); right: max(16px, env(safe-area-inset-right)); }
   .local-brand { min-height: 44px; }
-  .local-language { gap: 0; padding: 2px; }
-  .local-language button { min-width: 44px; height: 44px; }
   html .local-dock, html[lang="en"] .local-dock:is(:hover,:has(:focus-visible)) {
     position: fixed; top: auto; bottom: var(--mobile-nav-bottom); left: max(12px, env(safe-area-inset-left)); right: max(12px, env(safe-area-inset-right));
     width: auto; height: 64px; box-sizing: border-box; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 4px; padding: 4px;
-    transform: none; border-radius: 22px; background: rgba(16,26,24,.95); visibility: visible; opacity: 1; pointer-events: auto; transition: none;
+    transform: none; border-radius: 22px; visibility: visible; opacity: 1; pointer-events: auto; transition: none;
   }
   .is-water-project-detail-open .local-dock { visibility: visible; opacity: 1; pointer-events: auto; }
   .local-dock-button { flex-direction: column; justify-content: center; gap: 2px; height: 54px; min-width: 0; border-radius: 17px; text-align: center; }
@@ -503,20 +527,16 @@ html.is-alt-layout .resume-about .resume-school .resume-degree { margin: 0 0 7px
   html.is-alt-layout .interface.is-paired .time-control, html.is-water-projects-open.is-alt-layout .interface.is-paired .time-control { top: max(104px, calc(env(safe-area-inset-top) + 92px)); left: max(16px, env(safe-area-inset-left)); }
   .time-button { min-height: 44px; }
   html.is-alt-layout .local-tool-panel, html.is-alt-layout .local-tool-panel.resume-education-panel, html.is-alt-layout .about-panel.resume-about, .water-project-detail {
+    --panel-content-padding: 20px;
     position: fixed; inset: var(--mobile-panel-top) max(12px, env(safe-area-inset-right)) var(--mobile-panel-bottom) max(12px, env(safe-area-inset-left));
-    width: auto; height: auto; max-width: none; max-height: none; margin: 0; transform: none; padding: 20px; box-sizing: border-box; border-radius: 20px; overflow: auto;
+    width: auto; height: auto; max-width: none; max-height: none; margin: 0; transform: none; padding: var(--panel-content-padding); box-sizing: border-box; border-radius: 20px; overflow: auto;
     scroll-padding-block: 64px; overflow-wrap: anywhere; -webkit-overflow-scrolling: touch;
   }
-  html.is-alt-layout .about-panel.resume-about { padding-top: 64px; }
-  .local-tool-panel > header { position: sticky; z-index: 3; top: -20px; margin: -20px -20px 16px; padding: 10px 16px; background: #111d1c; border-bottom: 1px solid #ffffff16; }
-  .local-tool-panel header button, .resume-about-close, #water-project-back { width: 44px; height: 44px; flex-shrink: 0; }
-  .resume-about-close { position: sticky; top: -54px; float: right; margin: -54px -8px 10px 8px; z-index: 3; background: #25332f; }
   .resume-profile-header { gap: 12px; }
   .resume-portrait { flex-basis: 70px; width: 70px; height: 94px; }
   .resume-skills div { grid-template-columns: 1fr; gap: 4px; }
   .local-scene-options button, .local-view-options button, .local-text-button { min-height: 44px; }
-  .water-project-detail { padding: 0; }
-  .water-detail-toolbar { padding: 8px 16px; }
+  .water-project-detail { --panel-content-padding: 0px; }
   #water-project-body { padding: 18px 20px 24px; }
   .water-detail-footer { padding: 6px 16px; gap: 8px; }
   .water-detail-footer button { min-height: 44px; flex: 1; }
@@ -524,7 +544,7 @@ html.is-alt-layout .resume-about .resume-school .resume-degree { margin: 0 0 7px
   html.is-alt-layout .interface .time-scrubber { top: 50%; height: max(100px, min(378px, calc(100dvh - 240px))); }
   .time-slider-mode { min-height: 44px; white-space: normal; font-size: 14px; line-height: 1.5; }
   html.is-alt-layout .track-waveform { top: 50%; bottom: auto; transform: translate(-50%,-50%); }
-  .project-design-viewer { padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); gap: 10px; }
+  .project-design-viewer { padding-bottom: max(12px, env(safe-area-inset-bottom)); padding-left: max(12px, env(safe-area-inset-left)); gap: 10px; }
   .project-design-stage { overflow: hidden; touch-action: pan-y pinch-zoom; }
   #project-design-image { max-height: 100%; }
 }
@@ -540,7 +560,6 @@ html.is-alt-layout .resume-about .resume-school .resume-degree { margin: 0 0 7px
   html.is-water-projects-open.is-alt-layout .interface.is-paired .time-control { visibility: hidden; pointer-events: none; }
   .project-design-viewer-toolbar > div { display: flex; }
   #project-design-viewer-caption { display: none; }
-  .local-core-close { top: -48px; }
 }
 
 /* One lightweight strategy schematic keeps the sleep case focused on decisions. */

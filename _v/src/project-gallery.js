@@ -1,4 +1,4 @@
-import { portfolio } from './portfolio-content.js?v=sleep-design-20261124';
+import { portfolio } from './portfolio-content.js?v=sleep-intro-image-20261125';
 import { screenshotForTheme, screenshotThemeForMinutes } from './project-image-theme.js?v=privacy-20261119';
 
 const pick = (value, language) => typeof value === 'string' ? value : value[language] ?? value.en;

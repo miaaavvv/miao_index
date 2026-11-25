@@ -1,4 +1,4 @@
-import { renderPortfolio } from './portfolio.js?v=project-image-numbers-20261125';
+import { renderPortfolio } from './portfolio.js?v=sleep-intro-image-20261125';
 import { supportedLanguages, languageForCountry, browserCountry } from './language-utils.js';
 
 const messages = {
@@ -124,6 +124,7 @@ function applyLanguage(language, { persist = false } = {}) {
     '[data-nav="scene"]': 'scene', '[data-nav="projects"]': 'projects', '[data-nav="about"]': 'about',
     '#tool-scene': 'sceneEffects', '#tool-education': 'education', '[data-nav="education"]': 'education', '#tool-education [data-close]': 'closeEducation', '#resume-about-close': 'closeAbout',
     '#tool-scene [data-close]': 'closeScene',
+    '[data-close-core="time"]': 'closeTime', '[data-close-core="waveform"]': 'closeWaveform',
     '.local-scene-options': 'lakeScenes', '.local-view-options': 'sceneView',
     '#local-breeze': 'breezeStrength', '#local-ripple': 'rippleStrength', '#local-exposure': 'lightLevel',
     '.local-audio': 'playerVolume', '#local-volume': 'masterVolume', '#context-links': 'sceneOptions', '.interface': 'lakeControls', '.lake': 'interactiveLake',

@@ -50,14 +50,14 @@
         '/_v/src/alt-main.e37b8660abd26238.js?v=lake-entry-20261125',
         '/_v/src/lake-cloud-resources.js?v=lake-entry-20261125',
         '/_v/src/lake-mesh-resources.js?v=lake-entry-20261125',
-        '/_v/src/local-ui.js?v=lake-entry-20261125',
+        '/_v/src/local-ui.js?v=shared-close-20261125',
         '/_v/src/local-render-quality.js?v=1',
         '/_v/src/local-performance.js?v=1',
-        '/_v/src/project-gallery.js?v=sleep-design-20261124',
-        '/_v/src/local-i18n.js?v=project-image-numbers-20261125',
-        '/_v/src/project-water.js?v=project-image-numbers-20261125',
-        '/_v/src/portfolio-content.js?v=sleep-design-20261124',
-        '/_v/src/portfolio.js?v=project-image-numbers-20261125',
+        '/_v/src/project-gallery.js?v=sleep-intro-image-20261125',
+        '/_v/src/local-i18n.js?v=shared-close-20261125',
+        '/_v/src/project-water.js?v=sleep-intro-image-20261125',
+        '/_v/src/portfolio-content.js?v=sleep-intro-image-20261125',
+        '/_v/src/portfolio.js?v=sleep-intro-image-20261125',
         '/_v/src/project-water-layout.js?v=projects-20261123',
         '/_v/src/project-image-theme.js?v=privacy-20261119',
         '/_v/src/language-utils.js'
@@ -120,8 +120,8 @@ html.is-alt-layout .interface-control,html.is-alt-layout .about-panel,html.is-al
 .is-arriving .lake>:not(canvas){opacity:0!important;visibility:hidden!important}
 .water-ready #traveling,.webgl-unavailable #traveling{visibility:hidden}
 @media(prefers-reduced-motion:reduce){#water,#fallback-water,.is-arriving .interface,.arrival-revealing .interface{transition:none!important}}
-</style><script>document.documentElement.classList.add('is-arriving')</script><script defer src="/_v/src/scene-cycle.77d0cc14a6dc8426.js?v=3"></script><link rel="stylesheet" href="/_v/local-ui.css?v=aligned-sleep-thumbnails-20261125" />
-<link rel="stylesheet" href="/_v/entry-experience.css?v=portfolio-heading-20261125" />
+</style><script>document.documentElement.classList.add('is-arriving')</script><script defer src="/_v/src/scene-cycle.77d0cc14a6dc8426.js?v=3"></script><link rel="stylesheet" href="/_v/local-ui.css?v=close-24-20261125" />
+<link rel="stylesheet" href="/_v/entry-experience.css?v=shared-close-20261125" />
 <script defer src="/_v/src/entry-experience.js?v=lake-entry-20261125"></script>
 <script type="module" src="/_v/src/social-sharing-init.js?v=social-20261123"></script>
 </head>
@@ -141,7 +141,7 @@ html.is-alt-layout .interface-control,html.is-alt-layout .about-panel,html.is-al
         <noscript><style>#entry-details[hidden]{display:block!important}.entry-actions,#entry-loading,.entry-ticker{display:none!important}</style><p>当前浏览器未运行 JavaScript。请先阅读内容，或使用启用 JavaScript 的 Chrome / Safari 打开。</p></noscript>
       </div>
     </section>
-    <section id="browser-guide" role="dialog" aria-modal="true" aria-labelledby="browser-guide-title" hidden><div class="browser-guide-arrow" aria-hidden="true">↗</div><div class="browser-guide-card"><button id="browser-guide-close" type="button" aria-label="关闭打开方式">×</button><h2 id="browser-guide-title" data-entry-text="guideTitle">换一个窗口，继续这段旅程。</h2><p data-entry-text="guideNote">在微信中，请通过右上角菜单切换到系统浏览器。</p><ol><li data-entry-text="step1">点击微信右上角「···」</li><li data-entry-text="step2">选择「在浏览器打开」，或类似名称的选项</li></ol><p data-entry-text="guideOther">如果没有这个选项，复制链接后粘贴到 Chrome 或 Safari。</p><input id="browser-link" type="text" readonly aria-label="URL" /><button id="browser-copy" type="button" data-entry-text="copy">复制链接</button><p id="browser-copy-status" role="status"></p></div></section>
+    <section id="browser-guide" role="dialog" aria-modal="true" aria-labelledby="browser-guide-title" hidden><div class="browser-guide-arrow" aria-hidden="true">↗</div><div class="browser-guide-card"><button class="dialog-close" id="browser-guide-close" type="button" aria-label="关闭打开方式"></button><h2 id="browser-guide-title" data-entry-text="guideTitle">换一个窗口，继续这段旅程。</h2><p data-entry-text="guideNote">在微信中，请通过右上角菜单切换到系统浏览器。</p><ol><li data-entry-text="step1">点击微信右上角「···」</li><li data-entry-text="step2">选择「在浏览器打开」，或类似名称的选项</li></ol><p data-entry-text="guideOther">如果没有这个选项，复制链接后粘贴到 Chrome 或 Safari。</p><input id="browser-link" type="text" readonly aria-label="URL" /><button id="browser-copy" type="button" data-entry-text="copy">复制链接</button><p id="browser-copy-status" role="status"></p></div></section>
     <main inert class="lake" aria-label="Interactive lake">
       <canvas id="water" aria-hidden="true"></canvas>
       <canvas id="fallback-water" aria-hidden="true"></canvas>
@@ -209,7 +209,7 @@ html.is-alt-layout .interface-control,html.is-alt-layout .about-panel,html.is-al
           aria-hidden="true"
           tabindex="-1"
         >
-          <button class="resume-about-close" id="resume-about-close" type="button" aria-label="关闭个人介绍">×</button>
+          <div class="panel-close-bar"><button class="dialog-close" id="resume-about-close" type="button" aria-label="关闭个人介绍"></button></div>
           <div id="portfolio-about-content"></div>
         </div>
 
@@ -222,7 +222,7 @@ html.is-alt-layout .interface-control,html.is-alt-layout .about-panel,html.is-al
           aria-hidden="true"
           inert
         >
-          <button class="local-core-close" type="button" data-close-core="time" data-i18n="closeTime">Close time controls</button>
+          <button class="dialog-close local-core-close" type="button" data-close-core="time" aria-label="Close time controls"></button>
           <div class="time-ticks" id="time-ticks" aria-hidden="true"></div>
           <div class="time-active-tick" aria-hidden="true"></div>
           <output
@@ -260,7 +260,7 @@ html.is-alt-layout .interface-control,html.is-alt-layout .about-panel,html.is-al
           aria-hidden="true"
           inert
         >
-          <button class="local-core-close" type="button" data-close-core="waveform" data-i18n="closeWaveform">Close waveform</button>
+          <button class="dialog-close local-core-close" type="button" data-close-core="waveform" aria-label="Close waveform"></button>
           <span class="track-waveform-artist cursor-text" id="track-waveform-artist" aria-hidden="true"></span>
           <span class="track-waveform-title cursor-text" id="track-waveform-title" aria-hidden="true"><span class="track-waveform-title-text" id="track-waveform-title-text"></span><span class="track-waveform-year" id="track-waveform-year"></span></span>
           <canvas class="track-waveform-canvas" id="track-waveform-canvas" aria-hidden="true"></canvas>
@@ -337,7 +337,7 @@ html.is-alt-layout .interface-control,html.is-alt-layout .about-panel,html.is-al
           <button class="local-dock-button" type="button" data-nav="education" aria-label="教育经历" aria-controls="tool-education" aria-expanded="false"><span class="local-nav-icon" aria-hidden="true"></span><span class="local-nav-label">教育经历</span></button>
         </nav>
         <section class="local-tool-panel" tabindex="-1" id="tool-scene" aria-label="场景与效果" hidden>
-          <header><h2>场景</h2><button type="button" data-close aria-label="关闭场景">×</button></header>
+          <header class="panel-close-bar"><h2>场景</h2><button class="dialog-close" type="button" data-close aria-label="关闭场景"></button></header>
           <button type="button" class="local-change-scene" id="local-change-scene"><span data-i18n="changeScene">Change scene</span> <span aria-hidden="true">↻</span></button>
           <div class="local-scene-options" role="group" aria-label="湖面场景">
             <button type="button" data-environment="disola">山间湖泊</button>
@@ -364,18 +364,18 @@ html.is-alt-layout .interface-control,html.is-alt-layout .about-panel,html.is-al
           <div class="water-project-points" id="water-project-points"></div>
         </section>
         <section class="water-project-detail" id="water-project-detail" role="dialog" aria-modal="false" aria-labelledby="water-project-title" tabindex="-1" hidden>
-          <header class="water-detail-toolbar"><button id="water-project-back" type="button" aria-label="关闭项目详情">×</button></header>
+          <header class="panel-close-bar water-detail-toolbar"><button class="dialog-close" id="water-project-back" type="button" aria-label="关闭项目详情"></button></header>
           <div id="water-project-body"></div>
           <footer class="water-detail-footer"><button id="water-project-previous" type="button"></button><button id="water-project-next" type="button"></button></footer>
         </section>
         <section class="local-tool-panel resume-education-panel" tabindex="-1" id="tool-education" aria-label="教育经历" hidden>
-          <header><h2>教育经历</h2><button type="button" data-close aria-label="关闭教育经历">×</button></header>
+          <header class="panel-close-bar"><h2>教育经历</h2><button class="dialog-close" type="button" data-close aria-label="关闭教育经历"></button></header>
           <div id="portfolio-education-content"></div>
         </section>
         <dialog class="project-design-viewer" id="project-design-viewer" aria-labelledby="project-design-viewer-title" aria-describedby="project-design-viewer-caption">
           <header class="project-design-viewer-toolbar">
             <div><span id="project-design-viewer-counter"></span><h2 id="project-design-viewer-title"></h2></div>
-            <button id="project-design-viewer-close" type="button" aria-label="关闭大图">×</button>
+            <button class="dialog-close" id="project-design-viewer-close" type="button" aria-label="关闭大图"></button>
           </header>
           <div class="project-design-stage" id="project-design-stage"><img id="project-design-image" alt="" draggable="false" decoding="async" /></div>
           <footer class="project-design-viewer-footer">
@@ -388,6 +388,6 @@ html.is-alt-layout .interface-control,html.is-alt-layout .about-panel,html.is-al
     </main>
 
     <script type="application/x-miao-module" data-lake-module src="/_v/src/alt-main.e37b8660abd26238.js?v=lake-entry-20261125"></script>
-    <script type="application/x-miao-module" data-lake-module src="/_v/src/local-ui.js?v=lake-entry-20261125"></script>
+    <script type="application/x-miao-module" data-lake-module src="/_v/src/local-ui.js?v=shared-close-20261125"></script>
 </body>
 </html>

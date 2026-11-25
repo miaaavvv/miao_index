@@ -1,4 +1,4 @@
-import { portfolio } from './portfolio-content.js?v=sleep-design-20261124';
+import { portfolio } from './portfolio-content.js?v=sleep-intro-image-20261125';
 import { screenshotForTheme } from './project-image-theme.js?v=privacy-20261119';
 
 const text = (value, language) => typeof value === 'string' ? value : value[language] ?? value.en;
@@ -79,7 +79,7 @@ export function projectDetailMarkup(project, language, screenshotTheme = 'light'
     <p class="water-detail-meta">${pick(project.company)}<span>${escape(project.period)}</span></p>
     <h2 id="water-project-title">${pick(project.title)}</h2>
     <p class="water-detail-subtitle">${pick(project.subtitle)}</p>
-    <div class="resume-tags">${project.tags.map(tag => `<span>${escape(tag)}</span>`).join('')}</div>
+    <div class="resume-tags">${project.tags.map(tag => `<span>${pick(tag)}</span>`).join('')}</div>
     ${project.galleryPlacement === 'afterOutcome' ? '' : gallery}
     <dl class="resume-metrics">${project.metrics.map(([value, description]) => `<div><dt>${escape(value)}</dt><dd>${pick(description)}</dd></div>`).join('')}</dl>
     <div class="resume-case"><h3>${label('challenge')}</h3><p>${pick(project.challenge)}</p>${responsibilities}${technicalPlan}<h3>${project.approachTitle ? pick(project.approachTitle) : label('approach')}</h3><ul>${project.approach.map(value => `<li>${pick(value)}</li>`).join('')}</ul><h3>${label('outcome')}</h3>${results}${project.delivery ? `<h3>${pick(project.delivery.title)}</h3><p>${pick(project.delivery.description)}</p>` : ''}</div>
