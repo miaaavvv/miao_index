@@ -46,6 +46,8 @@ jobs:
               -H 'Cache-Control: no-cache' \
               --jq ".artifacts[] | select(.id == $ARTIFACT_ID) | .id")" || visible_id=""
             if [[ "$visible_id" == "$ARTIFACT_ID" ]]; then
+              # deploy-pages reads a separate artifact service that can lag the REST listing.
+              sleep 15
               exit 0
             fi
             if (( attempt < 12 )); then sleep 5; fi
